@@ -1,0 +1,44 @@
+{
+  "name": "Sync new orders to CRM",
+  "id": "a1b2c3",
+  "active": false,
+  "nodes": [
+    {
+      "id": "n1",
+      "name": "Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [0, 0],
+      "webhookId": "wh-1",
+      "parameters": { "path": "orders", "httpMethod": "POST" }
+    },
+    {
+      "id": "n2",
+      "name": "Create contact",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [220, 0],
+      "retryOnFail": true,
+      "maxTries": 3,
+      "waitBetweenTries": 2000,
+      "onError": "continueErrorOutput",
+      "credentials": { "httpHeaderAuth": { "id": "c1", "name": "CRM key" } },
+      "parameters": { "url": "https://crm.example.com/contacts", "method": "POST" }
+    },
+    {
+      "id": "n3",
+      "name": "Alert on failure",
+      "type": "n8n-nodes-base.slack",
+      "typeVersion": 2.2,
+      "position": [440, 120],
+      "parameters": { "text": "Order sync failed" }
+    }
+  ],
+  "connections": {
+    "Webhook": { "main": [[{ "node": "Create contact", "type": "main", "index": 0 }]] },
+    "Create contact": { "main": [[], [{ "node": "Alert on failure", "type": "main", "index": 0 }]] }
+  },
+  "settings": { "executionOrder": "v1", "errorWorkflow": "err-wf-1", "executionTimeout": "300" },
+  "pinData": { "Webhook": [{ "json": { "orderId": 1 } }] },
+  "meta": { "instanceId": "abc" }
+}

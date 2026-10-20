@@ -1,0 +1,11 @@
+node_modules/
+dist/
+*.tsbuildinfo
+coverage/
+
+# Template corpus is n8n's data: downloaded locally, never committed.
+study/corpus/
+study/output/
+
+# Local logs
+*.log
