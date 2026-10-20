@@ -9,3 +9,6 @@ study/output/
 
 # Local logs
 *.log
+
+# The Action runs straight from the repo, so its bundle is committed.
+!packages/action/dist/

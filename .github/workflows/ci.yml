@@ -26,3 +26,41 @@ jobs:
       - run: npm ci
       - run: npm run build
       - run: npm run check
+      - name: Committed Action bundle matches the source
+        if: matrix.os == 'ubuntu-latest'
+        run: git diff --exit-code -- packages/action/dist
+
+  action:
+    name: Action self-test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - name: Run the Action from this commit
+        id: preflight
+        uses: ./packages/action
+        with:
+          path: packages/core/test/fixtures
+          fail-on: none
+          sarif-file: preflight.sarif
+      - name: Check its outputs
+        env:
+          WORKFLOWS: ${{ steps.preflight.outputs.workflows }}
+          FINDINGS: ${{ steps.preflight.outputs.findings }}
+          SCORE: ${{ steps.preflight.outputs.lowest-score }}
+        run: |
+          echo "workflows=$WORKFLOWS findings=$FINDINGS lowest-score=$SCORE"
+          test "$WORKFLOWS" = "1"
+          test "$FINDINGS" = "4"
+          test "$SCORE" = "70"
+          test -s preflight.sarif
+      - name: Fails when a finding reaches fail-on
+        id: strict
+        uses: ./packages/action
+        continue-on-error: true
+        with:
+          path: packages/core/test/fixtures
+          fail-on: high
+          sarif-file: ""
+          annotations: "false"
+      - name: Check that it failed
+        run: test "${{ steps.strict.outcome }}" = "failure"

@@ -1,0 +1,36 @@
+{
+  "name": "n8n-preflight",
+  "version": "0.0.0",
+  "description": "Check n8n workflows for production problems before they ship: missing error handling, retries, timeouts, leaked secrets.",
+  "license": "MIT",
+  "type": "module",
+  "bin": {
+    "n8n-preflight": "./dist/cli.js"
+  },
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "engines": {
+    "node": ">=20"
+  },
+  "keywords": [
+    "n8n",
+    "workflow",
+    "linter",
+    "static-analysis",
+    "production",
+    "ci"
+  ],
+  "dependencies": {
+    "@n8n-preflight/core": "0.0.0"
+  },
+  "scripts": {
+    "build": "tsc -b"
+  }
+}

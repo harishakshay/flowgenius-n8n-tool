@@ -1,0 +1,40 @@
+name: n8n Preflight
+description: Check n8n workflow files for production problems (error handling, retries, timeouts, leaked secrets) on every pull request.
+author: FlowGenius
+branding:
+  icon: check-circle
+  color: orange
+
+inputs:
+  path:
+    description: Files or folders to check, separated by spaces or new lines. Folders are searched for .json files.
+    default: "."
+  fail-on:
+    description: Fail the step when a finding is at least this severe. One of critical, high, medium, low, none.
+    default: high
+  disable:
+    description: Rule ids to skip, comma separated.
+    default: ""
+  enable:
+    description: Off-by-default rule ids to run, comma separated (for example reliability/endless-loop).
+    default: ""
+  sarif-file:
+    description: Where to write the SARIF report, for github/codeql-action/upload-sarif. Empty to skip.
+    default: n8n-preflight.sarif
+  annotations:
+    description: Show findings inline on the pull request diff.
+    default: "true"
+
+outputs:
+  workflows:
+    description: Number of workflow files checked.
+  findings:
+    description: Number of findings.
+  lowest-score:
+    description: Lowest production-readiness score among the checked workflows (0-100).
+  sarif-file:
+    description: Path of the SARIF report, if written.
+
+runs:
+  using: node24
+  main: dist/index.js

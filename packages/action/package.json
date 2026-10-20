@@ -1,0 +1,14 @@
+{
+  "name": "@n8n-preflight/action",
+  "version": "0.0.0",
+  "private": true,
+  "description": "GitHub Action that runs n8n Preflight on a repository.",
+  "license": "MIT",
+  "type": "module",
+  "dependencies": {
+    "n8n-preflight": "0.0.0"
+  },
+  "scripts": {
+    "build": "tsc --noEmit -p . && esbuild src/main.ts --bundle --platform=node --target=node20 --format=esm --outfile=dist/index.js --legal-comments=none"
+  }
+}
