@@ -1122,7 +1122,7 @@ var SENSITIVE_QUERY = /* @__PURE__ */ new Set([
 ]);
 function mask(secret) {
   const shown = Math.min(4, Math.floor(secret.length / 6));
-  return `${secret.slice(0, shown)}\u2026(${secret.length} chars)`;
+  return `${secret.slice(0, shown)}\u2026 (${secret.length} characters)`;
 }
 function secretFormat(value) {
   for (const { name, pattern } of SECRET_FORMATS) {
@@ -1173,7 +1173,8 @@ var hardcodedSecret = {
         const found = secretFormat(value);
         if (found && !seen.has(found.match)) {
           seen.add(found.match);
-          hits.push({ node: node.name, path, message: `"${node.name}" contains a ${found.name} (${mask(found.match)}).` });
+          const article = /^[AEIOU]/.test(found.name) ? "an" : "a";
+          hits.push({ node: node.name, path, message: `"${node.name}" contains ${article} ${found.name}: ${mask(found.match)}.` });
         }
       }
       for (const header of namedPairs(node.parameters.headerParameters)) {
@@ -1187,7 +1188,7 @@ var hardcodedSecret = {
           hits.push({
             node: node.name,
             path: `headerParameters.parameters[${header.index}].value`,
-            message: `"${node.name}" sends a fixed "${header.name}" header (${mask(secret)}).`
+            message: `"${node.name}" sends a fixed "${header.name}" header: ${mask(secret)}.`
           });
         }
       }
@@ -1211,7 +1212,7 @@ var secretInUrl = {
           const name = m[1].toLowerCase();
           const secret = literalSecret(decodeURIComponentSafe(m[2]));
           if (SENSITIVE_QUERY.has(name) && secret && !secretFormat(secret)) {
-            hits.push({ node: node.name, path: "url", message: `"${node.name}" puts "${m[1]}" in the URL (${mask(secret)}).` });
+            hits.push({ node: node.name, path: "url", message: `"${node.name}" puts "${m[1]}" in the URL: ${mask(secret)}.` });
           }
         }
       }
@@ -1223,7 +1224,7 @@ var secretInUrl = {
           hits.push({
             node: node.name,
             path: `queryParameters.parameters[${q.index}].value`,
-            message: `"${node.name}" sends "${q.name}" as a URL parameter (${mask(secret)}).`
+            message: `"${node.name}" sends "${q.name}" as a URL parameter: ${mask(secret)}.`
           });
         }
       }
@@ -1779,7 +1780,8 @@ function summary(check, failOn) {
   lines.push("| Workflow | Score | Critical | High | Medium | Low |", "|---|---|---|---|---|---|");
   for (const r of [...check.results].sort((a, b) => a.score - b.score)) {
     const n = (s) => r.findings.filter((f) => f.severity === s).length;
-    lines.push(`| \`${r.file}\` | ${icon[r.grade]} ${r.score} | ${n("critical")} | ${n("high")} | ${n("medium")} | ${n("low")} |`);
+    const file = r.file.replace(/\|/g, "\\|");
+    lines.push(`| \`${file}\` | ${icon[r.grade]} ${r.score} | ${n("critical")} | ${n("high")} | ${n("medium")} | ${n("low")} |`);
   }
   const serious = check.results.flatMap(
     (r) => r.findings.filter((f) => f.severity === "critical" || f.severity === "high").map((f) => ({ ...f, file: r.file }))

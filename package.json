@@ -8,18 +8,20 @@
     "node": ">=20"
   },
   "workspaces": [
-    "packages/*"
+    "packages/*",
+    "apps/*"
   ],
   "scripts": {
-    "build": "tsc -b && npm run build -w @n8n-preflight/action",
-    "typecheck": "tsc -b && tsc -p tsconfig.check.json",
+    "build": "tsc -b && npm run build -w @n8n-preflight/action && npm run build -w @n8n-preflight/web",
+    "typecheck": "tsc -b && tsc -p tsconfig.check.json && tsc -p apps/web",
     "lint": "eslint .",
     "test": "vitest run",
     "check": "npm run lint && npm run typecheck && npm run test",
     "corpus:download": "tsx study/scripts/download-corpus.ts",
     "corpus:parse": "npm run build && tsx study/scripts/parse-corpus.ts",
     "corpus:scan": "npm run build && tsx study/scripts/scan-corpus.ts",
-    "docs:rules": "npm run build && tsx study/scripts/rules-doc.ts"
+    "docs:rules": "npm run build && tsx study/scripts/rules-doc.ts",
+    "dev:web": "npm run dev -w @n8n-preflight/web"
   },
   "devDependencies": {
     "@eslint/js": "10.0.1",
@@ -30,5 +32,8 @@
     "typescript": "5.9.3",
     "typescript-eslint": "8.72.0",
     "vitest": "4.1.12"
+  },
+  "overrides": {
+    "vite": "7.3.7"
   }
 }

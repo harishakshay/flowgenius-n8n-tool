@@ -74,7 +74,8 @@ export function summary(check: CheckResult, failOn: string): string {
   lines.push("| Workflow | Score | Critical | High | Medium | Low |", "|---|---|---|---|---|---|");
   for (const r of [...check.results].sort((a, b) => a.score - b.score)) {
     const n = (s: Severity) => r.findings.filter((f) => f.severity === s).length;
-    lines.push(`| \`${r.file}\` | ${icon[r.grade]} ${r.score} | ${n("critical")} | ${n("high")} | ${n("medium")} | ${n("low")} |`);
+    const file = r.file.replace(/\|/g, "\\|"); // a | in a file name would split the table cell
+    lines.push(`| \`${file}\` | ${icon[r.grade]} ${r.score} | ${n("critical")} | ${n("high")} | ${n("medium")} | ${n("low")} |`);
   }
   const serious = check.results.flatMap((r) =>
     r.findings.filter((f) => f.severity === "critical" || f.severity === "high").map((f) => ({ ...f, file: r.file })),

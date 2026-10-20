@@ -16,6 +16,12 @@ Changes to the plan in [PROJECT_PLAN.md](PROJECT_PLAN.md). The plan file itself 
 | 2026-10-20 | `reliability/endless-loop` off by default (opt in with `enable`); 24 of 25 rules run by default | — | 15 of 17 sampled findings were wrong: a loop can end when a step returns no items, which the JSON alone doesn't show |
 | 2026-10-20 | After the code review, every finding a fix adds is labelled in full (corpus diff), not only resampled | — | Fixes that find more were never in a precision sample; checking all 72 added findings keeps the claim true |
 
+| 2026-10-21 | Phase 2 builds the website, CLI and Action; publishing (npm, Marketplace, Cloudflare Pages, subdomain) waits for accounts | Phase 2 exit: "all three surfaces live" | Same as the account decision above. Everything is built, tested and ready to publish |
+| 2026-10-21 | "Copy fixed workflow" button moved to Phase 4 | Phase 2 web app | Fixes are built in Phase 4; the button ships with them |
+| 2026-10-21 | Action lives in `packages/action`, used as `harishakshay/flowgenius-n8n-tool/packages/action@<ref>` | — | Works today. A GitHub Marketplace listing needs `action.yml` at the root of its own repo; that small repo can be cut at release |
+| 2026-10-21 | Action is a Node 24 JavaScript action, bundled with esbuild, without `@actions/core` | — | GitHub is retiring Node 20 actions; no runtime dependencies to install or audit |
+| 2026-10-21 | Website on Vite 7 with an npm override, not Vite 8 | — | Vite 8 alongside Vitest 4 installed two Vite copies and broke the dev server; one pinned version for the whole repo |
+
 ## Rule changes against section 7
 
 | Plan rule | Replaced by | Why |

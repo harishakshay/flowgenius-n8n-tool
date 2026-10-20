@@ -29,8 +29,8 @@ describe("secrets", () => {
   });
 
   it("masks at most a sixth of a secret", () => {
-    expect(mask("abcdefghijkl")).toBe("ab…(12 chars)");
-    expect(mask("abcdefghijklmnopqrstuvwxyz0123")).toBe("abcd…(30 chars)");
+    expect(mask("abcdefghijkl")).toBe("ab… (12 characters)");
+    expect(mask("abcdefghijklmnopqrstuvwxyz0123")).toBe("abcd… (30 characters)");
   });
 });
 

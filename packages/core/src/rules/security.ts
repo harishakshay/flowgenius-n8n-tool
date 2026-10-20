@@ -39,7 +39,7 @@ const SENSITIVE_QUERY = new Set([
 /** Shows enough of a secret to find it, never more than a sixth of it. */
 export function mask(secret: string): string {
   const shown = Math.min(4, Math.floor(secret.length / 6));
-  return `${secret.slice(0, shown)}…(${secret.length} chars)`;
+  return `${secret.slice(0, shown)}… (${secret.length} characters)`;
 }
 
 function secretFormat(value: string): { name: string; match: string } | null {
@@ -98,7 +98,8 @@ const hardcodedSecret: Rule = {
         const found = secretFormat(value);
         if (found && !seen.has(found.match)) {
           seen.add(found.match);
-          hits.push({ node: node.name, path, message: `"${node.name}" contains a ${found.name} (${mask(found.match)}).` });
+          const article = /^[AEIOU]/.test(found.name) ? "an" : "a"; // "an OpenAI API key", "a GitHub token"
+          hits.push({ node: node.name, path, message: `"${node.name}" contains ${article} ${found.name}: ${mask(found.match)}.` });
         }
       }
       for (const header of namedPairs(node.parameters.headerParameters)) {
@@ -110,7 +111,7 @@ const hardcodedSecret: Rule = {
           hits.push({
             node: node.name,
             path: `headerParameters.parameters[${header.index}].value`,
-            message: `"${node.name}" sends a fixed "${header.name}" header (${mask(secret)}).`,
+            message: `"${node.name}" sends a fixed "${header.name}" header: ${mask(secret)}.`,
           });
         }
       }
@@ -136,7 +137,7 @@ const secretInUrl: Rule = {
           const name = m[1]!.toLowerCase();
           const secret = literalSecret(decodeURIComponentSafe(m[2]!));
           if (SENSITIVE_QUERY.has(name) && secret && !secretFormat(secret)) {
-            hits.push({ node: node.name, path: "url", message: `"${node.name}" puts "${m[1]}" in the URL (${mask(secret)}).` });
+            hits.push({ node: node.name, path: "url", message: `"${node.name}" puts "${m[1]}" in the URL: ${mask(secret)}.` });
           }
         }
       }
@@ -147,7 +148,7 @@ const secretInUrl: Rule = {
           hits.push({
             node: node.name,
             path: `queryParameters.parameters[${q.index}].value`,
-            message: `"${node.name}" sends "${q.name}" as a URL parameter (${mask(secret)}).`,
+            message: `"${node.name}" sends "${q.name}" as a URL parameter: ${mask(secret)}.`,
           });
         }
       }
