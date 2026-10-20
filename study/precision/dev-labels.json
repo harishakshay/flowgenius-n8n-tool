@@ -1,0 +1,29 @@
+{
+  "about": "Development sample: 200 findings (seed 20261020) from the first rule version, labelled by Claude against each template's JSON. Used to find and fix false-positive patterns. Not the precision measurement: that is test-labels.json, on a fresh sample after the fixes.",
+  "labelledBy": "Claude (Opus 5.5), pending Harish's review",
+  "date": "2026-10-20",
+  "total": 200,
+  "falsePositives": [
+    { "index": 17, "ruleId": "error-handling/swallowed-errors", "templateId": 18259, "reason": "Downstream Code node handles the missing value with a fallback; the rule cannot see that." },
+    { "index": 49, "ruleId": "reliability/endless-loop", "templateId": 2219, "reason": "Loop exits on success; only the error output loops back." },
+    { "index": 50, "ruleId": "reliability/endless-loop", "templateId": 2579, "reason": "Text Classifier routes items out of the loop." },
+    { "index": 52, "ruleId": "reliability/endless-loop", "templateId": 2862, "reason": "Text Classifier routes items out of the loop." },
+    { "index": 53, "ruleId": "reliability/endless-loop", "templateId": 17416, "reason": "Loop exits on success; only the error output loops back." },
+    { "index": 54, "ruleId": "reliability/endless-loop", "templateId": 3820, "reason": "Sentiment Analysis routes pass/fail; pass leaves the loop." },
+    { "index": 55, "ruleId": "reliability/endless-loop", "templateId": 4056, "reason": "Polling loop exits on success; only the error output loops back." },
+    { "index": 56, "ruleId": "reliability/endless-loop", "templateId": 5160, "reason": "Loop exits on success; only the error output loops back." },
+    { "index": 58, "ruleId": "reliability/return-all", "templateId": 17770, "reason": "Bounded by timeMin/timeMax." },
+    { "index": 64, "ruleId": "reliability/return-all", "templateId": 12242, "reason": "Bounded by a filter on workflowId." },
+    { "index": 89, "ruleId": "security/hardcoded-secret", "templateId": 2092, "reason": "Value is a $OPENAI_API_KEY style placeholder." },
+    { "index": 102, "ruleId": "security/secret-in-url", "templateId": 7660, "reason": "Value is a [FACEBOOK_ACCESS_TOKEN] placeholder." },
+    { "index": 103, "ruleId": "security/secret-in-url", "templateId": 7660, "reason": "Value is a [FACEBOOK_ACCESS_TOKEN] placeholder." },
+    { "index": 104, "ruleId": "security/secret-in-url", "templateId": 8360, "reason": "Value is a google_api_key placeholder." },
+    { "index": 115, "ruleId": "security/code-eval", "templateId": 12177, "reason": "eval on input stripped to digits and operators." },
+    { "index": 118, "ruleId": "security/code-eval", "templateId": 20211, "reason": "Likely compiles code for a syntax check only; counted as a false positive to be conservative." },
+    { "index": 127, "ruleId": "security/command-injection", "templateId": 13759, "reason": "Only $execution.id is inserted, which is not user data." },
+    { "index": 149, "ruleId": "data/test-endpoint", "templateId": 2036, "reason": "ngrok.io appears in a list of domain suffixes, not a URL." },
+    { "index": 158, "ruleId": "data/broken-connections", "templateId": 9246, "reason": "Duplicate names are sticky notes, which have no connections." },
+    { "index": 159, "ruleId": "data/broken-connections", "templateId": 16970, "reason": "Duplicate names are sticky notes, which have no connections." }
+  ],
+  "precision": 0.9
+}

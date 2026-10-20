@@ -1,0 +1,17 @@
+{
+  "about": "Held-out sample: 200 findings (seed 20261022) from rule version 3, excluding every template in the dev and test samples. No rule was changed after this sample was drawn. This is the Phase 1 precision measurement.",
+  "labelledBy": "Claude (Opus 5.5), pending Harish's review",
+  "date": "2026-10-20",
+  "total": 200,
+  "falsePositives": [
+    { "index": 48, "ruleId": "reliability/endless-loop", "templateId": 12852, "reason": "Pagination loop through an HTTP request that returns an empty page at the end, which stops the loop." },
+    { "index": 107, "ruleId": "security/command-injection", "templateId": 9151, "reason": "Values come from a fixed configuration node, not outside data." },
+    { "index": 108, "ruleId": "security/command-injection", "templateId": 1942, "reason": "Values come from a fixed configuration node, not outside data." },
+    { "index": 191, "ruleId": "security/command-injection", "templateId": 17031, "reason": "Only base64 text is inserted, inside single quotes: no shell characters possible." },
+    { "index": 113, "ruleId": "security/insecure-transport", "templateId": 8944, "reason": "XX.XX.XX placeholder host." },
+    { "index": 115, "ruleId": "security/insecure-transport", "templateId": 7678, "reason": "Certificate flag on a plain-http localhost URL: nothing to verify." },
+    { "index": 119, "ruleId": "security/insecure-transport", "templateId": 2538, "reason": "your-api.com placeholder host." }
+  ],
+  "precision": 0.965,
+  "wilson95": [0.93, 0.983]
+}

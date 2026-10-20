@@ -1,0 +1,1793 @@
+[
+  {
+    "ruleId": "error-handling/no-error-workflow",
+    "severity": "high",
+    "category": "error-handling",
+    "message": "Runs from \"Weekly Schedule (Friday 5PM)\" can fail silently: no error workflow is set.",
+    "templateId": 9252,
+    "templateName": "Validate email lists weekly with Google Sheets, VerifiEmail and Gmail reports"
+  },
+  {
+    "ruleId": "error-handling/no-error-workflow",
+    "severity": "high",
+    "category": "error-handling",
+    "message": "Runs from \"Schedule Trigger\" can fail silently: no error workflow is set.",
+    "templateId": 4383,
+    "templateName": "Remote job updates pipeline with RemoteOK, Airtable, and Telegram"
+  },
+  {
+    "ruleId": "error-handling/no-error-workflow",
+    "severity": "high",
+    "category": "error-handling",
+    "message": "Runs from \"Daily at 8 AM\" can fail silently: no error workflow is set.",
+    "templateId": 19451,
+    "templateName": "Monitor foreclosure listings by ZIP with Google Sheets and Gmail"
+  },
+  {
+    "ruleId": "error-handling/no-error-workflow",
+    "severity": "high",
+    "category": "error-handling",
+    "message": "Runs from \"On schedule\" can fail silently: no error workflow is set.",
+    "templateId": 1939,
+    "templateName": "Send labeled email to a Notion database"
+  },
+  {
+    "ruleId": "error-handling/no-error-workflow",
+    "severity": "high",
+    "category": "error-handling",
+    "message": "Runs from \"compagny_search\" can fail silently: no error workflow is set.",
+    "templateId": 7393,
+    "templateName": "Automated B2B prospecting with RapidAPI, Hunter.io, GPT & Gmail"
+  },
+  {
+    "ruleId": "error-handling/no-error-workflow",
+    "severity": "high",
+    "category": "error-handling",
+    "message": "Runs from \"University Discovery Input\" can fail silently: no error workflow is set.",
+    "templateId": 19360,
+    "templateName": "Discover university programs and faculty sources with Firecrawl and Google Sheets"
+  },
+  {
+    "ruleId": "error-handling/no-error-workflow",
+    "severity": "high",
+    "category": "error-handling",
+    "message": "Runs from \"Webhook\" can fail silently: no error workflow is set.",
+    "templateId": 8389,
+    "templateName": "Create a BTC/ETH price & USD exchange rate API with CoinGecko & ExchangeRate-API"
+  },
+  {
+    "ruleId": "error-handling/no-error-workflow",
+    "severity": "high",
+    "category": "error-handling",
+    "message": "Runs from \"When called by Excel Macro\" can fail silently: no error workflow is set.",
+    "templateId": 2519,
+    "templateName": "Fetch live ETF metrics from JustETF to Excel with one-click updates"
+  },
+  {
+    "ruleId": "error-handling/no-retry",
+    "severity": "medium",
+    "category": "error-handling",
+    "message": "\"Search Airtable Records\" calls an outside service with no retry.",
+    "node": "Search Airtable Records",
+    "templateId": 15650,
+    "templateName": "Enrich Airtable company phones from website, LinkedIn, Google Maps, and Claude"
+  },
+  {
+    "ruleId": "error-handling/no-retry",
+    "severity": "medium",
+    "category": "error-handling",
+    "message": "\"Vincular assunto e anotação à tarefa-pai\" calls an outside service with no retry.",
+    "node": "Vincular assunto e anotação à tarefa-pai",
+    "templateId": 20814,
+    "templateName": "Select a LinkedIn post topic from Notion tasks"
+  },
+  {
+    "ruleId": "error-handling/no-retry",
+    "severity": "medium",
+    "category": "error-handling",
+    "message": "\"Store Registration (Google Sheets)3\" calls an outside service with no retry.",
+    "node": "Store Registration (Google Sheets)3",
+    "templateId": 11944,
+    "templateName": "Automate event registration and reminder emails with Forms, Sheets & Gmail"
+  },
+  {
+    "ruleId": "error-handling/no-retry",
+    "severity": "medium",
+    "category": "error-handling",
+    "message": "\"Send Meeting Invite\" calls an outside service with no retry.",
+    "node": "Send Meeting Invite",
+    "templateId": 11600,
+    "templateName": "Automate lead meeting scheduling with Zoho CRM, Google Calendar & Gemini AI"
+  },
+  {
+    "ruleId": "error-handling/no-retry",
+    "severity": "medium",
+    "category": "error-handling",
+    "message": "\"Parse Invoice Image Fields\" calls an outside service with no retry.",
+    "node": "Parse Invoice Image Fields",
+    "templateId": 18264,
+    "templateName": "Process AP invoices from Gmail and Drive with Gemini, Sheets and QuickBooks"
+  },
+  {
+    "ruleId": "error-handling/no-retry",
+    "severity": "medium",
+    "category": "error-handling",
+    "message": "\"AI Agent1\" calls an outside service with no retry.",
+    "node": "AI Agent1",
+    "templateId": 17877,
+    "templateName": "Answer electronics questions with Google Gemini, SerpAPI, and Supabase"
+  },
+  {
+    "ruleId": "error-handling/no-retry",
+    "severity": "medium",
+    "category": "error-handling",
+    "message": "\"Send Discord Notification\" calls an outside service with no retry.",
+    "node": "Send Discord Notification",
+    "templateId": 10378,
+    "templateName": "Domain availability monitor with Porkbun, Google Sheets & multi-channel alerts"
+  },
+  {
+    "ruleId": "error-handling/no-retry",
+    "severity": "medium",
+    "category": "error-handling",
+    "message": "\"📱 Send to Telegram\" calls an outside service with no retry.",
+    "node": "📱 Send to Telegram",
+    "templateId": 10246,
+    "templateName": "Generate AI-curated Reddit digests for Telegram, Discord & Slack with Gemini"
+  },
+  {
+    "ruleId": "error-handling/swallowed-errors",
+    "severity": "high",
+    "category": "error-handling",
+    "message": "\"Get Lyrics\" continues after failing, and nothing downstream checks for the error.",
+    "node": "Get Lyrics",
+    "templateId": 4541,
+    "templateName": "Create song lyric documents and Spotify playlists for singers with Google Docs"
+  },
+  {
+    "ruleId": "error-handling/swallowed-errors",
+    "severity": "high",
+    "category": "error-handling",
+    "message": "\"Read Family Schedule from Sheets\" continues after failing, and nothing downstream checks for the error.",
+    "node": "Read Family Schedule from Sheets",
+    "templateId": 19904,
+    "templateName": "Send daily daycare menu, schedule, and weather briefings with Gemini and WhatsApp"
+  },
+  {
+    "ruleId": "error-handling/swallowed-errors",
+    "severity": "high",
+    "category": "error-handling",
+    "message": "\"Log Digest to Sheets\" continues after failing, and nothing downstream checks for the error.",
+    "node": "Log Digest to Sheets",
+    "templateId": 14172,
+    "templateName": "Get a daily financial news digest on Telegram with Mistral and RSS feeds"
+  },
+  {
+    "ruleId": "error-handling/swallowed-errors",
+    "severity": "high",
+    "category": "error-handling",
+    "message": "\"Respond with Validation Error\" continues after failing, and nothing downstream checks for the error.",
+    "node": "Respond with Validation Error",
+    "templateId": 20120,
+    "templateName": "Route Claude multi-agent tasks from webhook and send summaries to WhatsApp"
+  },
+  {
+    "ruleId": "error-handling/swallowed-errors",
+    "severity": "high",
+    "category": "error-handling",
+    "message": "\"Get Weather Forecast\" continues after failing, and nothing downstream checks for the error.",
+    "node": "Get Weather Forecast",
+    "templateId": 20268,
+    "templateName": "Suggest quieter day trips with Anthropic Claude via Telegram and WhatsApp"
+  },
+  {
+    "ruleId": "error-handling/swallowed-errors",
+    "severity": "high",
+    "category": "error-handling",
+    "message": "\"Append to Billing-Ready Queue\" continues after failing, and nothing downstream checks for the error.",
+    "node": "Append to Billing-Ready Queue",
+    "templateId": 17308,
+    "templateName": "Verify billing-ready completion documents with OpenRouter and Google Sheets"
+  },
+  {
+    "ruleId": "error-handling/swallowed-errors",
+    "severity": "high",
+    "category": "error-handling",
+    "message": "\"Create GitHub Pull Request\" continues after failing, and nothing downstream checks for the error.",
+    "node": "Create GitHub Pull Request",
+    "templateId": 18622,
+    "templateName": "Auto-fix ClickUp bug reports with OpenAI, Cursor, GitHub and Slack"
+  },
+  {
+    "ruleId": "error-handling/swallowed-errors",
+    "severity": "high",
+    "category": "error-handling",
+    "message": "\"Postgres - Compute Inbound Link Counts\" continues after failing, and nothing downstream checks for the error.",
+    "node": "Postgres - Compute Inbound Link Counts",
+    "templateId": 20253,
+    "templateName": "Score and flag SEO zombie pages with GA4, GSC, Postgres, Claude, and Slack"
+  },
+  {
+    "ruleId": "error-handling/unconnected-error-output",
+    "severity": "high",
+    "category": "error-handling",
+    "message": "\"Create Sales Order\" sends failures to an error output that goes nowhere.",
+    "node": "Create Sales Order",
+    "templateId": 2079,
+    "templateName": "Shopify orders to D365 Business Central sales orders / sales invoices"
+  },
+  {
+    "ruleId": "error-handling/unconnected-error-output",
+    "severity": "high",
+    "category": "error-handling",
+    "message": "\"Fetch RSS Articles\" sends failures to an error output that goes nowhere.",
+    "node": "Fetch RSS Articles",
+    "templateId": 7874,
+    "templateName": "Daily tech news curation with RSS, GPT-4o-Mini, and Gmail delivery"
+  },
+  {
+    "ruleId": "error-handling/unconnected-error-output",
+    "severity": "high",
+    "category": "error-handling",
+    "message": "\"get records if exist\" sends failures to an error output that goes nowhere.",
+    "node": "get records if exist",
+    "templateId": 6439,
+    "templateName": "AI-powered Google Maps business scraper with enrichment & export to sheets"
+  },
+  {
+    "ruleId": "error-handling/unconnected-error-output",
+    "severity": "high",
+    "category": "error-handling",
+    "message": "\"If Task List Exists\" sends failures to an error output that goes nowhere.",
+    "node": "If Task List Exists",
+    "templateId": 18411,
+    "templateName": "Set up new legal matters with Clio, Google Drive, and email alerts"
+  },
+  {
+    "ruleId": "error-handling/unconnected-error-output",
+    "severity": "high",
+    "category": "error-handling",
+    "message": "\"HTTP Request - Ack Event Store\" sends failures to an error output that goes nowhere.",
+    "node": "HTTP Request - Ack Event Store",
+    "templateId": 19741,
+    "templateName": "Build an event-driven pub/sub bus with webhooks, HTTP services, and Slack"
+  },
+  {
+    "ruleId": "error-handling/unconnected-error-output",
+    "severity": "high",
+    "category": "error-handling",
+    "message": "\"Execute Subworkflow\" sends failures to an error output that goes nowhere.",
+    "node": "Execute Subworkflow",
+    "templateId": 5066,
+    "templateName": "Benchmark LLM performance on legal documents with Google Sheets and OpenRouter"
+  },
+  {
+    "ruleId": "error-handling/unconnected-error-output",
+    "severity": "high",
+    "category": "error-handling",
+    "message": "\"Google Calendar11\" sends failures to an error output that goes nowhere.",
+    "node": "Google Calendar11",
+    "templateId": 7871,
+    "templateName": "Bidirectional ClickUp task & Google Calendar sync with multi-calendar routing"
+  },
+  {
+    "ruleId": "error-handling/unconnected-error-output",
+    "severity": "high",
+    "category": "error-handling",
+    "message": "\"AI Answer Agent\" sends failures to an error output that goes nowhere.",
+    "node": "AI Answer Agent",
+    "templateId": 6941,
+    "templateName": "Lead generation and qualification with GPT-4o, Google Workspace, and automated follow-up"
+  },
+  {
+    "ruleId": "reliability/http-no-timeout",
+    "severity": "medium",
+    "category": "reliability",
+    "message": "\"Wait: Music Rendering1\" has no timeout set, so a slow server can stall the run.",
+    "node": "Wait: Music Rendering1",
+    "templateId": 8428,
+    "templateName": "Create viral ads with AI: NanoBanana & publish on socials via upload-post"
+  },
+  {
+    "ruleId": "reliability/http-no-timeout",
+    "severity": "medium",
+    "category": "reliability",
+    "message": "\"🔗 integrations\" has no timeout set, so a slow server can stall the run.",
+    "node": "🔗 integrations",
+    "templateId": 5943,
+    "templateName": "Multi-platform social media publisher with Airtable, Google Drive, and Postiz"
+  },
+  {
+    "ruleId": "reliability/http-no-timeout",
+    "severity": "medium",
+    "category": "reliability",
+    "message": "\"Query Confluence\" has no timeout set, so a slow server can stall the run.",
+    "node": "Query Confluence",
+    "templateId": 2398,
+    "templateName": "KB tool - Confluence knowledge base"
+  },
+  {
+    "ruleId": "reliability/http-no-timeout",
+    "severity": "medium",
+    "category": "reliability",
+    "message": "\"Get task status\" has no timeout set, so a slow server can stall the run.",
+    "node": "Get task status",
+    "templateId": 9100,
+    "templateName": "Automated viral content engine for LinkedIn & X with AI generation & publishing"
+  },
+  {
+    "ruleId": "reliability/http-no-timeout",
+    "severity": "medium",
+    "category": "reliability",
+    "message": "\"Draw the Picture with Gemini\" has no timeout set, so a slow server can stall the run.",
+    "node": "Draw the Picture with Gemini",
+    "templateId": 19934,
+    "templateName": "Post daily Instagram news carousels using Claude and Gemini"
+  },
+  {
+    "ruleId": "reliability/http-no-timeout",
+    "severity": "medium",
+    "category": "reliability",
+    "message": "\"Upload to YouTube API\" has no timeout set, so a slow server can stall the run.",
+    "node": "Upload to YouTube API",
+    "templateId": 14255,
+    "templateName": "Create YouTube SEO metadata and thumbnails from Google Drive videos with Gemini, LemonFox and upload-post"
+  },
+  {
+    "ruleId": "reliability/http-no-timeout",
+    "severity": "medium",
+    "category": "reliability",
+    "message": "\"LINE_Push_Completion_Message\" has no timeout set, so a slow server can stall the run.",
+    "node": "LINE_Push_Completion_Message",
+    "templateId": 14148,
+    "templateName": "Organize handwritten memos from LINE using Gemini OCR, Drive and Sheets"
+  },
+  {
+    "ruleId": "reliability/http-no-timeout",
+    "severity": "medium",
+    "category": "reliability",
+    "message": "\"Download image\" has no timeout set, so a slow server can stall the run.",
+    "node": "Download image",
+    "templateId": 19009,
+    "templateName": "Generate AI images from form inputs with Kavel’s anonymous API"
+  },
+  {
+    "ruleId": "reliability/no-execution-timeout",
+    "severity": "medium",
+    "category": "reliability",
+    "message": "No execution timeout is set, so a stuck run can hang indefinitely.",
+    "templateId": 2568,
+    "templateName": "Upsert huge documents in a vector store with Supabase and Notion"
+  },
+  {
+    "ruleId": "reliability/no-execution-timeout",
+    "severity": "medium",
+    "category": "reliability",
+    "message": "No execution timeout is set, so a stuck run can hang indefinitely.",
+    "templateId": 20561,
+    "templateName": "Push cleaned Google Sheets leads to a rate-limited CRM with Jitterflow"
+  },
+  {
+    "ruleId": "reliability/no-execution-timeout",
+    "severity": "medium",
+    "category": "reliability",
+    "message": "No execution timeout is set, so a stuck run can hang indefinitely.",
+    "templateId": 5394,
+    "templateName": "Turns Reddit Pain Points into Comic Ads using Dumpling AI and GPT-4o"
+  },
+  {
+    "ruleId": "reliability/no-execution-timeout",
+    "severity": "medium",
+    "category": "reliability",
+    "message": "No execution timeout is set, so a stuck run can hang indefinitely.",
+    "templateId": 15069,
+    "templateName": "Turn meeting action items into ClickUp tasks with Fireflies, GPT-4o-mini and Telegram"
+  },
+  {
+    "ruleId": "reliability/no-execution-timeout",
+    "severity": "medium",
+    "category": "reliability",
+    "message": "No execution timeout is set, so a stuck run can hang indefinitely.",
+    "templateId": 6342,
+    "templateName": "Schedule social media posts from Google Sheets to Twitter & Instagram"
+  },
+  {
+    "ruleId": "reliability/no-execution-timeout",
+    "severity": "medium",
+    "category": "reliability",
+    "message": "No execution timeout is set, so a stuck run can hang indefinitely.",
+    "templateId": 19558,
+    "templateName": "Process and validate invoices with OpenAI, PostgreSQL, and Slack"
+  },
+  {
+    "ruleId": "reliability/no-execution-timeout",
+    "severity": "medium",
+    "category": "reliability",
+    "message": "No execution timeout is set, so a stuck run can hang indefinitely.",
+    "templateId": 17271,
+    "templateName": "Post a daily Asana project status digest to Slack"
+  },
+  {
+    "ruleId": "reliability/no-execution-timeout",
+    "severity": "medium",
+    "category": "reliability",
+    "message": "No execution timeout is set, so a stuck run can hang indefinitely.",
+    "templateId": 5804,
+    "templateName": "Daily Reddit posts digest to Gmail"
+  },
+  {
+    "ruleId": "reliability/endless-loop",
+    "severity": "high",
+    "category": "reliability",
+    "message": "Loop through \"Add Offset\", \"Delay\", \"Update Records\", \"Get Records\", \"Set Offset\" has no exit condition.",
+    "node": "Add Offset",
+    "templateId": 12852,
+    "templateName": "Monitor company budgets with Bexio, Google Sheets and Gmail alerts"
+  },
+  {
+    "ruleId": "reliability/return-all",
+    "severity": "low",
+    "category": "reliability",
+    "message": "\"Read All Workflows\" loads every record at once.",
+    "node": "Read All Workflows",
+    "templateId": 19797,
+    "templateName": "Label AI-generated content for EU AI Act compliance with Slack and Postgres"
+  },
+  {
+    "ruleId": "reliability/return-all",
+    "severity": "low",
+    "category": "reliability",
+    "message": "\"Load profiles\" loads every record at once.",
+    "node": "Load profiles",
+    "templateId": 17142,
+    "templateName": "Detect LLM prompt regressions with Data Tables, OpenAI APIs, and Telegram"
+  },
+  {
+    "ruleId": "reliability/return-all",
+    "severity": "low",
+    "category": "reliability",
+    "message": "\"Search HubSpot Contacts\" loads every record at once.",
+    "node": "Search HubSpot Contacts",
+    "templateId": 18193,
+    "templateName": "Manage Open edX signups and enrollments with HubSpot, Slack and Google Sheets"
+  },
+  {
+    "ruleId": "reliability/return-all",
+    "severity": "low",
+    "category": "reliability",
+    "message": "\"Retrieve existing  rows\" loads every record at once.",
+    "node": "Retrieve existing  rows",
+    "templateId": 8557,
+    "templateName": "Transform Excel data into AI-ready vectors with OpenAI and Supabase"
+  },
+  {
+    "ruleId": "reliability/return-all",
+    "severity": "low",
+    "category": "reliability",
+    "message": "\"Get all LinkedIn contributions from database NocoDB (GetRows)1\" loads every record at once.",
+    "node": "Get all LinkedIn contributions from database NocoDB (GetRows)1",
+    "templateId": 2491,
+    "templateName": "Create LinkedIn contributions with AI and notify users on Slack"
+  },
+  {
+    "ruleId": "reliability/return-all",
+    "severity": "low",
+    "category": "reliability",
+    "message": "\"Load Notion Objection Handling\" loads every record at once.",
+    "node": "Load Notion Objection Handling",
+    "templateId": 18098,
+    "templateName": "Sync Notion knowledge base with Vapi assistants and Pinecone using OpenAI"
+  },
+  {
+    "ruleId": "reliability/return-all",
+    "severity": "low",
+    "category": "reliability",
+    "message": "\"List Rows (Weekly)\" loads every record at once.",
+    "node": "List Rows (Weekly)",
+    "templateId": 10188,
+    "templateName": "Track daily moods with AI analysis & reports using GPT-4o, Data Tables & Gmail"
+  },
+  {
+    "ruleId": "reliability/return-all",
+    "severity": "low",
+    "category": "reliability",
+    "message": "\"Fetch GitHub PR Activity\" loads every record at once.",
+    "node": "Fetch GitHub PR Activity",
+    "templateId": 19880,
+    "templateName": "Send engineering daily digest to Slack with Jira, GitHub, OpenAI, and Google Sheets"
+  },
+  {
+    "ruleId": "reliability/webhook-without-responder",
+    "severity": "critical",
+    "category": "reliability",
+    "message": "\"New Employee Webhook\" expects a Respond to Webhook node, and there is none.",
+    "node": "New Employee Webhook",
+    "templateId": 14142,
+    "templateName": "Onboard employees automatically with Google Workspace, Slack, Notion and Gmail"
+  },
+  {
+    "ruleId": "reliability/webhook-without-responder",
+    "severity": "critical",
+    "category": "reliability",
+    "message": "\"New Order Webhook\" expects a Respond to Webhook node, and there is none.",
+    "node": "New Order Webhook",
+    "templateId": 14164,
+    "templateName": "Automate service order fulfillment with Claude, Freshworks CRM and SLA escalation"
+  },
+  {
+    "ruleId": "reliability/webhook-without-responder",
+    "severity": "critical",
+    "category": "reliability",
+    "message": "\"Contract Upload Webhook\" expects a Respond to Webhook node, and there is none.",
+    "node": "Contract Upload Webhook",
+    "templateId": 14823,
+    "templateName": "Analyze contract PDFs and score risk with Claude 3.5, Postgres, email and Slack alerts"
+  },
+  {
+    "ruleId": "reliability/webhook-without-responder",
+    "severity": "critical",
+    "category": "reliability",
+    "message": "\"Webhook - New Job Message\" expects a Respond to Webhook node, and there is none.",
+    "node": "Webhook - New Job Message",
+    "templateId": 14924,
+    "templateName": "Auto-respond to job opportunities with Gmail, LinkedIn, GPT-4.1-mini and Google Sheets"
+  },
+  {
+    "ruleId": "reliability/webhook-without-responder",
+    "severity": "critical",
+    "category": "reliability",
+    "message": "\"Webhook - New Support Message\" expects a Respond to Webhook node, and there is none.",
+    "node": "Webhook - New Support Message",
+    "templateId": 15120,
+    "templateName": "Route support messages with GPT-4.1-mini, Slack, email and human review"
+  },
+  {
+    "ruleId": "reliability/webhook-without-responder",
+    "severity": "critical",
+    "category": "reliability",
+    "message": "\"Webhook - Human Approval Response\" expects a Respond to Webhook node, and there is none.",
+    "node": "Webhook - Human Approval Response",
+    "templateId": 15120,
+    "templateName": "Route support messages with GPT-4.1-mini, Slack, email and human review"
+  },
+  {
+    "ruleId": "reliability/webhook-without-responder",
+    "severity": "critical",
+    "category": "reliability",
+    "message": "\"Webhook - New or Updated Content\" expects a Respond to Webhook node, and there is none.",
+    "node": "Webhook - New or Updated Content",
+    "templateId": 15119,
+    "templateName": "Optimize blog and product pages for Google AI Overviews with GPT-4 and Sheets"
+  },
+  {
+    "ruleId": "reliability/webhook-without-responder",
+    "severity": "critical",
+    "category": "reliability",
+    "message": "\"Webhook - New Debate Request\" expects a Respond to Webhook node, and there is none.",
+    "node": "Webhook - New Debate Request",
+    "templateId": 15164,
+    "templateName": "Generate AI-powered pro vs con debates with GPT-4o and Google Sheets tracking"
+  },
+  {
+    "ruleId": "reliability/schedule-no-timezone",
+    "severity": "medium",
+    "category": "reliability",
+    "message": "\"Monthly Supplier Summary Trigger\" runs at a time of day, but no timezone is set.",
+    "node": "Monthly Supplier Summary Trigger",
+    "templateId": 18231,
+    "templateName": "Review and approve supplier applications with OpenAI, Google Sheets, Gmail and Discord"
+  },
+  {
+    "ruleId": "reliability/schedule-no-timezone",
+    "severity": "medium",
+    "category": "reliability",
+    "message": "\"9 AM - Schedule Trigger\" runs at a time of day, but no timezone is set.",
+    "node": "9 AM - Schedule Trigger",
+    "templateId": 9137,
+    "templateName": "Daily cybersecurity news summarizer with Grok AI for Telegram"
+  },
+  {
+    "ruleId": "reliability/schedule-no-timezone",
+    "severity": "medium",
+    "category": "reliability",
+    "message": "\"Daily Reset Trigger\" runs at a time of day, but no timezone is set.",
+    "node": "Daily Reset Trigger",
+    "templateId": 14858,
+    "templateName": "Track nutrition and fitness via webhook with OpenAI, Google Sheets and Slack alerts"
+  },
+  {
+    "ruleId": "reliability/schedule-no-timezone",
+    "severity": "medium",
+    "category": "reliability",
+    "message": "\"Every Monday at 7\" runs at a time of day, but no timezone is set.",
+    "node": "Every Monday at 7",
+    "templateId": 18963,
+    "templateName": "Find YouTube content gaps with Apify, Google Sheets, Notion, and Slack"
+  },
+  {
+    "ruleId": "reliability/schedule-no-timezone",
+    "severity": "medium",
+    "category": "reliability",
+    "message": "\"Schedule Trigger2\" runs at a time of day, but no timezone is set.",
+    "node": "Schedule Trigger2",
+    "templateId": 12120,
+    "templateName": "Automate Shopify product CSV from images using Gemini, GPT-4o, Google Drive & Sheets"
+  },
+  {
+    "ruleId": "reliability/schedule-no-timezone",
+    "severity": "medium",
+    "category": "reliability",
+    "message": "\"Schedule Trigger\" runs at a time of day, but no timezone is set.",
+    "node": "Schedule Trigger",
+    "templateId": 9598,
+    "templateName": "Create & publish YouTube Shorts on historical what-ifs with GPT-4o & Blotato"
+  },
+  {
+    "ruleId": "reliability/schedule-no-timezone",
+    "severity": "medium",
+    "category": "reliability",
+    "message": "\"8:00am Morning Scheduled Trigger\" runs at a time of day, but no timezone is set.",
+    "node": "8:00am Morning Scheduled Trigger",
+    "templateId": 2865,
+    "templateName": "Automate Pinterest analysis & AI-powered content suggestions with Pinterest API"
+  },
+  {
+    "ruleId": "reliability/schedule-no-timezone",
+    "severity": "medium",
+    "category": "reliability",
+    "message": "\"Schedule Trigger\" runs at a time of day, but no timezone is set.",
+    "node": "Schedule Trigger",
+    "templateId": 4470,
+    "templateName": "Jobs newsletter automation system (N8N, Bolt.new, RapidAPI, Mails.so & ChatGPT)"
+  },
+  {
+    "ruleId": "reliability/schedule-too-frequent",
+    "severity": "medium",
+    "category": "reliability",
+    "message": "\"Schedule Trigger (Configurable Interval)\" fires more than once a minute.",
+    "node": "Schedule Trigger (Configurable Interval)",
+    "templateId": 12921,
+    "templateName": "Monitor construction execution from Google Drive photos with GPT‑4.1‑mini, Gmail and Google Sheets"
+  },
+  {
+    "ruleId": "reliability/schedule-too-frequent",
+    "severity": "medium",
+    "category": "reliability",
+    "message": "\"Poll Every 30s\" fires more than once a minute.",
+    "node": "Poll Every 30s",
+    "templateId": 13943,
+    "templateName": "Manage Claude Code sessions from Matrix with YouTrack and GitLab"
+  },
+  {
+    "ruleId": "reliability/schedule-too-frequent",
+    "severity": "medium",
+    "category": "reliability",
+    "message": "\"Every 10 Seconds Trigger\" fires more than once a minute.",
+    "node": "Every 10 Seconds Trigger",
+    "templateId": 14361,
+    "templateName": "Generate live cricket score commentary using SerpAPI, GPT-4o-mini, and Telegram"
+  },
+  {
+    "ruleId": "reliability/schedule-too-frequent",
+    "severity": "medium",
+    "category": "reliability",
+    "message": "\"Periodic Swarm Optimization\" fires more than once a minute.",
+    "node": "Periodic Swarm Optimization",
+    "templateId": 15572,
+    "templateName": "Coordinate robot swarms with OpenAI GPT-5 and real-time Slack alerts"
+  },
+  {
+    "ruleId": "reliability/schedule-too-frequent",
+    "severity": "medium",
+    "category": "reliability",
+    "message": "\"Every 30s\" fires more than once a minute.",
+    "node": "Every 30s",
+    "templateId": 17424,
+    "templateName": "ETL Pipeline for Oracle"
+  },
+  {
+    "ruleId": "reliability/schedule-too-frequent",
+    "severity": "medium",
+    "category": "reliability",
+    "message": "\"Scheduled Trigger Every 5 Sec\" fires more than once a minute.",
+    "node": "Scheduled Trigger Every 5 Sec",
+    "templateId": 19196,
+    "templateName": "Queue OpenAI-compatible LLM chat requests with PostgreSQL and a local GPU"
+  },
+  {
+    "ruleId": "reliability/schedule-too-frequent",
+    "severity": "medium",
+    "category": "reliability",
+    "message": "\"Schedule Trigger\" fires more than once a minute.",
+    "node": "Schedule Trigger",
+    "templateId": 19772,
+    "templateName": "Manage recruitment candidates with Google Sheets, Notion and Gmail"
+  },
+  {
+    "ruleId": "reliability/schedule-too-frequent",
+    "severity": "medium",
+    "category": "reliability",
+    "message": "\"Schedule Worker Polling\" fires more than once a minute.",
+    "node": "Schedule Worker Polling",
+    "templateId": 20286,
+    "templateName": "Run durable, pausable long jobs with Postgres, Claude and WhatsApp"
+  },
+  {
+    "ruleId": "security/hardcoded-secret",
+    "severity": "critical",
+    "category": "security",
+    "message": "\"Verify your emails\" sends a fixed \"api_key\" header (9Q6H…(14 chars)).",
+    "node": "Verify your emails",
+    "path": "headerParameters.parameters[0].value",
+    "templateId": 2191,
+    "templateName": "Verifying email deliverability using  google sheets and Effibotics API"
+  },
+  {
+    "ruleId": "security/hardcoded-secret",
+    "severity": "critical",
+    "category": "security",
+    "message": "\"Design in Canvas\" sends a fixed \"X-API-Key\" header (45ba…(36 chars)).",
+    "node": "Design in Canvas",
+    "path": "headerParameters.parameters[0].value",
+    "templateId": 3627,
+    "templateName": "Generate graphic wallpaper with Midjourney, GPT-4o-mini and Canvas APIs"
+  },
+  {
+    "ruleId": "security/hardcoded-secret",
+    "severity": "critical",
+    "category": "security",
+    "message": "\"Get Kling Video\" sends a fixed \"x-api-key\" header (7285…(64 chars)).",
+    "node": "Get Kling Video",
+    "path": "headerParameters.parameters[0].value",
+    "templateId": 3716,
+    "templateName": "Convert 3-view drawings to 360° videos with GPT-4o-Image and Kling API"
+  },
+  {
+    "ruleId": "security/hardcoded-secret",
+    "severity": "critical",
+    "category": "security",
+    "message": "\"Registered API Keys\" contains a OpenAI API key (sk-l…(44 chars)).",
+    "node": "Registered API Keys",
+    "path": "assignments.assignments[0].value",
+    "templateId": 5174,
+    "templateName": "🗲 Creating a Secure Webhook - MUST HAVE"
+  },
+  {
+    "ruleId": "security/hardcoded-secret",
+    "severity": "critical",
+    "category": "security",
+    "message": "\"HTTP Request\" sends a fixed \"authorization\" header (U2hp…(56 chars)).",
+    "node": "HTTP Request",
+    "path": "headerParameters.parameters[0].value",
+    "templateId": 7369,
+    "templateName": "Generate academic assignments with Google Gemini & deliver via Telegram/PDF"
+  },
+  {
+    "ruleId": "security/hardcoded-secret",
+    "severity": "critical",
+    "category": "security",
+    "message": "\"Analyze Image\" contains a Telegram bot token (8206…(46 chars)).",
+    "node": "Analyze Image",
+    "path": "imageUrls",
+    "templateId": 8734,
+    "templateName": "Nano Banana/Gemini 2.5 Telegram bot with multi-modal functionality"
+  },
+  {
+    "ruleId": "security/hardcoded-secret",
+    "severity": "critical",
+    "category": "security",
+    "message": "\"Delete Duplicated\" sends a fixed \"Api-Key\" header (pcsk…(75 chars)).",
+    "node": "Delete Duplicated",
+    "path": "headerParameters.parameters[0].value",
+    "templateId": 9157,
+    "templateName": "Ai-powered email triage & auto-response system with OpenAI agents & Gmail"
+  },
+  {
+    "ruleId": "security/hardcoded-secret",
+    "severity": "critical",
+    "category": "security",
+    "message": "\"Code Prep\" contains a Telegram bot token (8241…(46 chars)).",
+    "node": "Code Prep",
+    "path": "jsCode",
+    "templateId": 10296,
+    "templateName": "Automate Telegram channel post reactions with bot rotation & GPT-5-mini"
+  },
+  {
+    "ruleId": "security/secret-in-url",
+    "severity": "high",
+    "category": "security",
+    "message": "\"Step 3. Post video\" sends \"access_token\" as a URL parameter (EAAJ…(223 chars)).",
+    "node": "Step 3. Post video",
+    "path": "queryParameters.parameters[2].value",
+    "templateId": 10067,
+    "templateName": "Automate video story publishing to Facebook Page using Google Drive and Sheets"
+  },
+  {
+    "ruleId": "security/secret-in-url",
+    "severity": "high",
+    "category": "security",
+    "message": "\"Check News or Recent Data\" sends \"apiKey\" as a URL parameter (4b16…(32 chars)).",
+    "node": "Check News or Recent Data",
+    "path": "queryParameters.parameters[2].value",
+    "templateId": 11525,
+    "templateName": "Build a multi-agent system with n8n, Qdrant, Gmail & OpenAI"
+  },
+  {
+    "ruleId": "security/secret-in-url",
+    "severity": "high",
+    "category": "security",
+    "message": "\"imgbb\" sends \"key\" as a URL parameter (b077…(32 chars)).",
+    "node": "imgbb",
+    "path": "queryParameters.parameters[1].value",
+    "templateId": 11695,
+    "templateName": "Generate product descriptions from images and publish to Shopify using AI"
+  },
+  {
+    "ruleId": "security/secret-in-url",
+    "severity": "high",
+    "category": "security",
+    "message": "\"GNews API\" sends \"apikey\" as a URL parameter (f01c…(32 chars)).",
+    "node": "GNews API",
+    "path": "queryParameters.parameters[3].value",
+    "templateId": 13072,
+    "templateName": "Get a daily cybersecurity news digest on Telegram and Slack with GPT-4"
+  },
+  {
+    "ruleId": "security/secret-in-url",
+    "severity": "high",
+    "category": "security",
+    "message": "\"NewsAPI\" sends \"apikey\" as a URL parameter (8b18…(32 chars)).",
+    "node": "NewsAPI",
+    "path": "queryParameters.parameters[3].value",
+    "templateId": 13072,
+    "templateName": "Get a daily cybersecurity news digest on Telegram and Slack with GPT-4"
+  },
+  {
+    "ruleId": "security/secret-in-url",
+    "severity": "high",
+    "category": "security",
+    "message": "\"Reddit Cybersecurity\" sends \"api-key\" as a URL parameter (c574…(32 chars)).",
+    "node": "Reddit Cybersecurity",
+    "path": "queryParameters.parameters[2].value",
+    "templateId": 13072,
+    "templateName": "Get a daily cybersecurity news digest on Telegram and Slack with GPT-4"
+  },
+  {
+    "ruleId": "security/secret-in-url",
+    "severity": "high",
+    "category": "security",
+    "message": "\"HTTP Request\" sends \"api_key\" as a URL parameter (4229…(32 chars)).",
+    "node": "HTTP Request",
+    "path": "queryParameters.parameters[0].value",
+    "templateId": 13774,
+    "templateName": "Filter fraudulent leads with GPT-4o-mini, AbstractAPI, Google Sheets and Slack"
+  },
+  {
+    "ruleId": "security/secret-in-url",
+    "severity": "high",
+    "category": "security",
+    "message": "\"Get Earnings\" puts \"apikey\" in the URL (HGCr…(32 chars)).",
+    "node": "Get Earnings",
+    "path": "url",
+    "templateId": 14580,
+    "templateName": "Generate daily stock BUY/HOLD/SELL signals with GPT-4o, Gemini, FMP, Sheets and Telegram"
+  },
+  {
+    "ruleId": "security/webhook-no-auth",
+    "severity": "high",
+    "category": "security",
+    "message": "\"Chat Webhook\" accepts calls from anyone.",
+    "node": "Chat Webhook",
+    "templateId": 13408,
+    "templateName": "Turn your portfolio into an AI assistant with OpenAI, Claude, Pinecone and Gmail"
+  },
+  {
+    "ruleId": "security/webhook-no-auth",
+    "severity": "high",
+    "category": "security",
+    "message": "\"Webhook - New Proposal Request\" accepts calls from anyone.",
+    "node": "Webhook - New Proposal Request",
+    "templateId": 16491,
+    "templateName": "Generate and send personalized client proposals with OpenAI, SendGrid, Slack, and Google Sheets"
+  },
+  {
+    "ruleId": "security/webhook-no-auth",
+    "severity": "high",
+    "category": "security",
+    "message": "\"When New Lead Posted\" accepts calls from anyone.",
+    "node": "When New Lead Posted",
+    "templateId": 17989,
+    "templateName": "Create and follow up Odoo CRM leads from webhook forms with Gmail and Slack"
+  },
+  {
+    "ruleId": "security/webhook-no-auth",
+    "severity": "high",
+    "category": "security",
+    "message": "\"When New Lead Form Submitted\" accepts calls from anyone.",
+    "node": "When New Lead Form Submitted",
+    "templateId": 17590,
+    "templateName": "Route new legal leads with Twilio SMS, email, and Slack alerts"
+  },
+  {
+    "ruleId": "security/webhook-no-auth",
+    "severity": "high",
+    "category": "security",
+    "message": "\"WooCommerce Order Complete\" accepts calls from anyone.",
+    "node": "WooCommerce Order Complete",
+    "templateId": 17026,
+    "templateName": "Collect post-purchase product reviews with WooCommerce, Google Sheets, and SMTP"
+  },
+  {
+    "ruleId": "security/webhook-no-auth",
+    "severity": "high",
+    "category": "security",
+    "message": "\"Inbound Event Info\" accepts calls from anyone.",
+    "node": "Inbound Event Info",
+    "templateId": 8810,
+    "templateName": "Convert event text to calendar entries with AI and NextCloud/Google/Zoho"
+  },
+  {
+    "ruleId": "security/webhook-no-auth",
+    "severity": "high",
+    "category": "security",
+    "message": "\"Webhook - Receive Startup Idea\" accepts calls from anyone.",
+    "node": "Webhook - Receive Startup Idea",
+    "templateId": 16759,
+    "templateName": "Validate startup ideas and generate business plans with Claude and SendGrid"
+  },
+  {
+    "ruleId": "security/webhook-no-auth",
+    "severity": "high",
+    "category": "security",
+    "message": "\"Video file\" accepts calls from anyone.",
+    "node": "Video file",
+    "templateId": 20704,
+    "templateName": "Create talking avatar videos with Google Vids and Gemini Omni 1.1 Flash"
+  },
+  {
+    "ruleId": "security/command-injection",
+    "severity": "critical",
+    "category": "security",
+    "message": "\"Clear tmp files\" builds a shell command from workflow data.",
+    "node": "Clear tmp files",
+    "path": "command",
+    "templateId": 7880,
+    "templateName": "Process Thai documents with TyphoonOCR & AI to Google Sheets (multi-page PDF)"
+  },
+  {
+    "ruleId": "security/command-injection",
+    "severity": "critical",
+    "category": "security",
+    "message": "\"Create Directory via SSH\" builds a shell command from workflow data.",
+    "node": "Create Directory via SSH",
+    "path": "command",
+    "templateId": 18457,
+    "templateName": "Onboard Nextcloud users with Gmail approvals, PostgreSQL, and Google Sheets"
+  },
+  {
+    "ruleId": "security/command-injection",
+    "severity": "critical",
+    "category": "security",
+    "message": "\"Export Credentials\" builds a shell command from workflow data.",
+    "node": "Export Credentials",
+    "path": "command",
+    "templateId": 9151,
+    "templateName": "Complete backup solution for n8n workflows & credentials (local/FTP)"
+  },
+  {
+    "ruleId": "security/command-injection",
+    "severity": "critical",
+    "category": "security",
+    "message": "\"Update README and add new file\" builds a shell command from workflow data.",
+    "node": "Update README and add new file",
+    "path": "command",
+    "templateId": 1942,
+    "templateName": "Push and update files in GitHub"
+  },
+  {
+    "ruleId": "security/command-injection",
+    "severity": "critical",
+    "category": "security",
+    "message": "\"Resume Claude Session\" builds a shell command from workflow data.",
+    "node": "Resume Claude Session",
+    "path": "command",
+    "templateId": 13943,
+    "templateName": "Manage Claude Code sessions from Matrix with YouTrack and GitLab"
+  },
+  {
+    "ruleId": "security/command-injection",
+    "severity": "critical",
+    "category": "security",
+    "message": "\"SSH\" builds a shell command from workflow data.",
+    "node": "SSH",
+    "path": "command",
+    "templateId": 3198,
+    "templateName": "Deploy Docker MinIO, API backend for WHMCS/WISECP"
+  },
+  {
+    "ruleId": "security/command-injection",
+    "severity": "critical",
+    "category": "security",
+    "message": "\"SSH\" builds a shell command from workflow data.",
+    "node": "SSH",
+    "path": "command",
+    "templateId": 3212,
+    "templateName": "Deploy Docker Immich, API backend for WHMCS/WISECP"
+  },
+  {
+    "ruleId": "security/command-injection",
+    "severity": "critical",
+    "category": "security",
+    "message": "\"library_install\" builds a shell command from workflow data.",
+    "node": "library_install",
+    "path": "command",
+    "templateId": 3293,
+    "templateName": "Automate NPM package installation and updates for self-hosted environments"
+  },
+  {
+    "ruleId": "security/insecure-transport",
+    "severity": "medium",
+    "category": "security",
+    "message": "\"Create collection\" sends data unencrypted to XX.XX.XX.",
+    "node": "Create collection",
+    "path": "url",
+    "templateId": 8944,
+    "templateName": "My solution for the \"Agentic Arena Community Contest\" (RAG, Qdrant, Mistral OCR)"
+  },
+  {
+    "ruleId": "security/insecure-transport",
+    "severity": "medium",
+    "category": "security",
+    "message": "\"Get Workflows\" skips SSL certificate checks.",
+    "node": "Get Workflows",
+    "path": "options.allowUnauthorizedCerts",
+    "templateId": 2084,
+    "templateName": "Creators hub: Generate dynamic SVG stats with daily updates"
+  },
+  {
+    "ruleId": "security/insecure-transport",
+    "severity": "medium",
+    "category": "security",
+    "message": "\"Create Workflow\" skips SSL certificate checks.",
+    "node": "Create Workflow",
+    "path": "options.allowUnauthorizedCerts",
+    "templateId": 7678,
+    "templateName": "Create dynamic crypto market monitors with Gemini AI and Telegram Bot"
+  },
+  {
+    "ruleId": "security/insecure-transport",
+    "severity": "medium",
+    "category": "security",
+    "message": "\"http_get_url\" skips SSL certificate checks.",
+    "node": "http_get_url",
+    "path": "options.allowUnauthorizedCerts",
+    "templateId": 7529,
+    "templateName": "Transform cloud documentation into security baselines with OpenAI and GDrive"
+  },
+  {
+    "ruleId": "security/insecure-transport",
+    "severity": "medium",
+    "category": "security",
+    "message": "\"Download Invoice PDF from URL\" sends data unencrypted to api.pdflayer.com.",
+    "node": "Download Invoice PDF from URL",
+    "path": "url",
+    "templateId": 2393,
+    "templateName": "Save n8n Cloud invoices received in Gmail in Google Drive"
+  },
+  {
+    "ruleId": "security/insecure-transport",
+    "severity": "medium",
+    "category": "security",
+    "message": "\"Fetch Guideline Metadata\" skips SSL certificate checks.",
+    "node": "Fetch Guideline Metadata",
+    "path": "options.allowUnauthorizedCerts",
+    "templateId": 17100,
+    "templateName": "Generate clinical guideline reports with Google Sheets, Gemini and Docs"
+  },
+  {
+    "ruleId": "security/insecure-transport",
+    "severity": "medium",
+    "category": "security",
+    "message": "\"get new accessToken\" sends data unencrypted to your-api.com.",
+    "node": "get new accessToken",
+    "path": "url",
+    "templateId": 2538,
+    "templateName": "Demo workflow - how to use workflowStaticData()"
+  },
+  {
+    "ruleId": "security/insecure-transport",
+    "severity": "medium",
+    "category": "security",
+    "message": "\"Upload Image to Wordpress2\" skips SSL certificate checks.",
+    "node": "Upload Image to Wordpress2",
+    "path": "options.allowUnauthorizedCerts",
+    "templateId": 14690,
+    "templateName": "Publish WordPress SEO blog drafts from trending news "
+  },
+  {
+    "ruleId": "data/pinned-data",
+    "severity": "medium",
+    "category": "data",
+    "message": "Pinned test data on \"AI Agent\", \"OCR.Space\", \"JotForm Trigger\", \"Add info to Database\" is saved inside the workflow file.",
+    "templateId": 9417,
+    "templateName": "Automated receipt processing for cashback with Jotform, Gemini 2.5 & Notion"
+  },
+  {
+    "ruleId": "data/pinned-data",
+    "severity": "medium",
+    "category": "data",
+    "message": "Pinned test data on \"When clicking ‘Test workflow’\" is saved inside the workflow file.",
+    "templateId": 2903,
+    "templateName": "Youtube outlier detector (find trending content based on your competitors)"
+  },
+  {
+    "ruleId": "data/pinned-data",
+    "severity": "medium",
+    "category": "data",
+    "message": "Pinned test data on \"Extract Lead Data\", \"On form submission\", \"Generate Email Draft\", \"Workflow Configuration\" is saved inside the workflow file.",
+    "templateId": 11059,
+    "templateName": "Automate lead response with GPT and human approval to Airtable CRM"
+  },
+  {
+    "ruleId": "data/pinned-data",
+    "severity": "medium",
+    "category": "data",
+    "message": "Pinned test data on \"Monitor Order Status Changes\" is saved inside the workflow file.",
+    "templateId": 8682,
+    "templateName": "Airtable SMS sender - bulk text sender template for Airtable"
+  },
+  {
+    "ruleId": "data/pinned-data",
+    "severity": "medium",
+    "category": "data",
+    "message": "Pinned test data on \"Add Task Row to Sheet\", \"Download New Screenshot\", \"AI – Extract Tasks from Screenshot\" is saved inside the workflow file.",
+    "templateId": 18922,
+    "templateName": "Extract tasks from Google Drive screenshots with GPT-4o-mini, Sheets and Slack"
+  },
+  {
+    "ruleId": "data/pinned-data",
+    "severity": "medium",
+    "category": "data",
+    "message": "Pinned test data on \"Receive Document Request (Webhook)\" is saved inside the workflow file.",
+    "templateId": 12554,
+    "templateName": "Generate PDF documents from HTML with PDF Generator API, Gmail and Supabase"
+  },
+  {
+    "ruleId": "data/pinned-data",
+    "severity": "medium",
+    "category": "data",
+    "message": "Pinned test data on \"Weekly_OnSunday\", \"Webhook_OnPostTweet\" is saved inside the workflow file.",
+    "templateId": 12847,
+    "templateName": "Repurpose LinkedIn posts into X tweets with Apify, Claude AI and Airtable"
+  },
+  {
+    "ruleId": "data/pinned-data",
+    "severity": "medium",
+    "category": "data",
+    "message": "Pinned test data on \"Schedule Trigger\" is saved inside the workflow file.",
+    "templateId": 18545,
+    "templateName": "Qualify and personalize sales leads with GetProspect, DeepSeek, and Instantly"
+  },
+  {
+    "ruleId": "data/test-endpoint",
+    "severity": "medium",
+    "category": "data",
+    "message": "\"Get XML Data\" sends data to httpbin.org.",
+    "node": "Get XML Data",
+    "path": "url",
+    "templateId": 13,
+    "templateName": "Transform XML data and upload to Dropbox"
+  },
+  {
+    "ruleId": "data/test-endpoint",
+    "severity": "medium",
+    "category": "data",
+    "message": "\"HTTP Request\" sends data to webhook.site.",
+    "node": "HTTP Request",
+    "path": "url",
+    "templateId": 1330,
+    "templateName": "Demonstrates the use of the $item(index) method"
+  },
+  {
+    "ruleId": "data/test-endpoint",
+    "severity": "medium",
+    "category": "data",
+    "message": "\"Configure Webhook Notification\" sends data to webhook.site.",
+    "node": "Configure Webhook Notification",
+    "path": "url",
+    "templateId": 3532,
+    "templateName": "Summarize Glassdoor company info with Google Gemini and Bright Data web scraper"
+  },
+  {
+    "ruleId": "data/test-endpoint",
+    "severity": "medium",
+    "category": "data",
+    "message": "\"Summary Webhook Notifier\" sends data to webhook.site.",
+    "node": "Summary Webhook Notifier",
+    "path": "url",
+    "templateId": 3539,
+    "templateName": "Extract & summarize Wikipedia data with Bright Data and Gemini AI"
+  },
+  {
+    "ruleId": "data/test-endpoint",
+    "severity": "medium",
+    "category": "data",
+    "message": "\"Set Fields - URL and Webhook URL\" sends data to webhook.site.",
+    "node": "Set Fields - URL and Webhook URL",
+    "path": "assignments.assignments[1].value",
+    "templateId": 3542,
+    "templateName": "Create AI-ready vector datasets for LLMs with Bright Data, Gemini & Pinecone"
+  },
+  {
+    "ruleId": "data/test-endpoint",
+    "severity": "medium",
+    "category": "data",
+    "message": "\"Call API Attempt 3\" sends data to httpbin.org.",
+    "node": "Call API Attempt 3",
+    "path": "url",
+    "templateId": 20364,
+    "templateName": "Handle reliable webhooks with HTTP Request and Data Table nodes"
+  },
+  {
+    "ruleId": "data/test-endpoint",
+    "severity": "medium",
+    "category": "data",
+    "message": "\"📊 Log Success\" sends data to httpbin.org.",
+    "node": "📊 Log Success",
+    "path": "url",
+    "templateId": 8545,
+    "templateName": "Generate and post viral memes to Instagram with MagicHour AI and GPT-4"
+  },
+  {
+    "ruleId": "data/test-endpoint",
+    "severity": "medium",
+    "category": "data",
+    "message": "\"Call API Attempt 2\" sends data to httpbin.org.",
+    "node": "Call API Attempt 2",
+    "path": "url",
+    "templateId": 20364,
+    "templateName": "Handle reliable webhooks with HTTP Request and Data Table nodes"
+  },
+  {
+    "ruleId": "data/broken-connections",
+    "severity": "medium",
+    "category": "data",
+    "message": "Connections come from \"MQTT Trigger - Ikea Remote Switch\", which is not a node in this workflow.",
+    "templateId": 2383,
+    "templateName": "IOT button remote / Spotify control integration with MQTT"
+  },
+  {
+    "ruleId": "data/broken-connections",
+    "severity": "medium",
+    "category": "data",
+    "message": "Connections come from \"Draft a Reply [optional]\", which is not a node in this workflow.",
+    "templateId": 3089,
+    "templateName": "Reply to Outlook emails with OpenAI"
+  },
+  {
+    "ruleId": "data/broken-connections",
+    "severity": "medium",
+    "category": "data",
+    "message": "\"Chat Memory\" connects to \"AI Agent\", which is not a node in this workflow.",
+    "templateId": 18151,
+    "templateName": "Answer Telegram data questions with DeepSeek, Open-Meteo, Frankfurter, CoinGecko, and StudioAPI"
+  },
+  {
+    "ruleId": "data/broken-connections",
+    "severity": "medium",
+    "category": "data",
+    "message": "Connections come from \"Gmail\", which is not a node in this workflow.",
+    "templateId": 4067,
+    "templateName": "Automated email assistant for suppliers using OpenAI and Google Sheets"
+  },
+  {
+    "ruleId": "data/broken-connections",
+    "severity": "medium",
+    "category": "data",
+    "message": "\"Split Out1\" connects to \"store posts\", which is not a node in this workflow.",
+    "templateId": 4235,
+    "templateName": "Monitor and track brand Sentiment on Facebook Groups with Bright data"
+  },
+  {
+    "ruleId": "data/broken-connections",
+    "severity": "medium",
+    "category": "data",
+    "message": "Connections come from \"When clicking 'Execute workflow'\", which is not a node in this workflow.",
+    "templateId": 14297,
+    "templateName": "Send a daily stock movers and news email digest via Google Sheets, EODHD and Gmail"
+  },
+  {
+    "ruleId": "data/broken-connections",
+    "severity": "medium",
+    "category": "data",
+    "message": "Connections come from \"When clicking вЂExecute workflowвЂ™\", which is not a node in this workflow.",
+    "templateId": 4600,
+    "templateName": "🤖 AI content generation for auto service 🚘 automate your social media📲!"
+  },
+  {
+    "ruleId": "data/broken-connections",
+    "severity": "medium",
+    "category": "data",
+    "message": "\"Google Calendar - Create Event\" connects to \"Aggregate Events\", which is not a node in this workflow.",
+    "templateId": 10376,
+    "templateName": "Sync events from Excel to Google Calendar with GPT-4o-Mini smart summaries"
+  },
+  {
+    "ruleId": "maintainability/default-node-names",
+    "severity": "low",
+    "category": "maintainability",
+    "message": "1 node still named by default: \"Telegram\".",
+    "templateId": 4739,
+    "templateName": "Binance spot market quant AI agent | GPT-4o + Telegram  (Main interface)"
+  },
+  {
+    "ruleId": "maintainability/default-node-names",
+    "severity": "low",
+    "category": "maintainability",
+    "message": "3 nodes still named by default: \"Merge\", \"Respond to Webhook\", \"HTML\".",
+    "templateId": 13665,
+    "templateName": "Monitor [PROD] workflows in real time with the n8n Public API dashboard"
+  },
+  {
+    "ruleId": "maintainability/default-node-names",
+    "severity": "low",
+    "category": "maintainability",
+    "message": "2 nodes still named by default: \"AI Agent\", \"Split Out\".",
+    "templateId": 13270,
+    "templateName": "Use skills In n8n agent node"
+  },
+  {
+    "ruleId": "maintainability/default-node-names",
+    "severity": "low",
+    "category": "maintainability",
+    "message": "1 node still named by default: \"Wait\".",
+    "templateId": 7346,
+    "templateName": "Filter & summarize AI news from TechCrunch to Slack using OpenAI"
+  },
+  {
+    "ruleId": "maintainability/default-node-names",
+    "severity": "low",
+    "category": "maintainability",
+    "message": "1 node still named by default: \"Respond to Webhook\".",
+    "templateId": 3333,
+    "templateName": "Generate PDF invoices with CustomJS API"
+  },
+  {
+    "ruleId": "maintainability/default-node-names",
+    "severity": "low",
+    "category": "maintainability",
+    "message": "1 node still named by default: \"Date & Time\".",
+    "templateId": 1340,
+    "templateName": "Create Zoom meeting link from Google Calendar invite"
+  },
+  {
+    "ruleId": "maintainability/default-node-names",
+    "severity": "low",
+    "category": "maintainability",
+    "message": "1 node still named by default: \"Aggregate\".",
+    "templateId": 12338,
+    "templateName": "Migrate large Hugging Face datasets to MongoDB with a looping subworkflow"
+  },
+  {
+    "ruleId": "maintainability/default-node-names",
+    "severity": "low",
+    "category": "maintainability",
+    "message": "2 nodes still named by default: \"Wait\", \"Wait1\".",
+    "templateId": 9989,
+    "templateName": "TikTok trend analyzer with Apify + Gemini + Airtable"
+  },
+  {
+    "ruleId": "maintainability/disabled-nodes",
+    "severity": "low",
+    "category": "maintainability",
+    "message": "\"Create a data table\" is disabled.",
+    "node": "Create a data table",
+    "templateId": 14961,
+    "templateName": "Generate trending X, Facebook, and Threads posts with Apify, Gemini, and Buffer"
+  },
+  {
+    "ruleId": "maintainability/disabled-nodes",
+    "severity": "low",
+    "category": "maintainability",
+    "message": "\"Notification Sent?\" is disabled.",
+    "node": "Notification Sent?",
+    "templateId": 11749,
+    "templateName": "Monitor German company register & financial events with Implisense API & notifications"
+  },
+  {
+    "ruleId": "maintainability/disabled-nodes",
+    "severity": "low",
+    "category": "maintainability",
+    "message": "\"Google Gemini LLM\" is disabled.",
+    "node": "Google Gemini LLM",
+    "templateId": 3066,
+    "templateName": "✨🤖Automate Multi-Platform Social Media Content Creation with AI"
+  },
+  {
+    "ruleId": "maintainability/disabled-nodes",
+    "severity": "low",
+    "category": "maintainability",
+    "message": "\"Send Slack Alert\" is disabled.",
+    "node": "Send Slack Alert",
+    "templateId": 20499,
+    "templateName": "Route and triage workflow errors with Gmail, Gemini and n8n API"
+  },
+  {
+    "ruleId": "maintainability/disabled-nodes",
+    "severity": "low",
+    "category": "maintainability",
+    "message": "\"Split Emails\" is disabled.",
+    "node": "Split Emails",
+    "templateId": 16169,
+    "templateName": "Find client email leads from search queries with FindMyClient"
+  },
+  {
+    "ruleId": "maintainability/disabled-nodes",
+    "severity": "low",
+    "category": "maintainability",
+    "message": "\"AI Agent -DB Sql Agent\" is disabled.",
+    "node": "AI Agent -DB Sql Agent",
+    "templateId": 3151,
+    "templateName": "Build an AI-powered tech radar advisor with SQL DB, RAG, and routing agents"
+  },
+  {
+    "ruleId": "maintainability/disabled-nodes",
+    "severity": "low",
+    "category": "maintainability",
+    "message": "\"34 - Send Review Notification (Slack)\" is disabled.",
+    "node": "34 - Send Review Notification (Slack)",
+    "templateId": 20654,
+    "templateName": "Categorize Google Drive files with OpenAI and log results in Google Sheets"
+  },
+  {
+    "ruleId": "maintainability/disabled-nodes",
+    "severity": "low",
+    "category": "maintainability",
+    "message": "\"Sheets: Render Grocery Page\" is disabled.",
+    "node": "Sheets: Render Grocery Page",
+    "templateId": 17223,
+    "templateName": "Manage a self-hosted grocery list with webhooks and Data Tables"
+  },
+  {
+    "ruleId": "maintainability/orphan-nodes",
+    "severity": "low",
+    "category": "maintainability",
+    "message": "\"Optional Slack text\" is not connected, so it never runs.",
+    "node": "Optional Slack text",
+    "templateId": 20603,
+    "templateName": "Triage AliExpress product review complaints with Apify reviews scraper"
+  },
+  {
+    "ruleId": "maintainability/orphan-nodes",
+    "severity": "low",
+    "category": "maintainability",
+    "message": "\"Optional - Clear Today's Sale Prices\" is not connected, so it never runs.",
+    "node": "Optional - Clear Today's Sale Prices",
+    "templateId": 18424,
+    "templateName": "Reprice WooCommerce products using Amazon data, Bright Data, OpenAI and Slack"
+  },
+  {
+    "ruleId": "maintainability/orphan-nodes",
+    "severity": "low",
+    "category": "maintainability",
+    "message": "\"Answer - Null\" is not connected, so it never runs.",
+    "node": "Answer - Null",
+    "templateId": 6232,
+    "templateName": "🧑‍🎓 Test Your JSON Skills with Interactive Challenges and Instant Feedback"
+  },
+  {
+    "ruleId": "maintainability/orphan-nodes",
+    "severity": "low",
+    "category": "maintainability",
+    "message": "\"Icebreaker Update\" is not connected, so it never runs.",
+    "node": "Icebreaker Update",
+    "templateId": 12778,
+    "templateName": "Generate personalized cold email icebreakers with Apify, Baserow and OpenRouter GPT-4.1"
+  },
+  {
+    "ruleId": "maintainability/orphan-nodes",
+    "severity": "low",
+    "category": "maintainability",
+    "message": "\"Create dummy file for movie\" is not connected, so it never runs.",
+    "node": "Create dummy file for movie",
+    "templateId": 6980,
+    "templateName": "Dynamic media library with on-demand downloads for Radarr/Sonarr and Plex"
+  },
+  {
+    "ruleId": "maintainability/orphan-nodes",
+    "severity": "low",
+    "category": "maintainability",
+    "message": "\"Groq Chat Model\" is not connected, so it never runs.",
+    "node": "Groq Chat Model",
+    "templateId": 5511,
+    "templateName": "Multilingual voice & text Telegram bot with ElevenLabs TTS and LangChain agents"
+  },
+  {
+    "ruleId": "maintainability/orphan-nodes",
+    "severity": "low",
+    "category": "maintainability",
+    "message": "\"Create new URL redirection\" is not connected, so it never runs.",
+    "node": "Create new URL redirection",
+    "templateId": 5546,
+    "templateName": "Create evergreen content with GitHub dynamic images & URL redirects"
+  },
+  {
+    "ruleId": "maintainability/orphan-nodes",
+    "severity": "low",
+    "category": "maintainability",
+    "message": "\"AWS Bedrock Chat Model1\" is not connected, so it never runs.",
+    "node": "AWS Bedrock Chat Model1",
+    "templateId": 12834,
+    "templateName": "💅 AI Agents Generate Content & Automate Posting for Beauty Salon Social Media 📲"
+  },
+  {
+    "ruleId": "maintainability/undocumented",
+    "severity": "low",
+    "category": "maintainability",
+    "message": "26 nodes and no sticky notes or node notes explaining the workflow.",
+    "templateId": 4723,
+    "templateName": "AI Personal Assistant"
+  },
+  {
+    "ruleId": "maintainability/undocumented",
+    "severity": "low",
+    "category": "maintainability",
+    "message": "10 nodes and no sticky notes or node notes explaining the workflow.",
+    "templateId": 7585,
+    "templateName": "Automatically rename Gmail attachments with GPT-4o and save to Google Drive"
+  },
+  {
+    "ruleId": "maintainability/undocumented",
+    "severity": "low",
+    "category": "maintainability",
+    "message": "14 nodes and no sticky notes or node notes explaining the workflow.",
+    "templateId": 353,
+    "templateName": "Manage custom incident response in PagerDuty and Jira"
+  },
+  {
+    "ruleId": "maintainability/undocumented",
+    "severity": "low",
+    "category": "maintainability",
+    "message": "22 nodes and no sticky notes or node notes explaining the workflow.",
+    "templateId": 5164,
+    "templateName": "LinkedIn engagement automator with GPT-4o/Claude, human review & multilingual comments"
+  },
+  {
+    "ruleId": "maintainability/undocumented",
+    "severity": "low",
+    "category": "maintainability",
+    "message": "9 nodes and no sticky notes or node notes explaining the workflow.",
+    "templateId": 609,
+    "templateName": "Manage incident reporting in PagerDuty and CrateDB"
+  },
+  {
+    "ruleId": "maintainability/undocumented",
+    "severity": "low",
+    "category": "maintainability",
+    "message": "8 nodes and no sticky notes or node notes explaining the workflow.",
+    "templateId": 1788,
+    "templateName": "Add a new lead to Pipedrive once GitHub repo is forked"
+  },
+  {
+    "ruleId": "maintainability/undocumented",
+    "severity": "low",
+    "category": "maintainability",
+    "message": "8 nodes and no sticky notes or node notes explaining the workflow.",
+    "templateId": 724,
+    "templateName": "Manage room members in Matrix"
+  },
+  {
+    "ruleId": "maintainability/undocumented",
+    "severity": "low",
+    "category": "maintainability",
+    "message": "15 nodes and no sticky notes or node notes explaining the workflow.",
+    "templateId": 3178,
+    "templateName": "Get real-time crypto token insights via Telegram with DexScreener and GPT-4o"
+  },
+  {
+    "ruleId": "error-handling/no-retry",
+    "severity": "medium",
+    "category": "error-handling",
+    "message": "\"Log success to database\" calls an outside service with no retry.",
+    "node": "Log success to database",
+    "templateId": 13877,
+    "templateName": "Send multi-tenant reminders via Telegram from webhooks and schedule with Postgres logging"
+  },
+  {
+    "ruleId": "reliability/http-no-timeout",
+    "severity": "medium",
+    "category": "reliability",
+    "message": "\"Alert Emergency Team (Slack)\" has no timeout set, so a slow server can stall the run.",
+    "node": "Alert Emergency Team (Slack)",
+    "templateId": 9446,
+    "templateName": "Medical triage & appointment automation with GPT-4 and Jotform"
+  },
+  {
+    "ruleId": "reliability/no-execution-timeout",
+    "severity": "medium",
+    "category": "reliability",
+    "message": "No execution timeout is set, so a stuck run can hang indefinitely.",
+    "templateId": 1488,
+    "templateName": "Sync timer entries from Clockify to Syncro"
+  },
+  {
+    "ruleId": "error-handling/no-error-workflow",
+    "severity": "high",
+    "category": "error-handling",
+    "message": "Runs from \"When chat message received\" can fail silently: no error workflow is set.",
+    "templateId": 4007,
+    "templateName": "Generate recipes from ingredients with Ollama AI Chef Agent"
+  },
+  {
+    "ruleId": "error-handling/swallowed-errors",
+    "severity": "high",
+    "category": "error-handling",
+    "message": "\"Classify Phishing Risk with OpenAI\" continues after failing, and nothing downstream checks for the error.",
+    "node": "Classify Phishing Risk with OpenAI",
+    "templateId": 15207,
+    "templateName": "Scan incoming Gmail attachments for threats with VirusTotal and GPT-4o-mini"
+  },
+  {
+    "ruleId": "maintainability/default-node-names",
+    "severity": "low",
+    "category": "maintainability",
+    "message": "13 nodes still named by default: \"AI Agent\", \"Google Sheets6\", \"AI Agent1\", \"Merge\", \"Google Sheets7\" and 8 more.",
+    "templateId": 5843,
+    "templateName": "Auto-generate product comparison pages with OpenAI & Google Sheets"
+  },
+  {
+    "ruleId": "reliability/schedule-no-timezone",
+    "severity": "medium",
+    "category": "reliability",
+    "message": "\"Every morning\" runs at a time of day, but no timezone is set.",
+    "node": "Every morning",
+    "templateId": 18845,
+    "templateName": "Send daily competitor intel briefs to Slack with API Direct and OpenAI"
+  },
+  {
+    "ruleId": "security/webhook-no-auth",
+    "severity": "high",
+    "category": "security",
+    "message": "\"Webhook\" accepts calls from anyone.",
+    "node": "Webhook",
+    "templateId": 6250,
+    "templateName": "Create a knowledge base chatbot with Google Drive & GPT-4o using vector search"
+  },
+  {
+    "ruleId": "data/pinned-data",
+    "severity": "medium",
+    "category": "data",
+    "message": "Pinned test data on \"New Payment\", \"Get Stripe Customer\" is saved inside the workflow file.",
+    "templateId": 2807,
+    "templateName": "Create QuickBooks Online customers with sales receipts for new Stripe payments"
+  },
+  {
+    "ruleId": "maintainability/disabled-nodes",
+    "severity": "low",
+    "category": "maintainability",
+    "message": "\"Trigger Google Indexing\" is disabled.",
+    "node": "Trigger Google Indexing",
+    "templateId": 18859,
+    "templateName": "Generate daily SEO‑optimized WordPress article drafts with OpenAI"
+  },
+  {
+    "ruleId": "reliability/return-all",
+    "severity": "low",
+    "category": "reliability",
+    "message": "\"Fetch Stripe Charges\" loads every record at once.",
+    "node": "Fetch Stripe Charges",
+    "templateId": 19794,
+    "templateName": "Reconcile daily Stripe revenue with ApogeoAPI, Google Sheets, and Slack"
+  },
+  {
+    "ruleId": "maintainability/orphan-nodes",
+    "severity": "low",
+    "category": "maintainability",
+    "message": "\"Optional - Route New, Lost And Held\" is not connected, so it never runs.",
+    "node": "Optional - Route New, Lost And Held",
+    "templateId": 18465,
+    "templateName": "Track Google AI Overview citations with Bright Data, OpenAI, Google Sheets and Slack"
+  },
+  {
+    "ruleId": "error-handling/unconnected-error-output",
+    "severity": "high",
+    "category": "error-handling",
+    "message": "\"Editor Agent - Generate Edit Ops\" sends failures to an error output that goes nowhere.",
+    "node": "Editor Agent - Generate Edit Ops",
+    "templateId": 14207,
+    "templateName": "Proofread markdown blog posts with Gemini, Groq fallback and GitHub auto-commit"
+  },
+  {
+    "ruleId": "maintainability/undocumented",
+    "severity": "low",
+    "category": "maintainability",
+    "message": "15 nodes and no sticky notes or node notes explaining the workflow.",
+    "templateId": 9792,
+    "templateName": "Safely update n8n with version checks and Telegram notifications"
+  },
+  {
+    "ruleId": "security/command-injection",
+    "severity": "critical",
+    "category": "security",
+    "message": "\"SSH: Log case (killed)\" builds a shell command from workflow data.",
+    "node": "SSH: Log case (killed)",
+    "path": "command",
+    "templateId": 17031,
+    "templateName": "Guard Hostinger VPS CPU spikes with Anthropic, SSH, and email approvals"
+  },
+  {
+    "ruleId": "security/insecure-transport",
+    "severity": "medium",
+    "category": "security",
+    "message": "\"6a. Scrape Website with Scrape.do\" sends data unencrypted to api.scrape.do.",
+    "node": "6a. Scrape Website with Scrape.do",
+    "path": "url",
+    "templateId": 8448,
+    "templateName": "Automated B2B lead generation: Google Places, Scrape.do & AI enrichment"
+  },
+  {
+    "ruleId": "data/broken-connections",
+    "severity": "medium",
+    "category": "data",
+    "message": "Connections come from \"Past News Sheet Log\", which is not a node in this workflow.",
+    "templateId": 5157,
+    "templateName": "Automate daily AI news with Perplexity Sonar Pro (via Telegram)"
+  },
+  {
+    "ruleId": "data/test-endpoint",
+    "severity": "medium",
+    "category": "data",
+    "message": "\"Dispatch SecOps Threat Alert (Slack/Webhook)\" sends data to httpbin.org.",
+    "node": "Dispatch SecOps Threat Alert (Slack/Webhook)",
+    "path": "url",
+    "templateId": 20620,
+    "templateName": "Generate secure competitor research briefs with SoterAI and Groq Llama 3.3"
+  },
+  {
+    "ruleId": "security/hardcoded-secret",
+    "severity": "critical",
+    "category": "security",
+    "message": "\"Upload image to Kie Storage\" contains a Telegram bot token (7759…(46 chars)).",
+    "node": "Upload image to Kie Storage",
+    "path": "bodyParameters.parameters[0].value",
+    "templateId": 10393,
+    "templateName": "Create UGC style product ad video via Telegram + Gemini + Kie.ai’s Veo3.1 API"
+  },
+  {
+    "ruleId": "security/secret-in-url",
+    "severity": "high",
+    "category": "security",
+    "message": "\"FMP_Stock_Screener\" sends \"apikey\" as a URL parameter (HGCr…(32 chars)).",
+    "node": "FMP_Stock_Screener",
+    "path": "queryParameters.parameters[5].value",
+    "templateId": 14580,
+    "templateName": "Generate daily stock BUY/HOLD/SELL signals with GPT-4o, Gemini, FMP, Sheets and Telegram"
+  },
+  {
+    "ruleId": "reliability/webhook-without-responder",
+    "severity": "critical",
+    "category": "reliability",
+    "message": "\"Webhook - New User Behavior Event\" expects a Respond to Webhook node, and there is none.",
+    "node": "Webhook - New User Behavior Event",
+    "templateId": 15198,
+    "templateName": "Predict churn risk and trigger retention actions with OpenAI and Google Sheets"
+  },
+  {
+    "ruleId": "reliability/schedule-too-frequent",
+    "severity": "medium",
+    "category": "reliability",
+    "message": "\"Maintenance Schedule\" fires more than once a minute.",
+    "node": "Maintenance Schedule",
+    "templateId": 20286,
+    "templateName": "Run durable, pausable long jobs with Postgres, Claude and WhatsApp"
+  },
+  {
+    "ruleId": "error-handling/no-retry",
+    "severity": "medium",
+    "category": "error-handling",
+    "message": "\"AI Agent\" calls an outside service with no retry.",
+    "node": "AI Agent",
+    "templateId": 17437,
+    "templateName": "Reply to WhatsApp text, audio, image, and video with Google Gemini and Wikipedia"
+  }
+]

@@ -1,0 +1,284 @@
+import type { WorkflowGraph } from "../graph.js";
+import { NODE, isStickyNote } from "../node-types.js";
+import type { Rule, RuleHit } from "../rule.js";
+import type { WorkflowNode } from "../types.js";
+import { get, isExpression, isLiteral, isPlaceholder, namedPairs, walkStrings } from "../values.js";
+
+/** Formats of real secrets. Each is specific enough that a match is almost never a coincidence. */
+const SECRET_FORMATS: { name: string; pattern: RegExp }[] = [
+  // Header plus real key material, so "[INSERT YOUR KEY HERE]" between the markers does not count.
+  { name: "private key", pattern: /-----BEGIN (?:RSA |EC |DSA |OPENSSH )?PRIVATE KEY-----(?:\\n|\s)*[A-Za-z0-9+/=]{40,}/ },
+  { name: "Anthropic API key", pattern: /\bsk-ant-[A-Za-z0-9_-]{20,}/ },
+  { name: "OpenAI API key", pattern: /\bsk-(?:proj-|svcacct-|admin-)?[A-Za-z0-9_-]{20,}/ },
+  { name: "Stripe live key", pattern: /\b[rs]k_live_[A-Za-z0-9]{20,}/ },
+  { name: "GitHub token", pattern: /\b(?:gh[pousr]_[A-Za-z0-9]{36}|github_pat_[A-Za-z0-9_]{22,})\b/ },
+  { name: "Slack token", pattern: /\bxox[abposr]-[A-Za-z0-9-]{10,}/ },
+  { name: "AWS access key", pattern: /\bAKIA[0-9A-Z]{16}\b/ },
+  { name: "Google API key", pattern: /\bAIza[0-9A-Za-z_-]{35}\b/ },
+  // No leading \b: in URLs the token follows "bot" directly (".../bot123:AA.../sendMessage").
+  { name: "Telegram bot token", pattern: /(?<!\d)\d{8,10}:AA[A-Za-z0-9_-]{33}(?![A-Za-z0-9_-])/ },
+  { name: "Groq API key", pattern: /\bgsk_[A-Za-z0-9]{40,}/ },
+  { name: "Hugging Face token", pattern: /\bhf_[A-Za-z0-9]{30,}/ },
+  { name: "SendGrid API key", pattern: /\bSG\.[A-Za-z0-9_-]{16,}\.[A-Za-z0-9_-]{16,}/ },
+  { name: "JSON Web Token", pattern: /\beyJ[A-Za-z0-9_-]{10,}\.eyJ[A-Za-z0-9_-]{10,}\.[A-Za-z0-9_-]{10,}/ },
+];
+
+const SENSITIVE_HEADERS = new Set([
+  "authorization", "x-api-key", "api-key", "apikey", "api_key", "x-auth-token", "x-access-token", "x-token",
+  "token", "private-token", "xi-api-key", "x-goog-api-key", "x-apikey", "access-token", "secret",
+]);
+
+const SENSITIVE_QUERY = new Set([
+  "api_key", "apikey", "api-key", "key", "token", "access_token", "accesstoken", "auth", "secret", "client_secret",
+  "password", "pass", "pwd",
+]);
+
+/** Shows enough of a secret to find it, never the whole value. */
+export function mask(secret: string): string {
+  return `${secret.slice(0, 4)}…(${secret.length} chars)`;
+}
+
+function secretFormat(value: string): { name: string; match: string } | null {
+  for (const { name, pattern } of SECRET_FORMATS) {
+    const m = pattern.exec(value);
+    if (m && !isPlaceholder(m[0])) return { name, match: m[0] };
+  }
+  return null;
+}
+
+/** A literal credential value: fixed text, long enough, not a placeholder. */
+function literalSecret(value: unknown): string | null {
+  if (typeof value !== "string" || !isLiteral(value)) return null;
+  const v = value.replace(/^=/, "").replace(/^(Bearer|Basic|Token)\s+/i, "").trim();
+  // Real keys mix letters and digits; words like "Content-Type" do not.
+  const looksRandom = /\d/.test(v) && /[A-Za-z]/.test(v);
+  return v.length >= 12 && looksRandom && !/\s/.test(v) && !isPlaceholder(v) ? v : null;
+}
+
+/** Nodes worth scanning for secrets: everything except sticky notes, including disabled nodes. */
+function scannable(graph: WorkflowGraph): WorkflowNode[] {
+  return graph.workflow.nodes.filter((n) => !isStickyNote(n));
+}
+
+const hardcodedSecret: Rule = {
+  id: "security/hardcoded-secret",
+  category: "security",
+  severity: "critical",
+  title: "Secret written into the workflow",
+  description:
+    "Anyone who sees this workflow (an export, a shared template, a screenshot, version control) gets this key. Move it into an n8n credential, then rotate the key, since it has already been exposed.",
+  fixable: false,
+  check(graph) {
+    const hits: RuleHit[] = [];
+    for (const node of scannable(graph)) {
+      const seen = new Set<string>();
+      for (const { value, path } of walkStrings(node.parameters)) {
+        const found = secretFormat(value);
+        if (found && !seen.has(found.match)) {
+          seen.add(found.match);
+          hits.push({ node: node.name, path, message: `"${node.name}" contains a ${found.name} (${mask(found.match)}).` });
+        }
+      }
+      for (const header of namedPairs(node.parameters.headerParameters)) {
+        if (!SENSITIVE_HEADERS.has(header.name.trim().toLowerCase())) continue;
+        const secret = literalSecret(header.value);
+        if (secret && !seen.has(secret) && ![...seen].some((s) => secret.includes(s))) {
+          seen.add(secret);
+          hits.push({
+            node: node.name,
+            path: `headerParameters.parameters[${header.index}].value`,
+            message: `"${node.name}" sends a fixed "${header.name}" header (${mask(secret)}).`,
+          });
+        }
+      }
+    }
+    return hits;
+  },
+};
+
+const secretInUrl: Rule = {
+  id: "security/secret-in-url",
+  category: "security",
+  severity: "high",
+  title: "Secret in a URL",
+  description:
+    "URLs end up in server logs, proxies and n8n's execution history. Send the key in a header through an n8n credential instead, and rotate it.",
+  fixable: false,
+  check(graph) {
+    const hits: RuleHit[] = [];
+    for (const node of scannable(graph)) {
+      const url = node.parameters.url;
+      if (typeof url === "string") {
+        for (const m of url.matchAll(/[?&]([A-Za-z_-]+)=([^&#\s{}]+)/g)) {
+          const name = m[1]!.toLowerCase();
+          const secret = literalSecret(decodeURIComponentSafe(m[2]!));
+          if (SENSITIVE_QUERY.has(name) && secret && !secretFormat(secret)) {
+            hits.push({ node: node.name, path: "url", message: `"${node.name}" puts "${m[1]}" in the URL (${mask(secret)}).` });
+          }
+        }
+      }
+      for (const q of namedPairs(node.parameters.queryParameters)) {
+        if (!SENSITIVE_QUERY.has(q.name.trim().toLowerCase())) continue;
+        const secret = literalSecret(q.value);
+        if (secret && !secretFormat(secret)) {
+          hits.push({
+            node: node.name,
+            path: `queryParameters.parameters[${q.index}].value`,
+            message: `"${node.name}" sends "${q.name}" as a URL parameter (${mask(secret)}).`,
+          });
+        }
+      }
+    }
+    return hits;
+  },
+};
+
+function decodeURIComponentSafe(value: string): string {
+  try {
+    return decodeURIComponent(value);
+  } catch {
+    return value;
+  }
+}
+
+/** OAuth redirect URLs must be public: the provider's browser redirect cannot add a header. */
+const OAUTH_CALLBACK = /oauth|auth[\s_-]?code|callback|redirect/i;
+
+/** True when one of the first two steps after the webhook reads the request headers (a secret or signature check). */
+function checksHeadersEarly(graph: WorkflowGraph, webhook: string): boolean {
+  const first = graph.next(webhook);
+  const second = first.flatMap((n) => graph.next(n));
+  return [...first, ...second].some((name) => {
+    const node = graph.byName.get(name);
+    return node !== undefined && /\.headers\b|\["headers"\]|\['headers'\]/.test(JSON.stringify(node.parameters));
+  });
+}
+
+const webhookNoAuth: Rule = {
+  id: "security/webhook-no-auth",
+  category: "security",
+  severity: "high",
+  title: "Webhook anyone can call",
+  description:
+    "Anyone who finds or guesses this URL can start the workflow, with any data. Set Authentication (Header Auth or Basic Auth), or check a signature or shared secret in the first step.",
+  fixable: false,
+  check(graph) {
+    return graph.active
+      .filter((n) => n.type === NODE.webhook)
+      .filter((n) => n.parameters.authentication === undefined || n.parameters.authentication === "none")
+      .filter((n) => !OAUTH_CALLBACK.test(`${n.name} ${String(n.parameters.path ?? "")}`))
+      .filter((n) => !checksHeadersEarly(graph, n.name))
+      .map((n) => ({ node: n.name, message: `"${n.name}" accepts calls from anyone.` }));
+  },
+};
+
+const CODE_FIELDS = ["jsCode", "pythonCode", "functionCode"];
+const DANGEROUS_JS = /\beval\s*\(|\bnew\s+Function\s*\(/;
+const DANGEROUS_PY = /\b(?:eval|exec)\s*\(|\bos\.system\s*\(|\bsubprocess\./;
+
+const codeEval: Rule = {
+  id: "security/code-eval",
+  category: "security",
+  severity: "high",
+  title: "Code runs text as code",
+  description:
+    "eval, new Function, exec or a shell call turns text into code. If any of that text comes from input (a webhook, an email, an AI reply), an attacker can run their own code on your n8n server.",
+  fixable: false,
+  check(graph) {
+    const hits: RuleHit[] = [];
+    for (const node of graph.active) {
+      if (node.type !== NODE.code && node.type !== NODE.function && node.type !== NODE.functionItem) continue;
+      for (const field of CODE_FIELDS) {
+        const code = node.parameters[field];
+        if (typeof code !== "string") continue;
+        const pattern = field === "pythonCode" ? DANGEROUS_PY : DANGEROUS_JS;
+        const m = pattern.exec(code);
+        if (m) hits.push({ node: node.name, path: field, message: `"${node.name}" uses ${m[0].replace(/\s*\($/, "")}.` });
+      }
+    }
+    return hits;
+  },
+};
+
+/**
+ * True when a {{ }} placeholder reads item data (which can come from outside), not just
+ * values n8n controls such as $execution.id, $now or $env.
+ */
+export function insertsItemData(expression: string): boolean {
+  for (const m of expression.matchAll(/\{\{([\s\S]*?)\}\}/g)) {
+    if (/\$json|\$\(|\$node\b|\$input|\$items?\b|\$binary|\$fromAI/.test(m[1]!)) return true;
+  }
+  return false;
+}
+
+const commandInjection: Rule = {
+  id: "security/command-injection",
+  category: "security",
+  severity: "critical",
+  title: "Shell command built from data",
+  description:
+    "The command contains {{ expressions }}, so data from earlier steps becomes part of a shell command. A value like `; rm -rf /` runs on the server. Validate input strictly, or avoid the shell.",
+  fixable: false,
+  check(graph) {
+    return graph.active
+      .filter((n) => n.type === NODE.executeCommand || n.type === NODE.ssh)
+      .filter((n) => isExpression(n.parameters.command) && insertsItemData(n.parameters.command))
+      .map((n) => ({ node: n.name, path: "command", message: `"${n.name}" builds a shell command from workflow data.` }));
+  },
+};
+
+/** Generic top-level domains common enough to treat a host as public. Any two-letter country code also counts. */
+const PUBLIC_TLDS = new Set([
+  "com", "net", "org", "io", "ai", "dev", "app", "co", "me", "info", "biz", "xyz", "cloud", "tech", "online", "site",
+  "pro", "edu", "gov", "mil", "int", "store", "shop", "live", "news", "media", "digital", "agency", "solutions",
+  "services", "systems", "software", "network", "email", "page", "run", "sh", "so", "gg", "tv", "fm", "ly", "to",
+]);
+
+/** Hosts that are local, on a private network, or inside a cluster, where plain HTTP is normal. */
+export function isPrivateHost(host: string): boolean {
+  if (!host.includes(".")) return true; // docker service names, "localhost"
+  if (/^(127\.|10\.|192\.168\.|172\.(1[6-9]|2\d|3[01])\.|169\.254\.|0+\.)/.test(host)) return true;
+  if (/^\d+(\.\d+){3}$/.test(host)) return false; // any other IPv4 address is public
+  if (/\.(local|internal|lan|home|localhost|svc|cluster\.local)$/.test(host) || host === "host.docker.internal") return true;
+  const tld = host.slice(host.lastIndexOf(".") + 1);
+  return !(tld.length === 2 || PUBLIC_TLDS.has(tld)); // "prometheus.monitoring": a cluster namespace, not a TLD
+}
+
+const insecureTransport: Rule = {
+  id: "security/insecure-transport",
+  category: "security",
+  severity: "medium",
+  title: "Unencrypted or unverified connection",
+  description:
+    "Plain http:// to a public server, or skipping certificate checks, lets anyone on the network path read or change the data, including credentials. Use https:// and keep certificate checks on.",
+  fixable: false,
+  check(graph) {
+    const hits: RuleHit[] = [];
+    for (const node of graph.active.filter((n) => n.type === NODE.httpRequest)) {
+      const url = node.parameters.url;
+      if (typeof url === "string" && isLiteral(url)) {
+        const m = /^=?\s*http:\/\/([^/:?#\s]+)/i.exec(url);
+        if (m && !isPrivateHost(m[1]!.toLowerCase())) {
+          hits.push({ node: node.name, path: "url", message: `"${node.name}" sends data unencrypted to ${m[1]}.` });
+        }
+      }
+      if (get(node.parameters, "options.allowUnauthorizedCerts") === true) {
+        hits.push({
+          node: node.name,
+          path: "options.allowUnauthorizedCerts",
+          message: `"${node.name}" skips SSL certificate checks.`,
+        });
+      }
+    }
+    return hits;
+  },
+};
+
+export const securityRules: Rule[] = [
+  hardcodedSecret,
+  secretInUrl,
+  webhookNoAuth,
+  codeEval,
+  commandInjection,
+  insecureTransport,
+];

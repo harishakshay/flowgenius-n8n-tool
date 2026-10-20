@@ -17,7 +17,9 @@
     "test": "vitest run",
     "check": "npm run lint && npm run typecheck && npm run test",
     "corpus:download": "tsx study/scripts/download-corpus.ts",
-    "corpus:parse": "npm run build && tsx study/scripts/parse-corpus.ts"
+    "corpus:parse": "npm run build && tsx study/scripts/parse-corpus.ts",
+    "corpus:scan": "npm run build && tsx study/scripts/scan-corpus.ts",
+    "docs:rules": "npm run build && tsx study/scripts/rules-doc.ts"
   },
   "devDependencies": {
     "@eslint/js": "10.0.1",

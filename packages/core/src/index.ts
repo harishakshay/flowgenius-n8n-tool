@@ -1,2 +1,10 @@
+export { analyze } from "./engine.js";
+export type { AnalyzeOptions, AnalyzeResult } from "./engine.js";
+export { buildGraph } from "./graph.js";
+export type { WorkflowGraph } from "./graph.js";
 export { parseWorkflow } from "./parse.js";
+export type { Category, Finding, Rule, RuleHit, Severity } from "./rule.js";
+export { rules } from "./rules/index.js";
+export { SEVERITY_POINTS, scoreFindings } from "./score.js";
+export type { Grade, Score } from "./score.js";
 export type * from "./types.js";

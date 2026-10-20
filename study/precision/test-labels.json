@@ -1,0 +1,26 @@
+{
+  "about": "Test sample 1: 200 findings (seed 20261021) from rule version 2 (after dev fixes), excluding every template in the dev sample. Labelled by Claude against each template's JSON. Result 91.5%, below the 95% gate, so the patterns below were fixed and precision is measured again on a third held-out sample (holdout-labels.json).",
+  "labelledBy": "Claude (Opus 5.5), pending Harish's review",
+  "date": "2026-10-20",
+  "total": 200,
+  "falsePositives": [
+    { "index": 49, "ruleId": "reliability/endless-loop", "templateId": 5940, "reason": "Retry loop on the error output; success output leaves (ends) the loop." },
+    { "index": 50, "ruleId": "reliability/endless-loop", "templateId": 5940, "reason": "Same retry-on-error pattern." },
+    { "index": 51, "ruleId": "reliability/endless-loop", "templateId": 5940, "reason": "Same retry-on-error pattern." },
+    { "index": 52, "ruleId": "reliability/endless-loop", "templateId": 5940, "reason": "Same retry-on-error pattern." },
+    { "index": 53, "ruleId": "reliability/endless-loop", "templateId": 5940, "reason": "Same retry-on-error pattern." },
+    { "index": 54, "ruleId": "reliability/endless-loop", "templateId": 7882, "reason": "Loop over a folder listing ends when the listing returns no items." },
+    { "index": 55, "ruleId": "reliability/endless-loop", "templateId": 8578, "reason": "Retry-on-error loop; success leaves the loop." },
+    { "index": 60, "ruleId": "reliability/return-all", "templateId": 13221, "reason": "Gmail labels: an inherently small list." },
+    { "index": 62, "ruleId": "reliability/return-all", "templateId": 10602, "reason": "Attachments of one message: an inherently small list." },
+    { "index": 95, "ruleId": "security/hardcoded-secret", "templateId": 3973, "reason": "PEM header around a [INSERT YOUR KEY HERE] placeholder." },
+    { "index": 96, "ruleId": "security/secret-in-url", "templateId": 5818, "reason": "Value is the word Content-Type, not a key." },
+    { "index": 104, "ruleId": "security/webhook-no-auth", "templateId": 6597, "reason": "First step checks a secret header." },
+    { "index": 106, "ruleId": "security/webhook-no-auth", "templateId": 2319, "reason": "OAuth redirect callback; it has to be public." },
+    { "index": 119, "ruleId": "security/command-injection", "templateId": 18923, "reason": "Values come from a fixed configuration node, not outside data." },
+    { "index": 120, "ruleId": "security/insecure-transport", "templateId": 10143, "reason": "00.00.00.000 placeholder address." },
+    { "index": 126, "ruleId": "security/insecure-transport", "templateId": 7145, "reason": "Kubernetes in-cluster service name (svc.namespace), not public." },
+    { "index": 127, "ruleId": "security/insecure-transport", "templateId": 7665, "reason": "Kubernetes in-cluster service name (svc.namespace), not public." }
+  ],
+  "precision": 0.915
+}
