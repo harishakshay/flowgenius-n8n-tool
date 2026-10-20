@@ -9,7 +9,7 @@ import { type CorpusRecord, corpusDir, corpusFile, readCorpus } from "./corpus.j
 const API = "https://api.n8n.io/api/templates";
 const PAGE_SIZE = 100;
 const CONCURRENCY = 4;
-const USER_AGENT = "n8n-preflight-study (github.com/harishakshay/n8n-preflight)";
+const USER_AGENT = "n8n-preflight-study (github.com/harishakshay/flowgenius-n8n-tool)";
 
 async function fetchJson(url: string, attempt = 1): Promise<unknown> {
   try {
