@@ -2,29 +2,29 @@
   "templates": 12074,
   "failed": 0,
   "timingMs": {
-    "median": 0.344,
-    "p95": 1.223,
-    "p99": 2.467,
-    "max": 37.144
+    "median": 0.314,
+    "p95": 1.164,
+    "p99": 2.448,
+    "max": 33.031
   },
   "score": {
     "median": 64,
     "mean": 62.6,
     "grades": {
-      "ready": 815,
-      "needs-work": 3084,
-      "not-ready": 8175
+      "ready": 821,
+      "needs-work": 3081,
+      "not-ready": 8172
     }
   },
   "rules": {
     "error-handling/no-error-workflow": {
-      "findings": 9837,
-      "templates": 9837,
-      "templatesPct": 81.5
+      "findings": 9834,
+      "templates": 9834,
+      "templatesPct": 81.4
     },
     "error-handling/no-retry": {
-      "findings": 64815,
-      "templates": 11548,
+      "findings": 64668,
+      "templates": 11546,
       "templatesPct": 95.6
     },
     "error-handling/swallowed-errors": {
@@ -48,13 +48,13 @@
       "templatesPct": 44.5
     },
     "reliability/no-execution-timeout": {
-      "findings": 9885,
-      "templates": 9885,
-      "templatesPct": 81.9
+      "findings": 9882,
+      "templates": 9882,
+      "templatesPct": 81.8
     },
     "reliability/endless-loop": {
-      "findings": 4,
-      "templates": 4,
+      "findings": 0,
+      "templates": 0,
       "templatesPct": 0
     },
     "reliability/return-all": {
@@ -83,29 +83,29 @@
       "templatesPct": 0.3
     },
     "security/secret-in-url": {
-      "findings": 41,
-      "templates": 18,
-      "templatesPct": 0.1
+      "findings": 59,
+      "templates": 22,
+      "templatesPct": 0.2
     },
     "security/webhook-no-auth": {
-      "findings": 2464,
-      "templates": 2142,
-      "templatesPct": 17.7
+      "findings": 2481,
+      "templates": 2149,
+      "templatesPct": 17.8
     },
     "security/code-eval": {
-      "findings": 7,
-      "templates": 6,
-      "templatesPct": 0
+      "findings": 10,
+      "templates": 8,
+      "templatesPct": 0.1
     },
     "security/command-injection": {
-      "findings": 209,
-      "templates": 91,
-      "templatesPct": 0.8
+      "findings": 182,
+      "templates": 87,
+      "templatesPct": 0.7
     },
     "security/insecure-transport": {
-      "findings": 165,
-      "templates": 102,
-      "templatesPct": 0.8
+      "findings": 184,
+      "templates": 112,
+      "templatesPct": 0.9
     },
     "data/pinned-data": {
       "findings": 896,
@@ -133,9 +133,9 @@
       "templatesPct": 3.5
     },
     "maintainability/orphan-nodes": {
-      "findings": 724,
-      "templates": 298,
-      "templatesPct": 2.5
+      "findings": 652,
+      "templates": 287,
+      "templatesPct": 2.4
     },
     "maintainability/undocumented": {
       "findings": 236,

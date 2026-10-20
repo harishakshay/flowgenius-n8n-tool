@@ -27,6 +27,14 @@ function isObj(value: unknown): value is Obj {
 }
 
 /**
+ * Objects keyed by names from the input (node names) have no prototype, so a node called
+ * "__proto__" or "constructor" is stored as a plain key instead of changing the object.
+ */
+function dict<T>(): Record<string, T> {
+  return Object.create(null) as Record<string, T>;
+}
+
+/**
  * Accepts a workflow as:
  * - a file downloaded from n8n, or a selection copied from the canvas: `{ nodes, connections, ... }`
  * - an n8n template API response: `{ workflow: { workflow: { nodes, ... } } }` or `{ workflow: { nodes, ... } }`
@@ -36,7 +44,8 @@ export function parseWorkflow(input: unknown): ParseResult {
   let data = input;
   if (typeof input === "string") {
     try {
-      data = JSON.parse(input);
+      // Files saved by some Windows editors start with a byte-order mark, which JSON.parse rejects.
+      data = JSON.parse(input.charCodeAt(0) === 0xfeff ? input.slice(1) : input);
     } catch (err) {
       return fail("invalid-json", `Not valid JSON: ${(err as Error).message}`);
     }
@@ -183,12 +192,13 @@ function parseCredentials(value: unknown): Record<string, NodeCredentialRef> | n
 }
 
 function parseConnections(value: unknown, names: Set<string>, issues: ParseIssue[]): Connections {
-  const connections: Connections = {};
+  const connections: Connections = dict();
   if (value === undefined) return connections;
   if (!isObj(value)) {
     issues.push({ code: "invalid-connection", severity: "warning", message: "`connections` is not an object; ignored." });
     return connections;
   }
+  // JSON.parse turns a "__proto__" key into an own property; read keys with Object.entries only.
 
   for (const [source, outputs] of Object.entries(value)) {
     if (!isObj(outputs)) continue;
@@ -202,7 +212,7 @@ function parseConnections(value: unknown, names: Set<string>, issues: ParseIssue
       continue;
     }
 
-    const nodeConnections: NodeConnections = {};
+    const nodeConnections: NodeConnections = dict();
     for (const [connectionType, slots] of Object.entries(outputs)) {
       if (!Array.isArray(slots)) continue;
       nodeConnections[connectionType] = slots.map((slot, outputIndex) => {
@@ -258,12 +268,12 @@ function parseSettings(value: unknown, issues: ParseIssue[]): WorkflowSettings {
 }
 
 function parsePinData(value: unknown, issues: ParseIssue[]): Record<string, unknown[]> {
-  if (value === undefined || value === null) return {};
+  if (value === undefined || value === null) return dict();
   if (!isObj(value)) {
     invalidField(issues, "pinData", "not an object; ignored");
-    return {};
+    return dict();
   }
-  const pinData: Record<string, unknown[]> = {};
+  const pinData = dict<unknown[]>();
   for (const [node, items] of Object.entries(value)) if (Array.isArray(items)) pinData[node] = items;
   return pinData;
 }

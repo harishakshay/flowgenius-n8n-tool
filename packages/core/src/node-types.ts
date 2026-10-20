@@ -30,8 +30,8 @@ export const NODE = {
 /** Triggers whose type name does not end in "Trigger". */
 const OTHER_TRIGGERS = new Set([NODE.webhook, NODE.cron, NODE.start, `${BASE}interval`, `${BASE}emailReadImap`]);
 
-/** Triggers that only run when a person clicks "Execute" in the editor. */
-const MANUAL_TRIGGERS = new Set<string>([NODE.manualTrigger, NODE.start]);
+/** Triggers that only run when a person clicks "Execute" or chats in the editor. */
+const MANUAL_TRIGGERS = new Set<string>([NODE.manualTrigger, NODE.start, `${LANGCHAIN}manualChatTrigger`]);
 
 /**
  * Nodes that run inside n8n and do not call an outside service, so retrying them does not help.
@@ -45,9 +45,11 @@ const INTERNAL_NODES = new Set(
     "compareDatasets", "summarize", "executionData", "convertToFile", "extractFromFile", "moveBinaryData",
     "spreadsheetFile", "readBinaryFile", "readBinaryFiles", "writeBinaryFile", "readWriteFile", "form",
     "editImage", "compression", "totp", "jwt", "dataTable", "debugHelper", "executeCommand", "htmlExtract",
-    "splitInBatchesV3", "interval", "noOpTool", "aiTransform", "evaluation", "evaluationTrigger",
+    "interval", "aiTransform", "evaluation",
   ].map((t) => BASE + t),
 );
+// LangChain nodes that run inside n8n: "Respond to Chat" and the LangChain Code node.
+for (const t of ["chat", "code"]) INTERNAL_NODES.add(LANGCHAIN + t);
 
 export function isStickyNote(node: WorkflowNode): boolean {
   return node.type === NODE.stickyNote;
@@ -69,7 +71,7 @@ export function isProductionTrigger(node: WorkflowNode): boolean {
     !isManualTrigger(node) &&
     node.type !== NODE.executeWorkflowTrigger &&
     node.type !== NODE.errorTrigger &&
-    !/evaluationTrigger$/.test(node.type)
+    node.type !== `${BASE}evaluationTrigger`
   );
 }
 
@@ -82,11 +84,22 @@ export function isToolNode(node: WorkflowNode): boolean {
   return /Tool$/.test(node.type) || node.type.startsWith(`${LANGCHAIN}tool`);
 }
 
+/** Nodes whose number of outputs depends on how they are configured (rules, categories, options). */
+const CONFIGURABLE_OUTPUTS = new Set<string>([
+  NODE.switch,
+  NODE.filter,
+  `${BASE}compareDatasets`,
+  `${BASE}removeDuplicates`,
+  `${LANGCHAIN}textClassifier`,
+  `${LANGCHAIN}sentimentAnalysis`,
+  `${LANGCHAIN}guardrails`,
+]);
+
 /** Number of regular (non-error) outputs, where it is fixed. null when it depends on configuration. */
 export function regularOutputCount(node: WorkflowNode): number | null {
   if (node.type === NODE.if) return 2;
   if (node.type === NODE.splitInBatches) return node.typeVersion >= 3 ? 2 : 1;
-  if (node.type === NODE.switch || node.type === `${BASE}compareDatasets` || node.type === NODE.filter) return null;
+  if (CONFIGURABLE_OUTPUTS.has(node.type)) return null;
   return 1;
 }
 

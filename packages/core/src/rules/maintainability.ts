@@ -40,6 +40,8 @@ const orphanNodes: Rule = {
   description: "This node has no connections, so it never runs. Connect it or delete it.",
   fixable: true,
   check(graph) {
+    // Nothing connected at all: a selection pasted from the canvas, not a workflow with stray nodes.
+    if (!graph.workflow.nodes.some((n) => graph.isLinked(n.name))) return [];
     return graph.active
       .filter((n) => !isTrigger(n) && !graph.isLinked(n.name))
       .map((n) => ({ node: n.name, message: `"${n.name}" is not connected, so it never runs.` }));

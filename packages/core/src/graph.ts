@@ -28,7 +28,9 @@ export interface WorkflowGraph {
 }
 
 export function buildGraph(workflow: Workflow, parseIssues: ParseIssue[] = []): WorkflowGraph {
-  const byName = new Map(workflow.nodes.map((n) => [n.name, n]));
+  // With duplicate names (reported by data/broken-connections) keep the first node, as n8n's editor does on import.
+  const byName = new Map<string, WorkflowNode>();
+  for (const n of workflow.nodes) if (!byName.has(n.name)) byName.set(n.name, n);
   const nextMap = new Map<string, string[]>();
   const prevMap = new Map<string, string[]>();
   const aiSources = new Set<string>();

@@ -4,14 +4,14 @@ Production-readiness checks and fixes for n8n workflows, by [FlowGenius](https:/
 
 **Status:** Phase 1 (rule engine) done. Not released yet. See the [project plan](docs/PROJECT_PLAN.md), [decisions](docs/DECISIONS.md) and [rules](docs/RULES.md).
 
-- 25 rules across error handling, reliability, security, data and maintainability, scored 0-100
-- Checked against all 12,074 public n8n templates: **96.5% precision** on a held-out sample ([method](study/precision/README.md))
-- About 1 ms median scan per workflow (0.3-1.4 ms across runs); no dependencies; runs in the browser and in Node
+- 25 rules across error handling, reliability, security, data and maintainability (24 on by default), scored 0-100
+- Checked against all 12,074 public n8n templates: **96.5% precision on a held-out, rule-stratified sample** of 200 findings, labelled by one reviewer ([method and limits](study/precision/README.md))
+- About 1 ms median scan per workflow (0.3-1.4 ms across runs), under 1.5 s for a 10,000-node workflow; no dependencies; runs in the browser and in Node
 
 ```ts
 import { analyze } from "@n8n-preflight/core";
 
-const result = analyze(workflowJson);
+const result = analyze(workflowJson); // options: { disable: [...], enable: ["reliability/endless-loop"] }
 if (result.ok) console.log(result.score, result.grade, result.findings);
 ```
 

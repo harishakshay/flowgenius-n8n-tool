@@ -43,9 +43,9 @@ export function workflow(nodes: NodeInput[], connections: object = {}, extra: Re
   return { nodes, connections, ...extra };
 }
 
-/** Findings of one rule for a workflow. */
+/** Findings of one rule for a workflow. The rule runs even if it is off by default. */
 export function hits(ruleId: string, input: unknown): Finding[] {
-  const result = analyze(input);
+  const result = analyze(input, { enable: [ruleId] });
   if (!result.ok) throw new Error(`parse failed: ${JSON.stringify(result.parseIssues)}`);
   if (result.ruleErrors.length) throw new Error(`rule crashed: ${JSON.stringify(result.ruleErrors)}`);
   return result.findings.filter((f) => f.ruleId === ruleId);

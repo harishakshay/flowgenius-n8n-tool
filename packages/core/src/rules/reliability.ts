@@ -4,6 +4,7 @@ import { errorMode } from "./error-handling.js";
 import type { Rule } from "../rule.js";
 import type { WorkflowNode } from "../types.js";
 import { get } from "../values.js";
+import { list } from "./data.js";
 
 const httpNoTimeout: Rule = {
   id: "reliability/http-no-timeout",
@@ -42,15 +43,20 @@ const endlessLoop: Rule = {
   severity: "high",
   title: "Loop with no way out",
   description:
-    "These nodes feed back into each other, and none of them can send items out of the loop: no Loop Over Items, If, Switch, Filter, Limit, classifier, or error output that leads elsewhere. The run repeats until it is killed or runs out of memory.",
+    "These nodes feed back into each other, and none of them can send items out of the loop: no Loop Over Items, If, Switch, Filter, Limit, classifier, or error output that leads elsewhere. The run repeats until it is killed or runs out of memory. Off by default: a loop can also end because a step returns no items (an empty page from an API), which the JSON alone can't show.",
   fixable: false,
+  // Precision on sampled templates was too low to report by default (see study/precision/README.md).
+  defaultEnabled: false,
   check(graph) {
     return graph
       .cycles()
-      .filter((cycle) => !cycle.some((n) => canExitLoop(n) || routesOutOf(graph, n, cycle) || canReturnNothing(n)))
+      .filter((cycle) => {
+        const inLoop = new Set(cycle.map((n) => n.name));
+        return !cycle.some((n) => canExitLoop(n) || routesOutOf(graph, n, inLoop) || canReturnNothing(n));
+      })
       .map((cycle) => ({
         node: cycle[0]!.name,
-        message: `Loop through ${cycle.map((n) => `"${n.name}"`).join(", ")} has no exit condition.`,
+        message: `Loop through ${list(cycle.map((n) => n.name))} has no exit condition.`,
       }));
   },
 };
@@ -61,8 +67,7 @@ const endlessLoop: Rule = {
  * (items that reach an unconnected output simply stop). Fan-out from a single output does not
  * count: items then go both ways, and the loop still runs.
  */
-function routesOutOf(graph: WorkflowGraph, node: WorkflowNode, cycle: WorkflowNode[]): boolean {
-  const inLoop = new Set(cycle.map((n) => n.name));
+function routesOutOf(graph: WorkflowGraph, node: WorkflowNode, inLoop: Set<string>): boolean {
   const slots = graph.workflow.connections[node.name]?.main ?? [];
   const errorOutput = errorMode(node) === "continueErrorOutput" ? 1 : 0;
   const possible = Math.max(slots.length, (regularOutputCount(node) ?? 1) + errorOutput);
@@ -196,7 +201,9 @@ const scheduleNoTimezone: Rule = {
     "This schedule runs at a set time of day, but the workflow has no timezone, so it uses the server's default (often UTC). Reports and reminders then fire hours early or late, and shift with daylight saving. Set Workflow Settings > Timezone.",
   fixable: true,
   check(graph) {
-    if (graph.workflow.settings.timezone) return [];
+    // "DEFAULT" is what n8n saves for "use the instance's timezone", which is the same as not setting one.
+    const timezone = graph.workflow.settings.timezone;
+    if (typeof timezone === "string" && timezone.trim() !== "" && timezone !== "DEFAULT") return [];
     return scheduledNodes(graph)
       .filter((n) => schedules(n).some((s) => s.timeOfDay))
       .map((n) => ({ node: n.name, message: `"${n.name}" runs at a time of day, but no timezone is set.` }));

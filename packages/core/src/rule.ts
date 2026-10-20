@@ -37,5 +37,7 @@ export interface Rule {
   fixable: boolean;
   /** FlowGenius article that explains the problem in depth. */
   docsUrl?: string;
+  /** False for rules that only run when asked for with `enable` (lower-confidence rules). Default true. */
+  defaultEnabled?: boolean;
   check(graph: WorkflowGraph): RuleHit[];
 }

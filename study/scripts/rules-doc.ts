@@ -14,7 +14,10 @@ const lines = [
   "",
   "| Rule | Severity | What it catches | Auto-fix (Phase 4) |",
   "|---|---|---|---|",
-  ...rules.map((r) => `| \`${r.id}\` | ${r.severity} | ${r.title} | ${r.fixable ? "yes" : "no"} |`),
+  ...rules.map(
+    (r) =>
+      `| \`${r.id}\` | ${r.severity}${r.defaultEnabled === false ? " (off by default)" : ""} | ${r.title} | ${r.fixable ? "yes" : "no"} |`,
+  ),
   "",
 ];
 

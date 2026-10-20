@@ -13,6 +13,8 @@ Changes to the plan in [PROJECT_PLAN.md](PROJECT_PLAN.md). The plan file itself 
 | 2026-10-20 | Phase 1 rule set changed: 9 rules from section 7 replaced with rules that can be checked reliably from the JSON alone (table below). Still 25 rules | Section 7 | The replaced rules either can't be detected without guessing, or duplicate another rule |
 | 2026-10-20 | `xray-core` v0.1 on npm (Phase 1 exit) moved to release, with the other accounts | Phase 1 exit | No npm account yet (row above). The package builds and is ready to publish |
 | 2026-10-20 | Precision measured on a held-out sample after two rounds of fixes, not on the first sample | Phase 1, "label 200 findings" | Grading the fixes on the sample that shaped them would overstate precision. See `study/precision/README.md` |
+| 2026-10-20 | `reliability/endless-loop` off by default (opt in with `enable`); 24 of 25 rules run by default | — | 15 of 17 sampled findings were wrong: a loop can end when a step returns no items, which the JSON alone doesn't show |
+| 2026-10-20 | After the code review, every finding a fix adds is labelled in full (corpus diff), not only resampled | — | Fixes that find more were never in a precision sample; checking all 72 added findings keeps the claim true |
 
 ## Rule changes against section 7
 

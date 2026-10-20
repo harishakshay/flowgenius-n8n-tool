@@ -13,7 +13,7 @@ Generated from the rule definitions by `npm run docs:rules`. Do not edit by hand
 | `error-handling/silent-error-trigger` | high | Error workflow that does nothing | no |
 | `reliability/http-no-timeout` | medium | HTTP request without timeout | yes |
 | `reliability/no-execution-timeout` | medium | No execution timeout | yes |
-| `reliability/endless-loop` | high | Loop with no way out | no |
+| `reliability/endless-loop` | high (off by default) | Loop with no way out | no |
 | `reliability/return-all` | low | Fetches every record | no |
 | `reliability/webhook-without-responder` | critical | Webhook waits for a reply that never comes | no |
 | `reliability/schedule-no-timezone` | medium | Scheduled time without a timezone | yes |
@@ -92,7 +92,7 @@ Learn more: https://flowgenius.in/n8n-stuck-executions-detection/
 
 **Loop with no way out** · high
 
-These nodes feed back into each other, and none of them can send items out of the loop: no Loop Over Items, If, Switch, Filter, Limit, classifier, or error output that leads elsewhere. The run repeats until it is killed or runs out of memory.
+These nodes feed back into each other, and none of them can send items out of the loop: no Loop Over Items, If, Switch, Filter, Limit, classifier, or error output that leads elsewhere. The run repeats until it is killed or runs out of memory. Off by default: a loop can also end because a step returns no items (an empty page from an API), which the JSON alone can't show.
 
 Learn more: https://flowgenius.in/n8n-long-running-workflow-failures/
 
@@ -156,7 +156,7 @@ Learn more: https://flowgenius.in/insecure-webhook-exposure/
 
 **Code runs text as code** · high
 
-eval, new Function, exec or a shell call turns text into code. If any of that text comes from input (a webhook, an email, an AI reply), an attacker can run their own code on your n8n server.
+eval, new Function, exec, child_process or a shell call turns text into code. If any of that text comes from input (a webhook, an email, an AI reply), an attacker can run their own code on your n8n server.
 
 Learn more: https://flowgenius.in/xss-vectors-in-custom-code/
 

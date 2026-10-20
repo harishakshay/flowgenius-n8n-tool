@@ -11,14 +11,20 @@ const PAGE_SIZE = 100;
 const CONCURRENCY = 4;
 const USER_AGENT = "n8n-preflight-study (github.com/harishakshay/flowgenius-n8n-tool)";
 
+class PermanentError extends Error {}
+
 async function fetchJson(url: string, attempt = 1): Promise<unknown> {
   try {
     const res = await fetch(url, { headers: { "User-Agent": USER_AGENT } });
     if (res.status === 404) return null;
+    // Other 4xx (the API answers 400 for unpublished templates) will not change on retry; 429 will.
+    if (res.status >= 400 && res.status < 500 && res.status !== 429) throw new PermanentError(`HTTP ${res.status}`);
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
     return await res.json();
   } catch (err) {
-    if (attempt >= 5) throw new Error(`${url}: ${(err as Error).message}`, { cause: err });
+    if (err instanceof PermanentError || attempt >= 5) {
+      throw new Error(`${url}: ${(err as Error).message}`, { cause: err });
+    }
     await new Promise((r) => setTimeout(r, 1000 * 2 ** attempt));
     return fetchJson(url, attempt + 1);
   }

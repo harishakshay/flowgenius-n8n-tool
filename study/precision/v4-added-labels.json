@@ -1,0 +1,20 @@
+{
+  "about": "Every finding that rule version 4 (the code-review fixes) adds over version 3 across all 12,074 templates: 72 findings, all labelled (not sampled). Version 3 is the one measured on the held-out sample; this file covers only what the fixes newly report.",
+  "labelledBy": "Claude (Opus 5.5), pending Harish's review",
+  "date": "2026-10-20",
+  "total": 72,
+  "byRule": {
+    "security/insecure-transport": { "added": 29, "falsePositives": 0, "note": "Fixed public hosts over http:// whose path contains {{ }} (ip-api.com, openlibrary.org, openweathermap.org...)" },
+    "security/secret-in-url": { "added": 20, "falsePositives": 1, "note": "Mostly Alpha Vantage keys (16 upper-case letters and digits), previously mistaken for ALL_CAPS placeholders" },
+    "security/webhook-no-auth": { "added": 18, "falsePositives": 3, "note": "Third-party callbacks (Twilio, Vapi, gotoHuman) with no auth. Previously skipped because the name contained 'callback'" },
+    "security/code-eval": { "added": 3, "falsePositives": 0, "note": "eval in an AI tool-code node; child_process in Code nodes" },
+    "security/hardcoded-secret": { "added": 2, "falsePositives": 0, "note": "Same findings as before; only the masked text in the message changed" }
+  },
+  "falsePositives": [
+    { "ruleId": "security/secret-in-url", "templateId": 15479, "node": "Menu dishes", "reason": "key= is a base64 timestamp on a demo API; can't tell it is a secret. Counted as wrong to be conservative." },
+    { "ruleId": "security/webhook-no-auth", "templateId": 10950, "node": "Google Auth Callback", "reason": "OAuth redirect: must be public. Fixed after labelling (pattern now covers 'auth callback')." },
+    { "ruleId": "security/webhook-no-auth", "templateId": 19922, "node": "Webhook", "reason": "N26-callback creates a login session: an OAuth-style redirect, public by design." },
+    { "ruleId": "security/webhook-no-auth", "templateId": 5709, "node": "Webhook", "reason": "Short-link redirect service: public by design." }
+  ],
+  "precision": 0.944
+}

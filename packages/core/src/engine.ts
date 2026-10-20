@@ -10,6 +10,8 @@ import type { ParseIssue, Workflow } from "./types.js";
 export interface AnalyzeOptions {
   /** Rule ids to skip, for example ["maintainability/default-node-names"]. */
   disable?: string[];
+  /** Rule ids that are off by default to run anyway, for example ["reliability/endless-loop"]. */
+  enable?: string[];
   /** Run a custom rule list instead of the built-in one. */
   rules?: Rule[];
 }
@@ -34,12 +36,14 @@ export function analyze(input: unknown, options: AnalyzeOptions = {}): AnalyzeRe
   if (!parsed.ok) return { ok: false, parseIssues: parsed.issues };
 
   const disabled = new Set(options.disable ?? []);
+  const enabled = new Set(options.enable ?? []);
   const graph = buildGraph(parsed.workflow, parsed.issues);
   const findings: Finding[] = [];
   const ruleErrors: { ruleId: string; message: string }[] = [];
 
   for (const rule of options.rules ?? allRules) {
     if (disabled.has(rule.id)) continue;
+    if (rule.defaultEnabled === false && !enabled.has(rule.id)) continue;
     try {
       for (const hit of rule.check(graph)) {
         const finding: Finding = {
@@ -53,7 +57,7 @@ export function analyze(input: unknown, options: AnalyzeOptions = {}): AnalyzeRe
         findings.push(finding);
       }
     } catch (err) {
-      ruleErrors.push({ ruleId: rule.id, message: (err as Error).message });
+      ruleErrors.push({ ruleId: rule.id, message: err instanceof Error ? err.message : String(err) });
     }
   }
 

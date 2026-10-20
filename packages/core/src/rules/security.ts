@@ -2,7 +2,10 @@ import type { WorkflowGraph } from "../graph.js";
 import { NODE, isStickyNote } from "../node-types.js";
 import type { Rule, RuleHit } from "../rule.js";
 import type { WorkflowNode } from "../types.js";
-import { get, isExpression, isLiteral, isPlaceholder, namedPairs, walkStrings } from "../values.js";
+import { decodeBase64, get, isExpression, isLiteral, isPlaceholder, namedPairs, walkStrings } from "../values.js";
+
+const BASE = "n8n-nodes-base.";
+const LANGCHAIN = "@n8n/n8n-nodes-langchain.";
 
 /** Formats of real secrets. Each is specific enough that a match is almost never a coincidence. */
 const SECRET_FORMATS: { name: string; pattern: RegExp }[] = [
@@ -33,17 +36,36 @@ const SENSITIVE_QUERY = new Set([
   "password", "pass", "pwd",
 ]);
 
-/** Shows enough of a secret to find it, never the whole value. */
+/** Shows enough of a secret to find it, never more than a sixth of it. */
 export function mask(secret: string): string {
-  return `${secret.slice(0, 4)}…(${secret.length} chars)`;
+  const shown = Math.min(4, Math.floor(secret.length / 6));
+  return `${secret.slice(0, shown)}…(${secret.length} chars)`;
 }
 
 function secretFormat(value: string): { name: string; match: string } | null {
   for (const { name, pattern } of SECRET_FORMATS) {
     const m = pattern.exec(value);
-    if (m && !isPlaceholder(m[0])) return { name, match: m[0] };
+    if (!m || isPlaceholder(m[0])) continue;
+    if (name === "JSON Web Token" && isPublicJwt(m[0])) continue;
+    return { name, match: m[0] };
   }
   return null;
+}
+
+/**
+ * Tokens meant to be public, such as a Supabase "anon" key (it ships in every browser app).
+ * The payload is plain base64url JSON, so the role can be read without verifying the token.
+ */
+export function isPublicJwt(token: string): boolean {
+  const payload = token.split(".")[1];
+  if (!payload) return false;
+  const json = decodeBase64(payload);
+  if (json === null) return false;
+  try {
+    return (JSON.parse(json) as { role?: unknown }).role === "anon";
+  } catch {
+    return false;
+  }
 }
 
 /** A literal credential value: fixed text, long enough, not a placeholder. */
@@ -82,6 +104,7 @@ const hardcodedSecret: Rule = {
       for (const header of namedPairs(node.parameters.headerParameters)) {
         if (!SENSITIVE_HEADERS.has(header.name.trim().toLowerCase())) continue;
         const secret = literalSecret(header.value);
+        if (secret && isPublicJwt(secret)) continue;
         if (secret && !seen.has(secret) && ![...seen].some((s) => secret.includes(s))) {
           seen.add(secret);
           hits.push({
@@ -141,8 +164,11 @@ function decodeURIComponentSafe(value: string): string {
   }
 }
 
-/** OAuth redirect URLs must be public: the provider's browser redirect cannot add a header. */
-const OAUTH_CALLBACK = /oauth|auth[\s_-]?code|callback|redirect/i;
+/**
+ * OAuth redirect URLs must be public: the provider's browser redirect cannot add a header.
+ * Deliberately narrow: payment and event "callbacks" are exactly the webhooks that need auth.
+ */
+const OAUTH_CALLBACK = /oauth|auth[\s_-]?(?:code|callback)/i;
 
 /** True when one of the first two steps after the webhook reads the request headers (a secret or signature check). */
 function checksHeadersEarly(graph: WorkflowGraph, webhook: string): boolean {
@@ -172,9 +198,23 @@ const webhookNoAuth: Rule = {
   },
 };
 
-const CODE_FIELDS = ["jsCode", "pythonCode", "functionCode"];
-const DANGEROUS_JS = /\beval\s*\(|\bnew\s+Function\s*\(/;
+const DANGEROUS_JS = /\beval\s*\(|\bnew\s+Function\s*\(|\brequire\s*\(\s*['"](?:node:)?child_process['"]\s*\)/;
 const DANGEROUS_PY = /\b(?:eval|exec)\s*\(|\bos\.system\s*\(|\bsubprocess\./;
+
+/** Code nodes and where their source lives. LangChain nodes nest code more deeply, so all strings are read. */
+const CODE_NODES = new Set<string>([NODE.code, NODE.function, NODE.functionItem, `${LANGCHAIN}code`, `${LANGCHAIN}toolCode`]);
+
+function codeSources(node: WorkflowNode): { code: string; path: string; python: boolean }[] {
+  if (node.type === `${LANGCHAIN}code` || node.type === `${LANGCHAIN}toolCode`) {
+    const python = node.parameters.language === "python";
+    return walkStrings(node.parameters)
+      .filter((s) => /code$/i.test(s.path.split(".").pop() ?? ""))
+      .map((s) => ({ code: s.value, path: s.path, python: python || s.path.endsWith("pythonCode") }));
+  }
+  return ["jsCode", "pythonCode", "functionCode"]
+    .filter((field) => typeof node.parameters[field] === "string")
+    .map((field) => ({ code: node.parameters[field] as string, path: field, python: field === "pythonCode" }));
+}
 
 const codeEval: Rule = {
   id: "security/code-eval",
@@ -182,33 +222,48 @@ const codeEval: Rule = {
   severity: "high",
   title: "Code runs text as code",
   description:
-    "eval, new Function, exec or a shell call turns text into code. If any of that text comes from input (a webhook, an email, an AI reply), an attacker can run their own code on your n8n server.",
+    "eval, new Function, exec, child_process or a shell call turns text into code. If any of that text comes from input (a webhook, an email, an AI reply), an attacker can run their own code on your n8n server.",
   fixable: false,
   check(graph) {
     const hits: RuleHit[] = [];
     for (const node of graph.active) {
-      if (node.type !== NODE.code && node.type !== NODE.function && node.type !== NODE.functionItem) continue;
-      for (const field of CODE_FIELDS) {
-        const code = node.parameters[field];
-        if (typeof code !== "string") continue;
-        const pattern = field === "pythonCode" ? DANGEROUS_PY : DANGEROUS_JS;
-        const m = pattern.exec(code);
-        if (m) hits.push({ node: node.name, path: field, message: `"${node.name}" uses ${m[0].replace(/\s*\($/, "")}.` });
+      if (!CODE_NODES.has(node.type)) continue;
+      for (const { code, path, python } of codeSources(node)) {
+        const m = (python ? DANGEROUS_PY : DANGEROUS_JS).exec(code);
+        if (m) hits.push({ node: node.name, path, message: `"${node.name}" uses ${describeCall(m[0])}.` });
       }
     }
     return hits;
   },
 };
 
+function describeCall(match: string): string {
+  if (/child_process/.test(match)) return "child_process";
+  return match.replace(/\s*\($/, "").replace(/\s+/g, " ");
+}
+
 /**
- * True when a {{ }} placeholder reads item data (which can come from outside), not just
- * values n8n controls such as $execution.id, $now or $env.
+ * True when a {{ }} placeholder reads item data (which can come from outside), not just values n8n
+ * controls ($execution.id, $now, $env) or fixed settings from a configuration node.
  */
-export function insertsItemData(expression: string): boolean {
+export function insertsItemData(expression: string, graph?: WorkflowGraph): boolean {
   for (const m of expression.matchAll(/\{\{([\s\S]*?)\}\}/g)) {
-    if (/\$json|\$\(|\$node\b|\$input|\$items?\b|\$binary|\$fromAI/.test(m[1]!)) return true;
+    const code = m[1]!;
+    if (/\$json|\$input|\$items?\b|\$binary|\$fromAI/.test(code)) return true;
+    for (const ref of code.matchAll(/\$\(\s*['"]([^'"]+)['"]\s*\)|\$node\s*\[\s*['"]([^'"]+)['"]\s*\]/g)) {
+      const name = ref[1] ?? ref[2]!;
+      if (!graph || !isFixedConfiguration(graph.byName.get(name))) return true;
+    }
+    if (/\$\(|\$node\b/.test(code) && !/\$\(\s*['"]|\$node\s*\[\s*['"]/.test(code)) return true; // dynamic reference
   }
   return false;
+}
+
+/** A Set node whose values are all fixed text: its output is configuration, not outside data. */
+function isFixedConfiguration(node: WorkflowNode | undefined): boolean {
+  if (!node || node.type !== `${BASE}set`) return false;
+  const values = walkStrings(node.parameters);
+  return values.length > 0 && values.every((v) => !isExpression(v.value));
 }
 
 const commandInjection: Rule = {
@@ -222,7 +277,7 @@ const commandInjection: Rule = {
   check(graph) {
     return graph.active
       .filter((n) => n.type === NODE.executeCommand || n.type === NODE.ssh)
-      .filter((n) => isExpression(n.parameters.command) && insertsItemData(n.parameters.command))
+      .filter((n) => isExpression(n.parameters.command) && insertsItemData(n.parameters.command, graph))
       .map((n) => ({ node: n.name, path: "command", message: `"${n.name}" builds a shell command from workflow data.` }));
   },
 };
@@ -244,6 +299,11 @@ export function isPrivateHost(host: string): boolean {
   return !(tld.length === 2 || PUBLIC_TLDS.has(tld)); // "prometheus.monitoring": a cluster namespace, not a TLD
 }
 
+/** Hosts left as placeholders in templates: "XX.XX.XX", "your-api.com", example.com (reserved for docs). */
+export function isPlaceholderHost(host: string): boolean {
+  return /^[x.]+$/i.test(host) || /your|placeholder/i.test(host) || /(^|\.)example\.(com|org|net)$/.test(host);
+}
+
 const insecureTransport: Rule = {
   id: "security/insecure-transport",
   category: "security",
@@ -255,14 +315,17 @@ const insecureTransport: Rule = {
   check(graph) {
     const hits: RuleHit[] = [];
     for (const node of graph.active.filter((n) => n.type === NODE.httpRequest)) {
-      const url = node.parameters.url;
-      if (typeof url === "string" && isLiteral(url)) {
-        const m = /^=?\s*http:\/\/([^/:?#\s]+)/i.exec(url);
-        if (m && !isPrivateHost(m[1]!.toLowerCase())) {
-          hits.push({ node: node.name, path: "url", message: `"${node.name}" sends data unencrypted to ${m[1]}.` });
-        }
+      const url = typeof node.parameters.url === "string" ? node.parameters.url : "";
+      // The host must be fixed text; the path may contain {{ }} (".../users/{{ $json.id }}").
+      const m = /^=?\s*(https?):\/\/([^/:?#\s{}]+)(.?)/i.exec(url);
+      const scheme = m?.[1]!.toLowerCase();
+      const host = m?.[2]!.toLowerCase();
+      const hostIsFixed = m !== null && m[3] !== "{";
+      if (scheme === "http" && hostIsFixed && !isPrivateHost(host!) && !isPlaceholderHost(host!)) {
+        hits.push({ node: node.name, path: "url", message: `"${node.name}" sends data unencrypted to ${m![2]}.` });
       }
-      if (get(node.parameters, "options.allowUnauthorizedCerts") === true) {
+      // Certificate checks only matter for https; on a plain http URL the flag does nothing.
+      if (scheme !== "http" && get(node.parameters, "options.allowUnauthorizedCerts") === true) {
         hits.push({
           node: node.name,
           path: "options.allowUnauthorizedCerts",

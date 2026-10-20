@@ -111,7 +111,7 @@ describe("security/insecure-transport", () => {
   const id = "security/insecure-transport";
 
   it("fires for plain http to public hosts and for skipped certificate checks", () => {
-    expect(hits(id, workflow([http({ url: "http://api.example.com/v1" })]))).toHaveLength(1);
+    expect(hits(id, workflow([http({ url: "http://api.acme-corp.com/v1" })]))).toHaveLength(1);
     expect(hits(id, workflow([http({ url: "https://a.com", options: { allowUnauthorizedCerts: true } })]))).toHaveLength(1);
   });
 
