@@ -1,0 +1,98 @@
+{
+  "name": "Enrich new leads and post to Slack",
+  "nodes": [
+    {
+      "id": "a1",
+      "name": "New lead form",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [0, 0],
+      "webhookId": "lead-form",
+      "parameters": { "path": "new-lead", "httpMethod": "POST", "responseMode": "responseNode" }
+    },
+    {
+      "id": "a2",
+      "name": "Look up company",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [220, 0],
+      "parameters": {
+        "url": "=http://api.company-data.io/v1/lookup?domain={{ $json.body.email.split('@')[1] }}&apikey=a7f3c91e5b2d48f6",
+        "options": {}
+      }
+    },
+    {
+      "id": "a3",
+      "name": "Score lead with AI",
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 1.8,
+      "position": [440, 0],
+      "onError": "continueRegularOutput",
+      "parameters": {
+        "modelId": { "__rl": true, "mode": "list", "value": "gpt-4o-mini" },
+        "messages": { "values": [{ "content": "=Score this lead from 1-10: {{ JSON.stringify($json) }}" }] }
+      }
+    },
+    {
+      "id": "a4",
+      "name": "Save to Google Sheets",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [660, 0],
+      "parameters": { "operation": "append", "sheetName": "Leads", "documentId": "1abcDEF" }
+    },
+    {
+      "id": "a5",
+      "name": "Slack",
+      "type": "n8n-nodes-base.slack",
+      "typeVersion": 2.2,
+      "position": [880, 0],
+      "parameters": { "select": "channel", "channelId": "C01SALES", "text": "=New lead: {{ $json.email }}" }
+    },
+    {
+      "id": "a6",
+      "name": "Old CRM sync",
+      "type": "n8n-nodes-base.hubspot",
+      "typeVersion": 2,
+      "position": [660, 200],
+      "disabled": true,
+      "parameters": { "operation": "upsert" }
+    },
+    {
+      "id": "a7",
+      "name": "Every Monday 8 AM",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [0, 400],
+      "parameters": { "rule": { "interval": [{ "field": "weeks", "triggerAtDay": [1], "triggerAtHour": 8 }] } }
+    },
+    {
+      "id": "a8",
+      "name": "Get every lead",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [220, 400],
+      "parameters": { "operation": "read", "returnAll": true, "sheetName": "Leads", "documentId": "1abcDEF" }
+    },
+    {
+      "id": "a9",
+      "name": "Send weekly report",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [440, 400],
+      "parameters": { "url": "https://webhook.site/3b1f-weekly-report", "method": "POST", "options": {} }
+    }
+  ],
+  "connections": {
+    "New lead form": { "main": [[{ "node": "Look up company", "type": "main", "index": 0 }]] },
+    "Look up company": { "main": [[{ "node": "Score lead with AI", "type": "main", "index": 0 }]] },
+    "Score lead with AI": { "main": [[{ "node": "Save to Google Sheets", "type": "main", "index": 0 }]] },
+    "Save to Google Sheets": { "main": [[{ "node": "Slack", "type": "main", "index": 0 }]] },
+    "Every Monday 8 AM": { "main": [[{ "node": "Get every lead", "type": "main", "index": 0 }]] },
+    "Get every lead": { "main": [[{ "node": "Send weekly report", "type": "main", "index": 0 }]] }
+  },
+  "settings": { "executionOrder": "v1" },
+  "pinData": {
+    "New lead form": [{ "json": { "body": { "email": "priya.sharma@acme-retail.com", "name": "Priya Sharma" } } }]
+  }
+}

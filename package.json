@@ -21,7 +21,8 @@
     "corpus:parse": "npm run build && tsx study/scripts/parse-corpus.ts",
     "corpus:scan": "npm run build && tsx study/scripts/scan-corpus.ts",
     "docs:rules": "npm run build && tsx study/scripts/rules-doc.ts",
-    "dev:web": "npm run dev -w @n8n-preflight/web"
+    "dev:web": "npm run dev -w @n8n-preflight/web",
+    "study": "npm run build && tsx study/scripts/study.ts"
   },
   "devDependencies": {
     "@eslint/js": "10.0.1",

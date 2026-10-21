@@ -1,0 +1,1076 @@
+{
+  "name": "n8n-templates-2026-10",
+  "generated": "2026-10-21",
+  "rulesVersion": "v4",
+  "corpus": {
+    "templates": 12074,
+    "analysed": 12074,
+    "unreadable": 0,
+    "nodes": 185224
+  },
+  "overall": {
+    "templates": 12074,
+    "medianNodes": 13,
+    "score": {
+      "median": 64,
+      "ready": 6.8
+    },
+    "nodeScore": {
+      "median": 84,
+      "ready": 28.1,
+      "notReady": 18.7
+    },
+    "atLeastOneHeadline": 97.4,
+    "rules": {
+      "error-handling/no-error-workflow": 81.4,
+      "error-handling/no-retry": 95.6,
+      "error-handling/swallowed-errors": 14,
+      "error-handling/unconnected-error-output": 2.3,
+      "error-handling/silent-error-trigger": 0,
+      "reliability/http-no-timeout": 44.5,
+      "reliability/no-execution-timeout": 81.8,
+      "reliability/endless-loop": 0,
+      "reliability/return-all": 4.3,
+      "reliability/webhook-without-responder": 0.3,
+      "reliability/schedule-no-timezone": 22.4,
+      "reliability/schedule-too-frequent": 0.2,
+      "security/webhook-no-auth": 17.8,
+      "security/code-eval": 0.1,
+      "security/command-injection": 0.7,
+      "security/insecure-transport": 0.9,
+      "data/pinned-data": 7.4,
+      "data/test-endpoint": 0.6,
+      "data/broken-connections": 0.4,
+      "maintainability/default-node-names": 36.6,
+      "maintainability/disabled-nodes": 3.5,
+      "maintainability/orphan-nodes": 2.4,
+      "maintainability/undocumented": 2
+    }
+  },
+  "perNode": {
+    "httpRequestNodes": 16760,
+    "httpRequestWithoutTimeout": 14335,
+    "httpRequestWithoutTimeoutPct": 85.5,
+    "outsideCalls": 69133,
+    "outsideCallsWithoutRetry": 64668,
+    "outsideCallsWithoutRetryPct": 93.5
+  },
+  "leakedKeys": null,
+  "breakdowns": {
+    "aiVsClassic": {
+      "ai": {
+        "templates": 6366,
+        "medianNodes": 15,
+        "score": {
+          "median": 64,
+          "ready": 3.5
+        },
+        "nodeScore": {
+          "median": 84,
+          "ready": 26.6,
+          "notReady": 19.3
+        },
+        "atLeastOneHeadline": 98,
+        "rules": {
+          "error-handling/no-error-workflow": 86.4,
+          "error-handling/no-retry": 97.2,
+          "error-handling/swallowed-errors": 14.1,
+          "error-handling/unconnected-error-output": 2.5,
+          "error-handling/silent-error-trigger": 0,
+          "reliability/http-no-timeout": 42.3,
+          "reliability/no-execution-timeout": 87.3,
+          "reliability/endless-loop": 0,
+          "reliability/return-all": 3.6,
+          "reliability/webhook-without-responder": 0.4,
+          "reliability/schedule-no-timezone": 21.8,
+          "reliability/schedule-too-frequent": 0.1,
+          "security/webhook-no-auth": 16.8,
+          "security/code-eval": 0.1,
+          "security/command-injection": 0.3,
+          "security/insecure-transport": 1,
+          "data/pinned-data": 8.1,
+          "data/test-endpoint": 0.7,
+          "data/broken-connections": 0.4,
+          "maintainability/default-node-names": 42.5,
+          "maintainability/disabled-nodes": 3.7,
+          "maintainability/orphan-nodes": 3,
+          "maintainability/undocumented": 1.5
+        }
+      },
+      "classic": {
+        "templates": 5708,
+        "medianNodes": 10,
+        "score": {
+          "median": 65,
+          "ready": 10.5
+        },
+        "nodeScore": {
+          "median": 84,
+          "ready": 29.8,
+          "notReady": 18
+        },
+        "atLeastOneHeadline": 96.6,
+        "rules": {
+          "error-handling/no-error-workflow": 75.9,
+          "error-handling/no-retry": 93.9,
+          "error-handling/swallowed-errors": 13.9,
+          "error-handling/unconnected-error-output": 2,
+          "error-handling/silent-error-trigger": 0,
+          "reliability/http-no-timeout": 47,
+          "reliability/no-execution-timeout": 75.8,
+          "reliability/endless-loop": 0,
+          "reliability/return-all": 5.2,
+          "reliability/webhook-without-responder": 0.1,
+          "reliability/schedule-no-timezone": 23.1,
+          "reliability/schedule-too-frequent": 0.3,
+          "security/webhook-no-auth": 18.9,
+          "security/code-eval": 0,
+          "security/command-injection": 1.1,
+          "security/insecure-transport": 0.8,
+          "data/pinned-data": 6.7,
+          "data/test-endpoint": 0.4,
+          "data/broken-connections": 0.5,
+          "maintainability/default-node-names": 30,
+          "maintainability/disabled-nodes": 3.2,
+          "maintainability/orphan-nodes": 1.7,
+          "maintainability/undocumented": 2.4
+        }
+      }
+    },
+    "popularity": {
+      "leastViewed25": {
+        "templates": 3018,
+        "medianNodes": 15,
+        "score": {
+          "median": 60,
+          "ready": 5.6
+        },
+        "nodeScore": {
+          "median": 82,
+          "ready": 31.2,
+          "notReady": 27.1
+        },
+        "atLeastOneHeadline": 98.3,
+        "rules": {
+          "error-handling/no-error-workflow": 87.1,
+          "error-handling/no-retry": 95.2,
+          "error-handling/swallowed-errors": 27,
+          "error-handling/unconnected-error-output": 2.4,
+          "error-handling/silent-error-trigger": 0,
+          "reliability/http-no-timeout": 37.2,
+          "reliability/no-execution-timeout": 86,
+          "reliability/endless-loop": 0,
+          "reliability/return-all": 5.7,
+          "reliability/webhook-without-responder": 0.1,
+          "reliability/schedule-no-timezone": 30.8,
+          "reliability/schedule-too-frequent": 0.2,
+          "security/webhook-no-auth": 21.3,
+          "security/code-eval": 0.1,
+          "security/command-injection": 0.4,
+          "security/insecure-transport": 0.3,
+          "data/pinned-data": 6,
+          "data/test-endpoint": 0.7,
+          "data/broken-connections": 0.1,
+          "maintainability/default-node-names": 10.5,
+          "maintainability/disabled-nodes": 3,
+          "maintainability/orphan-nodes": 1.8,
+          "maintainability/undocumented": 0
+        }
+      },
+      "mostViewed25": {
+        "templates": 3019,
+        "medianNodes": 11,
+        "score": {
+          "median": 66,
+          "ready": 9.2
+        },
+        "nodeScore": {
+          "median": 85,
+          "ready": 27.1,
+          "notReady": 14.2
+        },
+        "atLeastOneHeadline": 96.8,
+        "rules": {
+          "error-handling/no-error-workflow": 75,
+          "error-handling/no-retry": 95.9,
+          "error-handling/swallowed-errors": 7.9,
+          "error-handling/unconnected-error-output": 1.8,
+          "error-handling/silent-error-trigger": 0,
+          "reliability/http-no-timeout": 48.8,
+          "reliability/no-execution-timeout": 75.8,
+          "reliability/endless-loop": 0,
+          "reliability/return-all": 3.5,
+          "reliability/webhook-without-responder": 0,
+          "reliability/schedule-no-timezone": 15.5,
+          "reliability/schedule-too-frequent": 0.3,
+          "security/webhook-no-auth": 13.5,
+          "security/code-eval": 0.1,
+          "security/command-injection": 0.9,
+          "security/insecure-transport": 1.6,
+          "data/pinned-data": 8.6,
+          "data/test-endpoint": 0.9,
+          "data/broken-connections": 0.8,
+          "maintainability/default-node-names": 59.4,
+          "maintainability/disabled-nodes": 4.8,
+          "maintainability/orphan-nodes": 4.1,
+          "maintainability/undocumented": 5.2
+        }
+      },
+      "top100": {
+        "templates": 100,
+        "medianNodes": 14,
+        "score": {
+          "median": 65.5,
+          "ready": 6
+        },
+        "nodeScore": {
+          "median": 84,
+          "ready": 22,
+          "notReady": 10
+        },
+        "atLeastOneHeadline": 97,
+        "rules": {
+          "error-handling/no-error-workflow": 81,
+          "error-handling/no-retry": 96,
+          "error-handling/swallowed-errors": 9,
+          "error-handling/unconnected-error-output": 3,
+          "error-handling/silent-error-trigger": 0,
+          "reliability/http-no-timeout": 55,
+          "reliability/no-execution-timeout": 81,
+          "reliability/endless-loop": 0,
+          "reliability/return-all": 1,
+          "reliability/webhook-without-responder": 0,
+          "reliability/schedule-no-timezone": 12,
+          "reliability/schedule-too-frequent": 0,
+          "security/webhook-no-auth": 3,
+          "security/code-eval": 0,
+          "security/command-injection": 0,
+          "security/insecure-transport": 5,
+          "data/pinned-data": 8,
+          "data/test-endpoint": 0,
+          "data/broken-connections": 0,
+          "maintainability/default-node-names": 73,
+          "maintainability/disabled-nodes": 9,
+          "maintainability/orphan-nodes": 3,
+          "maintainability/undocumented": 9
+        }
+      },
+      "viewThresholds": {
+        "mostViewed25From": 1476,
+        "top100From": 67756
+      }
+    },
+    "byYear": {
+      "2019": {
+        "templates": 24,
+        "medianNodes": 4,
+        "score": {
+          "median": 72.5,
+          "ready": 29.2
+        },
+        "nodeScore": {
+          "median": 91,
+          "ready": 54.2,
+          "notReady": 12.5
+        },
+        "atLeastOneHeadline": 79.2,
+        "rules": {
+          "error-handling/no-error-workflow": 62.5,
+          "error-handling/no-retry": 75,
+          "error-handling/swallowed-errors": 8.3,
+          "error-handling/unconnected-error-output": 0,
+          "error-handling/silent-error-trigger": 0,
+          "reliability/http-no-timeout": 25,
+          "reliability/no-execution-timeout": 66.7,
+          "reliability/endless-loop": 0,
+          "reliability/return-all": 0,
+          "reliability/webhook-without-responder": 0,
+          "reliability/schedule-no-timezone": 0,
+          "reliability/schedule-too-frequent": 0,
+          "security/webhook-no-auth": 16.7,
+          "security/code-eval": 0,
+          "security/command-injection": 4.2,
+          "security/insecure-transport": 4.2,
+          "data/pinned-data": 0,
+          "data/test-endpoint": 12.5,
+          "data/broken-connections": 0,
+          "maintainability/default-node-names": 62.5,
+          "maintainability/disabled-nodes": 0,
+          "maintainability/orphan-nodes": 0,
+          "maintainability/undocumented": 8.3
+        }
+      },
+      "2020": {
+        "templates": 309,
+        "medianNodes": 3,
+        "score": {
+          "median": 89,
+          "ready": 48.9
+        },
+        "nodeScore": {
+          "median": 94,
+          "ready": 74.8,
+          "notReady": 1.3
+        },
+        "atLeastOneHeadline": 80.6,
+        "rules": {
+          "error-handling/no-error-workflow": 40.5,
+          "error-handling/no-retry": 80.6,
+          "error-handling/swallowed-errors": 1.3,
+          "error-handling/unconnected-error-output": 0,
+          "error-handling/silent-error-trigger": 0,
+          "reliability/http-no-timeout": 13.9,
+          "reliability/no-execution-timeout": 40.8,
+          "reliability/endless-loop": 0,
+          "reliability/return-all": 3.2,
+          "reliability/webhook-without-responder": 0,
+          "reliability/schedule-no-timezone": 8.4,
+          "reliability/schedule-too-frequent": 0,
+          "security/webhook-no-auth": 3.6,
+          "security/code-eval": 0.3,
+          "security/command-injection": 0,
+          "security/insecure-transport": 0.3,
+          "data/pinned-data": 0,
+          "data/test-endpoint": 0,
+          "data/broken-connections": 0.3,
+          "maintainability/default-node-names": 35.3,
+          "maintainability/disabled-nodes": 0.6,
+          "maintainability/orphan-nodes": 0.6,
+          "maintainability/undocumented": 4.5
+        }
+      },
+      "2021": {
+        "templates": 141,
+        "medianNodes": 4,
+        "score": {
+          "median": 74,
+          "ready": 26.2
+        },
+        "nodeScore": {
+          "median": 90,
+          "ready": 56,
+          "notReady": 4.3
+        },
+        "atLeastOneHeadline": 94.3,
+        "rules": {
+          "error-handling/no-error-workflow": 61.7,
+          "error-handling/no-retry": 92.9,
+          "error-handling/swallowed-errors": 1.4,
+          "error-handling/unconnected-error-output": 0,
+          "error-handling/silent-error-trigger": 0,
+          "reliability/http-no-timeout": 17.7,
+          "reliability/no-execution-timeout": 61.7,
+          "reliability/endless-loop": 0,
+          "reliability/return-all": 8.5,
+          "reliability/webhook-without-responder": 0,
+          "reliability/schedule-no-timezone": 13.5,
+          "reliability/schedule-too-frequent": 0,
+          "security/webhook-no-auth": 10.6,
+          "security/code-eval": 0,
+          "security/command-injection": 1.4,
+          "security/insecure-transport": 0,
+          "data/pinned-data": 0,
+          "data/test-endpoint": 0.7,
+          "data/broken-connections": 2.8,
+          "maintainability/default-node-names": 65.2,
+          "maintainability/disabled-nodes": 2.1,
+          "maintainability/orphan-nodes": 0.7,
+          "maintainability/undocumented": 13.5
+        }
+      },
+      "2022": {
+        "templates": 144,
+        "medianNodes": 6.5,
+        "score": {
+          "median": 70,
+          "ready": 15.3
+        },
+        "nodeScore": {
+          "median": 88,
+          "ready": 42.4,
+          "notReady": 8.3
+        },
+        "atLeastOneHeadline": 91.7,
+        "rules": {
+          "error-handling/no-error-workflow": 71.5,
+          "error-handling/no-retry": 88.2,
+          "error-handling/swallowed-errors": 8.3,
+          "error-handling/unconnected-error-output": 0,
+          "error-handling/silent-error-trigger": 0,
+          "reliability/http-no-timeout": 29.9,
+          "reliability/no-execution-timeout": 72.2,
+          "reliability/endless-loop": 0,
+          "reliability/return-all": 9.7,
+          "reliability/webhook-without-responder": 0,
+          "reliability/schedule-no-timezone": 11.8,
+          "reliability/schedule-too-frequent": 0.7,
+          "security/webhook-no-auth": 17.4,
+          "security/code-eval": 0,
+          "security/command-injection": 0.7,
+          "security/insecure-transport": 0,
+          "data/pinned-data": 0,
+          "data/test-endpoint": 0,
+          "data/broken-connections": 0,
+          "maintainability/default-node-names": 47.2,
+          "maintainability/disabled-nodes": 4.2,
+          "maintainability/orphan-nodes": 3.5,
+          "maintainability/undocumented": 27.8
+        }
+      },
+      "2023": {
+        "templates": 86,
+        "medianNodes": 7.5,
+        "score": {
+          "median": 74,
+          "ready": 24.4
+        },
+        "nodeScore": {
+          "median": 88.5,
+          "ready": 40.7,
+          "notReady": 12.8
+        },
+        "atLeastOneHeadline": 97.7,
+        "rules": {
+          "error-handling/no-error-workflow": 53.5,
+          "error-handling/no-retry": 95.3,
+          "error-handling/swallowed-errors": 10.5,
+          "error-handling/unconnected-error-output": 0,
+          "error-handling/silent-error-trigger": 0,
+          "reliability/http-no-timeout": 43,
+          "reliability/no-execution-timeout": 53.5,
+          "reliability/endless-loop": 0,
+          "reliability/return-all": 5.8,
+          "reliability/webhook-without-responder": 0,
+          "reliability/schedule-no-timezone": 10.5,
+          "reliability/schedule-too-frequent": 0,
+          "security/webhook-no-auth": 17.4,
+          "security/code-eval": 0,
+          "security/command-injection": 0,
+          "security/insecure-transport": 4.7,
+          "data/pinned-data": 9.3,
+          "data/test-endpoint": 0,
+          "data/broken-connections": 0,
+          "maintainability/default-node-names": 54.7,
+          "maintainability/disabled-nodes": 10.5,
+          "maintainability/orphan-nodes": 0,
+          "maintainability/undocumented": 5.8
+        }
+      },
+      "2024": {
+        "templates": 446,
+        "medianNodes": 10,
+        "score": {
+          "median": 64,
+          "ready": 6.7
+        },
+        "nodeScore": {
+          "median": 83,
+          "ready": 21.5,
+          "notReady": 14.8
+        },
+        "atLeastOneHeadline": 98.7,
+        "rules": {
+          "error-handling/no-error-workflow": 74.9,
+          "error-handling/no-retry": 97.3,
+          "error-handling/swallowed-errors": 7,
+          "error-handling/unconnected-error-output": 2.7,
+          "error-handling/silent-error-trigger": 0,
+          "reliability/http-no-timeout": 57.2,
+          "reliability/no-execution-timeout": 74.9,
+          "reliability/endless-loop": 0,
+          "reliability/return-all": 7.4,
+          "reliability/webhook-without-responder": 0,
+          "reliability/schedule-no-timezone": 16.6,
+          "reliability/schedule-too-frequent": 0.7,
+          "security/webhook-no-auth": 18.6,
+          "security/code-eval": 0,
+          "security/command-injection": 0.4,
+          "security/insecure-transport": 2.9,
+          "data/pinned-data": 11.4,
+          "data/test-endpoint": 0.4,
+          "data/broken-connections": 0.4,
+          "maintainability/default-node-names": 58.7,
+          "maintainability/disabled-nodes": 6.7,
+          "maintainability/orphan-nodes": 4.5,
+          "maintainability/undocumented": 2.5
+        }
+      },
+      "2025": {
+        "templates": 5545,
+        "medianNodes": 12,
+        "score": {
+          "median": 64,
+          "ready": 5.3
+        },
+        "nodeScore": {
+          "median": 84,
+          "ready": 24,
+          "notReady": 14.7
+        },
+        "atLeastOneHeadline": 97.2,
+        "rules": {
+          "error-handling/no-error-workflow": 80.3,
+          "error-handling/no-retry": 96.1,
+          "error-handling/swallowed-errors": 8.3,
+          "error-handling/unconnected-error-output": 2,
+          "error-handling/silent-error-trigger": 0,
+          "reliability/http-no-timeout": 48.9,
+          "reliability/no-execution-timeout": 81.4,
+          "reliability/endless-loop": 0,
+          "reliability/return-all": 3.5,
+          "reliability/webhook-without-responder": 0.2,
+          "reliability/schedule-no-timezone": 18.7,
+          "reliability/schedule-too-frequent": 0.2,
+          "security/webhook-no-auth": 15.1,
+          "security/code-eval": 0.1,
+          "security/command-injection": 1.1,
+          "security/insecure-transport": 1.2,
+          "data/pinned-data": 8.7,
+          "data/test-endpoint": 0.7,
+          "data/broken-connections": 0.7,
+          "maintainability/default-node-names": 52.2,
+          "maintainability/disabled-nodes": 3.9,
+          "maintainability/orphan-nodes": 3,
+          "maintainability/undocumented": 2.6
+        }
+      },
+      "2026": {
+        "templates": 5379,
+        "medianNodes": 15,
+        "score": {
+          "median": 60,
+          "ready": 4.8
+        },
+        "nodeScore": {
+          "median": 82,
+          "ready": 28.8,
+          "notReady": 24.9
+        },
+        "atLeastOneHeadline": 98.7,
+        "rules": {
+          "error-handling/no-error-workflow": 86.9,
+          "error-handling/no-retry": 96.2,
+          "error-handling/swallowed-errors": 21.7,
+          "error-handling/unconnected-error-output": 2.8,
+          "error-handling/silent-error-trigger": 0,
+          "reliability/http-no-timeout": 41.8,
+          "reliability/no-execution-timeout": 86.6,
+          "reliability/endless-loop": 0,
+          "reliability/return-all": 4.7,
+          "reliability/webhook-without-responder": 0.4,
+          "reliability/schedule-no-timezone": 28.3,
+          "reliability/schedule-too-frequent": 0.2,
+          "security/webhook-no-auth": 21.6,
+          "security/code-eval": 0.1,
+          "security/command-injection": 0.4,
+          "security/insecure-transport": 0.5,
+          "data/pinned-data": 6.6,
+          "data/test-endpoint": 0.5,
+          "data/broken-connections": 0.1,
+          "maintainability/default-node-names": 17.3,
+          "maintainability/disabled-nodes": 2.8,
+          "maintainability/orphan-nodes": 1.7,
+          "maintainability/undocumented": 0
+        }
+      }
+    },
+    "bySize": {
+      "1-5 nodes": {
+        "templates": 1394,
+        "medianNodes": 4,
+        "score": {
+          "median": 74,
+          "ready": 25.8
+        },
+        "nodeScore": {
+          "median": 90,
+          "ready": 61,
+          "notReady": 2
+        },
+        "atLeastOneHeadline": 87.8,
+        "rules": {
+          "error-handling/no-error-workflow": 64,
+          "error-handling/no-retry": 85.2,
+          "error-handling/swallowed-errors": 1.9,
+          "error-handling/unconnected-error-output": 0.3,
+          "error-handling/silent-error-trigger": 0,
+          "reliability/http-no-timeout": 28.6,
+          "reliability/no-execution-timeout": 64.5,
+          "reliability/endless-loop": 0,
+          "reliability/return-all": 2.4,
+          "reliability/webhook-without-responder": 0,
+          "reliability/schedule-no-timezone": 11,
+          "reliability/schedule-too-frequent": 0.1,
+          "security/webhook-no-auth": 13.1,
+          "security/code-eval": 0,
+          "security/command-injection": 0.5,
+          "security/insecure-transport": 0.6,
+          "data/pinned-data": 4.6,
+          "data/test-endpoint": 0.2,
+          "data/broken-connections": 0.7,
+          "maintainability/default-node-names": 29,
+          "maintainability/disabled-nodes": 0.6,
+          "maintainability/orphan-nodes": 0.4,
+          "maintainability/undocumented": 0
+        }
+      },
+      "6-15 nodes": {
+        "templates": 6332,
+        "medianNodes": 10,
+        "score": {
+          "median": 65,
+          "ready": 5.9
+        },
+        "nodeScore": {
+          "median": 85,
+          "ready": 29.5,
+          "notReady": 12
+        },
+        "atLeastOneHeadline": 98.3,
+        "rules": {
+          "error-handling/no-error-workflow": 81.1,
+          "error-handling/no-retry": 97,
+          "error-handling/swallowed-errors": 8.9,
+          "error-handling/unconnected-error-output": 1.6,
+          "error-handling/silent-error-trigger": 0,
+          "reliability/http-no-timeout": 42.9,
+          "reliability/no-execution-timeout": 81.3,
+          "reliability/endless-loop": 0,
+          "reliability/return-all": 3.6,
+          "reliability/webhook-without-responder": 0.3,
+          "reliability/schedule-no-timezone": 21.5,
+          "reliability/schedule-too-frequent": 0.2,
+          "security/webhook-no-auth": 15.5,
+          "security/code-eval": 0,
+          "security/command-injection": 0.6,
+          "security/insecure-transport": 0.8,
+          "data/pinned-data": 6.8,
+          "data/test-endpoint": 0.5,
+          "data/broken-connections": 0.4,
+          "maintainability/default-node-names": 35.7,
+          "maintainability/disabled-nodes": 2.8,
+          "maintainability/orphan-nodes": 1.9,
+          "maintainability/undocumented": 2.7
+        }
+      },
+      "16-30 nodes": {
+        "templates": 3422,
+        "medianNodes": 20,
+        "score": {
+          "median": 59,
+          "ready": 2.3
+        },
+        "nodeScore": {
+          "median": 79,
+          "ready": 17.2,
+          "notReady": 29.9
+        },
+        "atLeastOneHeadline": 99.2,
+        "rules": {
+          "error-handling/no-error-workflow": 86.8,
+          "error-handling/no-retry": 97.4,
+          "error-handling/swallowed-errors": 22.4,
+          "error-handling/unconnected-error-output": 3.6,
+          "error-handling/silent-error-trigger": 0,
+          "reliability/http-no-timeout": 51,
+          "reliability/no-execution-timeout": 87.5,
+          "reliability/endless-loop": 0,
+          "reliability/return-all": 5.2,
+          "reliability/webhook-without-responder": 0.4,
+          "reliability/schedule-no-timezone": 26.1,
+          "reliability/schedule-too-frequent": 0.3,
+          "security/webhook-no-auth": 21.1,
+          "security/code-eval": 0.1,
+          "security/command-injection": 0.6,
+          "security/insecure-transport": 1,
+          "data/pinned-data": 8.8,
+          "data/test-endpoint": 0.9,
+          "data/broken-connections": 0.4,
+          "maintainability/default-node-names": 38,
+          "maintainability/disabled-nodes": 4.4,
+          "maintainability/orphan-nodes": 3.1,
+          "maintainability/undocumented": 1.8
+        }
+      },
+      "31+ nodes": {
+        "templates": 926,
+        "medianNodes": 39,
+        "score": {
+          "median": 51,
+          "ready": 1.1
+        },
+        "nodeScore": {
+          "median": 72.5,
+          "ready": 9.5,
+          "notReady": 48.1
+        },
+        "atLeastOneHeadline": 98.7,
+        "rules": {
+          "error-handling/no-error-workflow": 90.2,
+          "error-handling/no-retry": 95.4,
+          "error-handling/swallowed-errors": 35.9,
+          "error-handling/unconnected-error-output": 5.2,
+          "error-handling/silent-error-trigger": 0,
+          "reliability/http-no-timeout": 55.5,
+          "reliability/no-execution-timeout": 91,
+          "reliability/endless-loop": 0,
+          "reliability/return-all": 8.5,
+          "reliability/webhook-without-responder": 0.3,
+          "reliability/schedule-no-timezone": 31.6,
+          "reliability/schedule-too-frequent": 0.5,
+          "security/webhook-no-auth": 28.2,
+          "security/code-eval": 0.3,
+          "security/command-injection": 2.5,
+          "security/insecure-transport": 1.9,
+          "data/pinned-data": 11.2,
+          "data/test-endpoint": 0.3,
+          "data/broken-connections": 0.3,
+          "maintainability/default-node-names": 48.3,
+          "maintainability/disabled-nodes": 9.1,
+          "maintainability/orphan-nodes": 5.9,
+          "maintainability/undocumented": 0.5
+        }
+      }
+    },
+    "year2025vs2026BySize": {
+      "1-5 nodes": {
+        "2025": {
+          "templates": 625,
+          "medianNodes": 4,
+          "score": {
+            "median": 70,
+            "ready": 13.8
+          },
+          "nodeScore": {
+            "median": 90,
+            "ready": 52.3,
+            "notReady": 2.6
+          },
+          "atLeastOneHeadline": 87,
+          "rules": {
+            "error-handling/no-error-workflow": 75.4,
+            "error-handling/no-retry": 84,
+            "error-handling/swallowed-errors": 1.6,
+            "error-handling/unconnected-error-output": 0.6,
+            "error-handling/silent-error-trigger": 0,
+            "reliability/http-no-timeout": 37,
+            "reliability/no-execution-timeout": 76.2,
+            "reliability/endless-loop": 0,
+            "reliability/return-all": 1.4,
+            "reliability/webhook-without-responder": 0,
+            "reliability/schedule-no-timezone": 13.3,
+            "reliability/schedule-too-frequent": 0,
+            "security/webhook-no-auth": 14.4,
+            "security/code-eval": 0,
+            "security/command-injection": 1.1,
+            "security/insecure-transport": 1.1,
+            "data/pinned-data": 6.9,
+            "data/test-endpoint": 0,
+            "data/broken-connections": 1.3,
+            "maintainability/default-node-names": 25.9,
+            "maintainability/disabled-nodes": 0.6,
+            "maintainability/orphan-nodes": 0.8,
+            "maintainability/undocumented": 0
+          }
+        },
+        "2026": {
+          "templates": 199,
+          "medianNodes": 5,
+          "score": {
+            "median": 70,
+            "ready": 18.1
+          },
+          "nodeScore": {
+            "median": 90,
+            "ready": 56.3,
+            "notReady": 4
+          },
+          "atLeastOneHeadline": 97,
+          "rules": {
+            "error-handling/no-error-workflow": 75.4,
+            "error-handling/no-retry": 93.5,
+            "error-handling/swallowed-errors": 6.5,
+            "error-handling/unconnected-error-output": 0,
+            "error-handling/silent-error-trigger": 0,
+            "reliability/http-no-timeout": 32.2,
+            "reliability/no-execution-timeout": 75.4,
+            "reliability/endless-loop": 0,
+            "reliability/return-all": 2,
+            "reliability/webhook-without-responder": 0,
+            "reliability/schedule-no-timezone": 17.6,
+            "reliability/schedule-too-frequent": 0,
+            "security/webhook-no-auth": 20.1,
+            "security/code-eval": 0,
+            "security/command-injection": 0,
+            "security/insecure-transport": 0.5,
+            "data/pinned-data": 5.5,
+            "data/test-endpoint": 0,
+            "data/broken-connections": 0,
+            "maintainability/default-node-names": 10.6,
+            "maintainability/disabled-nodes": 1.5,
+            "maintainability/orphan-nodes": 0,
+            "maintainability/undocumented": 0
+          }
+        }
+      },
+      "6-15 nodes": {
+        "2025": {
+          "templates": 3225,
+          "medianNodes": 10,
+          "score": {
+            "median": 65,
+            "ready": 5.6
+          },
+          "nodeScore": {
+            "median": 85,
+            "ready": 25.4,
+            "notReady": 10.4
+          },
+          "atLeastOneHeadline": 98.4,
+          "rules": {
+            "error-handling/no-error-workflow": 79.5,
+            "error-handling/no-retry": 97.6,
+            "error-handling/swallowed-errors": 5.8,
+            "error-handling/unconnected-error-output": 1.4,
+            "error-handling/silent-error-trigger": 0,
+            "reliability/http-no-timeout": 45.4,
+            "reliability/no-execution-timeout": 80.1,
+            "reliability/endless-loop": 0,
+            "reliability/return-all": 3.3,
+            "reliability/webhook-without-responder": 0.1,
+            "reliability/schedule-no-timezone": 18.4,
+            "reliability/schedule-too-frequent": 0.2,
+            "security/webhook-no-auth": 13.8,
+            "security/code-eval": 0,
+            "security/command-injection": 0.7,
+            "security/insecure-transport": 1,
+            "data/pinned-data": 7.9,
+            "data/test-endpoint": 0.5,
+            "data/broken-connections": 0.6,
+            "maintainability/default-node-names": 49.6,
+            "maintainability/disabled-nodes": 2.8,
+            "maintainability/orphan-nodes": 2.4,
+            "maintainability/undocumented": 3
+          }
+        },
+        "2026": {
+          "templates": 2678,
+          "medianNodes": 11,
+          "score": {
+            "median": 65,
+            "ready": 6
+          },
+          "nodeScore": {
+            "median": 85,
+            "ready": 35.4,
+            "notReady": 13.8
+          },
+          "atLeastOneHeadline": 98.3,
+          "rules": {
+            "error-handling/no-error-workflow": 84.1,
+            "error-handling/no-retry": 96.3,
+            "error-handling/swallowed-errors": 13,
+            "error-handling/unconnected-error-output": 1.9,
+            "error-handling/silent-error-trigger": 0,
+            "reliability/http-no-timeout": 39.2,
+            "reliability/no-execution-timeout": 83.8,
+            "reliability/endless-loop": 0,
+            "reliability/return-all": 3.4,
+            "reliability/webhook-without-responder": 0.5,
+            "reliability/schedule-no-timezone": 25.8,
+            "reliability/schedule-too-frequent": 0.1,
+            "security/webhook-no-auth": 17.4,
+            "security/code-eval": 0.1,
+            "security/command-injection": 0.4,
+            "security/insecure-transport": 0.3,
+            "data/pinned-data": 5.2,
+            "data/test-endpoint": 0.5,
+            "data/broken-connections": 0.1,
+            "maintainability/default-node-names": 15.1,
+            "maintainability/disabled-nodes": 2.2,
+            "maintainability/orphan-nodes": 1.1,
+            "maintainability/undocumented": 0
+          }
+        }
+      },
+      "16-30 nodes": {
+        "2025": {
+          "templates": 1342,
+          "medianNodes": 20,
+          "score": {
+            "median": 60,
+            "ready": 1.7
+          },
+          "nodeScore": {
+            "median": 80,
+            "ready": 12.4,
+            "notReady": 23.2
+          },
+          "atLeastOneHeadline": 99.1,
+          "rules": {
+            "error-handling/no-error-workflow": 82.4,
+            "error-handling/no-retry": 98.2,
+            "error-handling/swallowed-errors": 12.8,
+            "error-handling/unconnected-error-output": 3.7,
+            "error-handling/silent-error-trigger": 0,
+            "reliability/http-no-timeout": 58,
+            "reliability/no-execution-timeout": 84.5,
+            "reliability/endless-loop": 0,
+            "reliability/return-all": 4.2,
+            "reliability/webhook-without-responder": 0.4,
+            "reliability/schedule-no-timezone": 20.4,
+            "reliability/schedule-too-frequent": 0.3,
+            "security/webhook-no-auth": 16.7,
+            "security/code-eval": 0.1,
+            "security/command-injection": 0.9,
+            "security/insecure-transport": 1.5,
+            "data/pinned-data": 10.1,
+            "data/test-endpoint": 1.4,
+            "data/broken-connections": 0.7,
+            "maintainability/default-node-names": 63.7,
+            "maintainability/disabled-nodes": 5.9,
+            "maintainability/orphan-nodes": 3.8,
+            "maintainability/undocumented": 3.2
+          }
+        },
+        "2026": {
+          "templates": 1955,
+          "medianNodes": 20,
+          "score": {
+            "median": 57,
+            "ready": 2.9
+          },
+          "nodeScore": {
+            "median": 79,
+            "ready": 21.4,
+            "notReady": 34.9
+          },
+          "atLeastOneHeadline": 99.3,
+          "rules": {
+            "error-handling/no-error-workflow": 90.4,
+            "error-handling/no-retry": 96.8,
+            "error-handling/swallowed-errors": 29.3,
+            "error-handling/unconnected-error-output": 3.6,
+            "error-handling/silent-error-trigger": 0.1,
+            "reliability/http-no-timeout": 45.2,
+            "reliability/no-execution-timeout": 90,
+            "reliability/endless-loop": 0,
+            "reliability/return-all": 5.4,
+            "reliability/webhook-without-responder": 0.4,
+            "reliability/schedule-no-timezone": 30.1,
+            "reliability/schedule-too-frequent": 0.3,
+            "security/webhook-no-auth": 24.4,
+            "security/code-eval": 0,
+            "security/command-injection": 0.5,
+            "security/insecure-transport": 0.6,
+            "data/pinned-data": 7.8,
+            "data/test-endpoint": 0.5,
+            "data/broken-connections": 0.1,
+            "maintainability/default-node-names": 18.2,
+            "maintainability/disabled-nodes": 2.9,
+            "maintainability/orphan-nodes": 2.3,
+            "maintainability/undocumented": 0
+          }
+        }
+      },
+      "31+ nodes": {
+        "2025": {
+          "templates": 353,
+          "medianNodes": 37,
+          "score": {
+            "median": 54,
+            "ready": 0.8
+          },
+          "nodeScore": {
+            "median": 74,
+            "ready": 5.7,
+            "notReady": 43.1
+          },
+          "atLeastOneHeadline": 98,
+          "rules": {
+            "error-handling/no-error-workflow": 87.5,
+            "error-handling/no-retry": 96,
+            "error-handling/swallowed-errors": 26.1,
+            "error-handling/unconnected-error-output": 4.2,
+            "error-handling/silent-error-trigger": 0,
+            "reliability/http-no-timeout": 67.4,
+            "reliability/no-execution-timeout": 90.4,
+            "reliability/endless-loop": 0,
+            "reliability/return-all": 6.2,
+            "reliability/webhook-without-responder": 0.3,
+            "reliability/schedule-no-timezone": 24.1,
+            "reliability/schedule-too-frequent": 0.3,
+            "security/webhook-no-auth": 21.8,
+            "security/code-eval": 0.3,
+            "security/command-injection": 5.4,
+            "security/insecure-transport": 2,
+            "data/pinned-data": 13.3,
+            "data/test-endpoint": 0.3,
+            "data/broken-connections": 0.8,
+            "maintainability/default-node-names": 78.8,
+            "maintainability/disabled-nodes": 12.7,
+            "maintainability/orphan-nodes": 9.6,
+            "maintainability/undocumented": 1.1
+          }
+        },
+        "2026": {
+          "templates": 547,
+          "medianNodes": 40,
+          "score": {
+            "median": 49,
+            "ready": 1.3
+          },
+          "nodeScore": {
+            "median": 68,
+            "ready": 12.4,
+            "notReady": 51.4
+          },
+          "atLeastOneHeadline": 99.1,
+          "rules": {
+            "error-handling/no-error-workflow": 92.3,
+            "error-handling/no-retry": 94.7,
+            "error-handling/swallowed-errors": 42.6,
+            "error-handling/unconnected-error-output": 5.7,
+            "error-handling/silent-error-trigger": 0,
+            "reliability/http-no-timeout": 46.4,
+            "reliability/no-execution-timeout": 92.5,
+            "reliability/endless-loop": 0,
+            "reliability/return-all": 10.1,
+            "reliability/webhook-without-responder": 0.4,
+            "reliability/schedule-no-timezone": 37.7,
+            "reliability/schedule-too-frequent": 0.5,
+            "security/webhook-no-auth": 32.4,
+            "security/code-eval": 0.4,
+            "security/command-injection": 0.5,
+            "security/insecure-transport": 1.1,
+            "data/pinned-data": 9.9,
+            "data/test-endpoint": 0.4,
+            "data/broken-connections": 0,
+            "maintainability/default-node-names": 26.9,
+            "maintainability/disabled-nodes": 5.9,
+            "maintainability/orphan-nodes": 3.1,
+            "maintainability/undocumented": 0.2
+          }
+        }
+      }
+    }
+  },
+  "settingsRules": [
+    "error-handling/no-error-workflow",
+    "reliability/no-execution-timeout",
+    "reliability/schedule-no-timezone"
+  ],
+  "headlineRules": [
+    "error-handling/no-retry",
+    "reliability/http-no-timeout",
+    "security/webhook-no-auth",
+    "error-handling/swallowed-errors",
+    "error-handling/unconnected-error-output",
+    "security/hardcoded-secret",
+    "security/secret-in-url",
+    "data/pinned-data",
+    "data/test-endpoint",
+    "security/command-injection",
+    "reliability/webhook-without-responder"
+  ]
+}

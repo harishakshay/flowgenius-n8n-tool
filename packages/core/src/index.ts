@@ -5,6 +5,7 @@ export type { WorkflowGraph } from "./graph.js";
 export { parseWorkflow } from "./parse.js";
 export type { Category, Finding, Rule, RuleHit, Severity } from "./rule.js";
 export { rules } from "./rules/index.js";
+export { externalCallNodes } from "./rules/error-handling.js";
 export { SEVERITY_POINTS, scoreFindings } from "./score.js";
 export type { Grade, Score } from "./score.js";
 export type * from "./types.js";
