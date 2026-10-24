@@ -85,7 +85,9 @@ const MAX_PASSES = 10;
  */
 export function fixWorkflow(input: unknown, options: FixOptions = {}): FixResult {
   const first = fixOnce(input, options);
-  if (!first.ok || !first.applied.length) return first;
+  // Only a removal can make another fix possible; without one, a second pass would change nothing.
+  const removedAny = (r: Extract<FixResult, { ok: true }>) => r.applied.some((a) => a.paths.some((p) => p.startsWith("nodes[name=")));
+  if (!first.ok || !removedAny(first)) return first;
   let current = first;
   const applied = [...first.applied];
   for (let pass = 1; pass < MAX_PASSES; pass++) {
@@ -94,6 +96,7 @@ export function fixWorkflow(input: unknown, options: FixOptions = {}): FixResult
     if (!next.applied.length) break;
     applied.push(...next.applied);
     current = next;
+    if (!removedAny(next)) break;
   }
   return { ...current, applied, before: first.before };
 }

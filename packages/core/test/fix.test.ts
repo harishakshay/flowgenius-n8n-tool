@@ -356,7 +356,27 @@ describe("fixWorkflow: guarantees", () => {
     expect(Object.getPrototypeOf({})).toBe(Object.prototype);
   });
 
-  it("fixes a 10,000-node workflow in under a second", () => {
+  it("handles unicode, emoji and 500-character names, in fixes, splices and name references", () => {
+    const long = "L".repeat(500);
+    const input = exported(
+      [
+        node("Hook 🚀", T.webhook),
+        node("Récupérer les données", T.http),
+        node("旧ステップ", T.set, { disabled: true }),
+        node(long, T.set),
+        node("Reader 😀", T.set, { parameters: { value: `={{ $('${long}').item.json.x }}` } }),
+      ],
+      { "Hook 🚀": { main: [to("Récupérer les données")] }, "Récupérer les données": { main: [to("旧ステップ")] }, "旧ステップ": { main: [to(long)] }, [long]: { main: [to("Reader 😀")] } },
+    );
+    const r = fix(input);
+    const wf = fixedWorkflow(r) as { nodes: { name: string; retryOnFail?: boolean }[]; connections: Record<string, { main: { node: string }[][] }> };
+    expect(wf.nodes.find((n) => n.name === "Récupérer les données")?.retryOnFail).toBe(true);
+    expect(wf.nodes.map((n) => n.name)).not.toContain("旧ステップ");
+    expect(wf.connections["Récupérer les données"]!.main[0]![0]!.node).toBe(long);
+    expect(wf.nodes.map((n) => n.name)).toContain(long);
+  });
+
+  it("fixes a 10,000-node workflow quickly (under 1.5 s, leaving room for slow CI machines)", () => {
     const nodes = [node("Hook", T.webhook), ...Array.from({ length: 10000 }, (_, i) => node(`N${i}`, T.http))];
     const connections: Record<string, unknown> = { Hook: { main: [to("N0")] } };
     for (let i = 0; i < 9999; i++) connections[`N${i}`] = { main: [to(`N${i + 1}`)] };

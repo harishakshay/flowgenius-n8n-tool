@@ -2,9 +2,10 @@
 
 Production-readiness checks for n8n workflows, by [FlowGenius](https://flowgenius.in). Catch the problems that break automations in production (no error workflow, no retries, no timeouts, leaked API keys, open webhooks) before you ship.
 
-**Status:** Phases 0-2 built (engine, CLI, GitHub Action, website). Not released yet. See the [project plan](docs/PROJECT_PLAN.md), [decisions](docs/DECISIONS.md) and [rules](docs/RULES.md).
+**Status:** Phases 0-4 built (engine, CLI, GitHub Action, website, template study, auto-fix). Not released yet. See the [project plan](docs/PROJECT_PLAN.md), [agentic plan](docs/PLAN-AGENTIC.md), [decisions](docs/DECISIONS.md) and [rules](docs/RULES.md).
 
 - 25 rules across error handling, reliability, security, data and maintainability (24 on by default), scored 0-100
+- Safe auto-fix: every guarantee holds on all 12,074 templates, and real n8n (2.44.6) accepts every fixed AI-agent workflow it accepts unfixed (248 of 248), with no fix lost ([report](study/results/auto-fix-2026-10/REPORT.md))
 - Checked against all 12,074 public n8n templates: **96.5% precision on a held-out, rule-stratified sample** of 200 findings, labelled by one reviewer ([method and limits](study/precision/README.md))
 - About 1 ms median scan per workflow; under 1.5 s for a 10,000-node workflow; no runtime dependencies
 

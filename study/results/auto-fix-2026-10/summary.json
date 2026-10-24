@@ -1,0 +1,91 @@
+{
+  "generated": "2026-10-24",
+  "corpus": {
+    "default": {
+      "templates": 12074,
+      "templatesChanged": 10656,
+      "failures": 0,
+      "fixesByRule": {
+        "error-handling/no-retry": 13305,
+        "reliability/http-no-timeout": 14335,
+        "reliability/no-execution-timeout": 7419,
+        "reliability/schedule-no-timezone": 2095,
+        "data/pinned-data": 896
+      },
+      "score": {
+        "medianBefore": 64,
+        "medianAfter": 74,
+        "readyBefore": 821,
+        "readyAfter": 1446,
+        "improved": 10178,
+        "worse": 0
+      },
+      "timingMs": {
+        "median": 1.85,
+        "max": 75.6
+      }
+    },
+    "removeUnused": {
+      "templates": 12074,
+      "templatesChanged": 10728,
+      "failures": 0,
+      "fixesByRule": {
+        "error-handling/no-retry": 13305,
+        "reliability/http-no-timeout": 14335,
+        "reliability/no-execution-timeout": 7419,
+        "reliability/schedule-no-timezone": 2095,
+        "maintainability/orphan-nodes": 590,
+        "maintainability/disabled-nodes": 775,
+        "data/pinned-data": 896
+      },
+      "score": {
+        "medianBefore": 64,
+        "medianAfter": 74,
+        "readyBefore": 821,
+        "readyAfter": 1463,
+        "improved": 10284,
+        "worse": 0
+      },
+      "timingMs": {
+        "median": 1.99,
+        "max": 80.6
+      }
+    },
+    "skippedByReason": {
+      "error-handling/no-retry: can't tell whether this step only reads; a retry could create or send something twice": 23764,
+      "error-handling/no-retry: retrying \"…\" could do it twice; turn on retries yourself if that is safe": 14293,
+      "error-handling/no-error-workflow: give the id of your error workflow (Workflow Settings > Error Workflow)": 7371,
+      "error-handling/no-retry: retrying a POST request could do it twice; turn on retries yourself if the API ignores repeats": 7225,
+      "error-handling/no-retry: re-running an AI agent repeats its tool calls; turn on retries yourself if every tool is safe to repeat": 5149,
+      "reliability/no-execution-timeout: this is a canvas copy, which has no workflow settings; set it in Workflow Settings in n8n": 2463,
+      "error-handling/no-error-workflow: this is a canvas copy, which has no workflow settings; set it in Workflow Settings in n8n": 2463,
+      "reliability/schedule-no-timezone: this is a canvas copy, which has no workflow settings; set it in Workflow Settings in n8n": 608,
+      "error-handling/no-retry: it sends a message and waits for a reply; a retry would send it again": 361,
+      "error-handling/no-retry: retrying a PUT request could do it twice; turn on retries yourself if the API ignores repeats": 252,
+      "error-handling/no-retry: retrying a PATCH request could do it twice; turn on retries yourself if the API ignores repeats": 190,
+      "error-handling/no-retry: retrying a DELETE request could do it twice; turn on retries yourself if the API ignores repeats": 72,
+      "error-handling/no-retry: the request method is set by an expression, so a retry might repeat a write": 53,
+      "error-handling/no-retry: two nodes are named \"…\"; rename one first": 4
+    }
+  },
+  "realN8n": {
+    "n8nVersion": "2.44.6",
+    "method": "POST /rest/workflows then GET /rest/workflows/:id on a local, throwaway n8n",
+    "niche": "AI-agent workflows",
+    "nicheSize": 3731,
+    "seed": 20261024,
+    "templates": 258,
+    "randomSample": 47,
+    "withRemovals": 211,
+    "originalsSaved": 248,
+    "fixedSaved": 248,
+    "prunedSaved": 201,
+    "fixedSavedWhereOriginalSaved": 248,
+    "regressions": 0,
+    "differencesInOriginals": {},
+    "originalsRejectedByN8n": {
+      "deprecated node type": 1,
+      "connection to or from a missing node": 9
+    }
+  }
+}
