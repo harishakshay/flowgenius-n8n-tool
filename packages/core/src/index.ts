@@ -9,3 +9,5 @@ export { externalCallNodes } from "./rules/error-handling.js";
 export { SEVERITY_POINTS, scoreFindings } from "./score.js";
 export type { Grade, Score } from "./score.js";
 export type * from "./types.js";
+export { FIXABLE_RULES, fixWorkflow, retryRisk } from "./fix.js";
+export type { AppliedFix, FixOptions, FixResult, SkippedFix } from "./fix.js";

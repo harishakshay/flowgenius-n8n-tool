@@ -11,7 +11,7 @@ Production-readiness checks for n8n workflows, by [FlowGenius](https://flowgeniu
 ## Three ways to use it
 
 ### Website: paste, drop, done
-`apps/web`. Drop a workflow file or paste nodes copied from the n8n canvas, and get a score with every problem explained and linked to a fix. Runs entirely in the browser, so the workflow never leaves the page.
+`apps/web`. Drop a workflow file or paste nodes copied from the n8n canvas, and get a score with every problem explained and linked to a fix. Safe problems can be fixed in one click: download or copy the fixed workflow and paste it back into n8n. Runs entirely in the browser, so the workflow never leaves the page.
 
 ```bash
 npm run dev:web     # http://localhost:5173
@@ -22,7 +22,10 @@ npm run dev:web     # http://localhost:5173
 npx n8n-preflight workflows/                       # check every workflow in a folder
 npx n8n-preflight --fail-on critical my-flow.json  # only fail on critical findings
 npx n8n-preflight -f sarif -o preflight.sarif .    # SARIF for GitHub code scanning
+npx n8n-preflight --fix --out fixed/ workflows/    # write fixed copies (or --write to update in place)
 ```
+
+`--fix` repairs only what can be fixed without guessing: retries (only on steps that just read, since retrying a send or a create can do it twice), HTTP timeouts, the workflow timeout, pinned test data, and (when you pass `--timezone` / `--error-workflow`) the schedule timezone and error workflow. `--remove-unused` also removes disabled and unconnected nodes. It lists every change, and everything it left for a person. Without `--out` or `--write` it is a dry run.
 
 Exit codes: `0` passed, `1` a finding reached `--fail-on` (default `high`) or a named file isn't a workflow, `2` bad usage. Run `n8n-preflight --help` for every option.
 

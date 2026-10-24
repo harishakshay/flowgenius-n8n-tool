@@ -5,3 +5,5 @@ export type { Target } from "./discover.js";
 export { formatJson, formatSarif, formatText } from "./format.js";
 export { HELP, run } from "./run.js";
 export type { Io } from "./run.js";
+export { fixFiles } from "./fix.js";
+export type { FixRun, FixSummary } from "./fix.js";

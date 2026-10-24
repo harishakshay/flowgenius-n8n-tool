@@ -1,12 +1,14 @@
 // Talks to the scan worker. One worker for the page; each request gets an id so a slow old
 // scan can never overwrite the result of a newer one.
 
-import type { AnalyzeResult } from "@n8n-preflight/core";
+import type { AnalyzeResult, FixResult } from "@n8n-preflight/core";
 
 export interface ScanResponse {
   id: number;
   result: AnalyzeResult;
   ms: number;
+  /** Safe automatic fixes; absent when the input could not be read. */
+  fix?: FixResult;
 }
 
 let worker: Worker | null = null;
@@ -36,10 +38,18 @@ function getWorker(): Worker {
 export function scan(text: string): { id: number; done: Promise<ScanResponse> } {
   const id = ++nextId;
   const done = new Promise<ScanResponse>((resolve, reject) => pending.set(id, { resolve, reject }));
-  getWorker().postMessage({ id, text });
+  getWorker().postMessage({ id, text, timezone: browserTimezone() });
   return { id, done };
 }
 
 export function latestId(): number {
   return nextId;
+}
+
+function browserTimezone(): string | undefined {
+  try {
+    return Intl.DateTimeFormat().resolvedOptions().timeZone || undefined;
+  } catch {
+    return undefined;
+  }
 }

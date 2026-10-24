@@ -81,7 +81,7 @@ describe("n8n-preflight CLI", () => {
   });
 
   it("writes valid SARIF 2.1.0 to a file, with every result pointing at a rule and a line", () => {
-    expect(cli("-f", "sarif", "-o", join(dir, "out.sarif"), ".")).toBe(1);
+    expect(cli("-f", "sarif", "-o", "out.sarif", ".")).toBe(1);
     const sarif = JSON.parse(readFileSync(join(dir, "out.sarif"), "utf8"));
     expect(sarif.version).toBe("2.1.0");
     const run0 = sarif.runs[0];
@@ -118,6 +118,70 @@ describe("n8n-preflight CLI", () => {
   it("prints help", () => {
     expect(cli("--help")).toBe(0);
     expect(out).toContain("Usage: n8n-preflight");
+  });
+});
+
+describe("n8n-preflight --fix", () => {
+  const orders = () => join(dir, "workflows", "orders.json");
+
+  it("dry run lists fixes and leaves files untouched", () => {
+    const before = readFileSync(orders(), "utf8");
+    expect(cli("--fix", "workflows/orders.json")).toBe(0);
+    expect(out).toContain('fixed   "Create contact": Timeout: 30 s');
+    // A Slack post could be sent twice, so it is left for a person, with the reason.
+    expect(out).toContain('left    "Alert on failure" error-handling/no-retry');
+    expect(out).toContain("dry run");
+    expect(out).toMatch(/more problems? needs? a person/);
+    expect(readFileSync(orders(), "utf8")).toBe(before);
+  });
+
+  it("--out writes fixed copies that pass the fixed checks, keeping the folder layout", () => {
+    expect(cli("--fix", "--out", "fixed", "workflows")).toBe(0);
+    const fixed = JSON.parse(readFileSync(join(dir, "fixed", "workflows", "orders.json"), "utf8"));
+    expect(fixed.pinData).toEqual({});
+    expect(fixed.nodes.find((n: { name: string }) => n.name === "Create contact").parameters.options.timeout).toBe(30000);
+    out = "";
+    cli("--fail-on", "none", "fixed/workflows/orders.json");
+    expect(out).not.toContain("http-no-timeout");
+    expect(out).not.toContain("pinned-data");
+  });
+
+  it("--write overwrites the original", () => {
+    expect(cli("--fix", "--write", "workflows/orders.json")).toBe(0);
+    expect(JSON.parse(readFileSync(orders(), "utf8")).pinData).toEqual({});
+  });
+
+  it("applies --timezone and --error-workflow, and rejects a bad timezone politely", () => {
+    writeFileSync(join(dir, "daily.json"), JSON.stringify({ nodes: [{ name: "Daily", type: "n8n-nodes-base.scheduleTrigger", typeVersion: 1.2, position: [0, 0], parameters: { rule: { interval: [{ triggerAtHour: 9 }] } } }], connections: {}, settings: {} }));
+    cli("--fix", "--write", "--timezone", "Asia/Kolkata", "--error-workflow", "err1", "daily.json");
+    expect(JSON.parse(readFileSync(join(dir, "daily.json"), "utf8")).settings).toMatchObject({ timezone: "Asia/Kolkata", errorWorkflow: "err1" });
+    out = "";
+    writeFileSync(join(dir, "daily2.json"), JSON.stringify({ nodes: [{ name: "Daily", type: "n8n-nodes-base.scheduleTrigger", typeVersion: 1.2, position: [0, 0], parameters: {} }], connections: {}, settings: {} }));
+    cli("--fix", "--timezone", "Mars/Base", "daily2.json");
+    expect(out).toContain('"Mars/Base" is not a timezone');
+  });
+
+  it("removes disabled and unconnected nodes only with --remove-unused", () => {
+    const set = (name: string, extra = {}) => ({ name, type: "n8n-nodes-base.set", typeVersion: 3, position: [0, 0], parameters: {}, ...extra });
+    const to = (node: string) => ({ main: [[{ node, type: "main", index: 0 }]] });
+    const wf = {
+      nodes: [{ name: "Hook", type: "n8n-nodes-base.webhook", typeVersion: 2, position: [0, 0], parameters: {} }, set("Old", { disabled: true }), set("Next")],
+      connections: { Hook: to("Old"), Old: to("Next") },
+      settings: {},
+    };
+    writeFileSync(join(dir, "spare.json"), JSON.stringify(wf));
+    cli("--fix", "--write", "spare.json");
+    expect(JSON.parse(readFileSync(join(dir, "spare.json"), "utf8")).nodes).toHaveLength(3);
+    cli("--fix", "--write", "--remove-unused", "spare.json");
+    const fixed = JSON.parse(readFileSync(join(dir, "spare.json"), "utf8"));
+    expect(fixed.nodes.map((n: { name: string }) => n.name)).toEqual(["Hook", "Next"]);
+    expect(fixed.connections.Hook.main[0][0].node).toBe("Next");
+  });
+
+  it("rejects fix options without --fix, and --out with --write", () => {
+    expect(cli("--remove-unused", ".")).toBe(2);
+    expect(cli("--out", "x", ".")).toBe(2);
+    expect(cli("--fix", "--out", "x", "--write", ".")).toBe(2);
   });
 });
 

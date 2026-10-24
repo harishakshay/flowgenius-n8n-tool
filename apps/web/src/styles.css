@@ -348,6 +348,42 @@ textarea {
   gap: 12px;
 }
 
+.fix {
+  background: var(--surface);
+  border: 1px solid var(--ready);
+  border-radius: 14px;
+  padding: 16px 18px;
+  margin-top: 16px;
+}
+
+.fix-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px 20px;
+  flex-wrap: wrap;
+}
+
+.fix h3 {
+  font-size: 17px;
+  margin: 0;
+}
+
+.fix details {
+  margin-top: 8px;
+}
+
+.fix summary {
+  cursor: pointer;
+  color: var(--muted);
+  font-size: 15px;
+  margin-bottom: 6px;
+}
+
+.fix .skipped {
+  color: var(--muted);
+}
+
 .group {
   background: var(--surface);
   border: 1px solid var(--border);

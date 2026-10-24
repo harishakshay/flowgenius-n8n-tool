@@ -24,6 +24,12 @@ workflows/orders.json  score 70/100 (needs work), 3 nodes
 | `--disable <rule,...>` | Skip rules |
 | `--enable <rule,...>` | Run off-by-default rules (`reliability/endless-loop`) |
 | `--no-color` | Plain output |
+| `--fix` | Fix what can be fixed safely and list what is left. A dry run unless `--out` or `--write` is given |
+| `--out <folder>` | With `--fix`: write fixed copies here, keeping the folder layout |
+| `--write` | With `--fix`: overwrite the original files |
+| `--timezone <zone>` | With `--fix`: set this timezone on workflows with schedules, e.g. `Asia/Kolkata` |
+| `--error-workflow <id>` | With `--fix`: set this error workflow |
+| `--remove-unused` | With `--fix`: also remove disabled and unconnected nodes (off by default, since templates often ship optional steps disabled) |
 
 Folders are searched for `.json` files (skipping `node_modules`, `dist` and hidden folders). Files that aren't n8n workflows are skipped.
 

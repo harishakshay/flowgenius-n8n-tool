@@ -22,7 +22,9 @@
     "corpus:scan": "npm run build && tsx study/scripts/scan-corpus.ts",
     "docs:rules": "npm run build && tsx study/scripts/rules-doc.ts",
     "dev:web": "npm run dev -w @n8n-preflight/web",
-    "study": "npm run build && tsx study/scripts/study.ts"
+    "study": "npm run build && tsx study/scripts/study.ts",
+    "study:fix": "npm run build && tsx study/scripts/fix-corpus.ts",
+    "study:n8n": "npm run build && tsx study/scripts/n8n-import.ts"
   },
   "devDependencies": {
     "@eslint/js": "10.0.1",

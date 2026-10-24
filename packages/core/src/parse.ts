@@ -76,7 +76,8 @@ function fail(code: ParseIssue["code"], message: string): ParseResult {
   return { ok: false, issues: [{ code, severity: "error", message }] };
 }
 
-function unwrap(data: unknown): Obj | null {
+/** The workflow object inside any accepted wrapper (template API responses nest it under `workflow`). */
+export function unwrap(data: unknown): Obj | null {
   let current = data;
   // Template API responses nest the workflow up to two levels deep under `workflow`.
   for (let depth = 0; depth < 3; depth++) {

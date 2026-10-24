@@ -1,5 +1,5 @@
 import { rules } from "@n8n-preflight/core";
-import type { AnalyzeResult, Severity } from "@n8n-preflight/core";
+import type { AnalyzeResult, FixResult, Severity } from "@n8n-preflight/core";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { GRADE_LABEL, SEVERITIES, countBySeverity, groupByRule, toMarkdown } from "./report";
 import { SAMPLE_WORKFLOW } from "./sample";
@@ -12,7 +12,7 @@ type State =
   | { kind: "idle" }
   | { kind: "scanning" }
   | { kind: "error"; message: string }
-  | { kind: "done"; result: Extract<AnalyzeResult, { ok: true }>; ms: number };
+  | { kind: "done"; result: Extract<AnalyzeResult, { ok: true }>; ms: number; fix: FixResult | undefined };
 
 export function App() {
   const [state, setState] = useState<State>({ kind: "idle" });
@@ -31,12 +31,12 @@ export function App() {
       if (id === latestId()) setState({ kind: "error", message: `Something went wrong while checking: ${(err as Error).message}` });
       return;
     }
-    const { result, ms } = response;
+    const { result, ms, fix } = response;
     if (id !== latestId()) return; // a newer scan started meanwhile
     if (!result.ok) {
       setState({ kind: "error", message: friendlyError(result.parseIssues[0]?.code) });
     } else {
-      setState({ kind: "done", result, ms });
+      setState({ kind: "done", result, ms, fix });
       window.scrollTo({ top: 0, behavior: "smooth" });
     }
   }, []);
@@ -86,7 +86,7 @@ export function App() {
 
       <main>
         {state.kind === "done" ? (
-          <Results result={state.result} ms={state.ms} onReset={reset} />
+          <Results result={state.result} ms={state.ms} fix={state.fix} onReset={reset} />
         ) : (
           <section className="hero">
             <h1>Will your n8n workflow survive production?</h1>
@@ -175,7 +175,17 @@ function friendlyError(code: string | undefined): string {
   return "This JSON isn't an n8n workflow: it has no nodes. Copy the nodes from the n8n canvas, or download the workflow file.";
 }
 
-function Results({ result, ms, onReset }: { result: Extract<AnalyzeResult, { ok: true }>; ms: number; onReset: () => void }) {
+function Results({
+  result,
+  ms,
+  fix,
+  onReset,
+}: {
+  result: Extract<AnalyzeResult, { ok: true }>;
+  ms: number;
+  fix: FixResult | undefined;
+  onReset: () => void;
+}) {
   const [copied, setCopied] = useState(false);
   const [filter, setFilter] = useState<Severity | "all">("all");
   const counts = countBySeverity(result.findings);
@@ -208,6 +218,8 @@ function Results({ result, ms, onReset }: { result: Extract<AnalyzeResult, { ok:
           </div>
         </div>
       </div>
+
+      {fix?.ok && fix.applied.length > 0 && <FixPanel fix={fix} name={result.workflow.name} />}
 
       {result.findings.length > 0 && (
         <div className="filters" role="group" aria-label="Filter by severity">
@@ -251,6 +263,74 @@ function Results({ result, ms, onReset }: { result: Extract<AnalyzeResult, { ok:
       </ul>
     </section>
   );
+}
+
+function FixPanel({ fix, name }: { fix: Extract<FixResult, { ok: true }>; name: string | undefined }) {
+  const [copyLabel, setCopyLabel] = useState("Copy fixed workflow");
+  const left = fix.remaining.length;
+  const timezone = fix.applied.find((a) => a.ruleId === "reliability/schedule-no-timezone");
+
+  const download = () => {
+    const url = URL.createObjectURL(new Blob([fix.json], { type: "application/json" }));
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `${fileSafe(name ?? "workflow")}-fixed.json`;
+    a.click();
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
+  };
+  const copy = async () => {
+    try {
+      await navigator.clipboard.writeText(fix.json);
+      setCopyLabel("Copied");
+    } catch {
+      setCopyLabel("Copy blocked: use Download");
+    }
+    setTimeout(() => setCopyLabel("Copy fixed workflow"), 2500);
+  };
+
+  return (
+    <div className="fix">
+      <div className="fix-head">
+        <div>
+          <h3>
+            {fix.applied.length} safe fix{fix.applied.length === 1 ? "" : "es"} ready: score {fix.before.score} → {fix.after.score}
+          </h3>
+          <p className="why">
+            Only changes that can't break the workflow. Everything else is kept exactly as it was.
+            {left > 0 && ` ${left} problem${left === 1 ? "" : "s"} still need${left === 1 ? "s" : ""} you.`}
+            {timezone && " The timezone is your browser's; change it in Workflow Settings if your schedules should follow another."}
+          </p>
+        </div>
+        <div className="actions">
+          <button className="primary" onClick={download}>
+            Download fixed workflow
+          </button>
+          <button onClick={() => void copy()}>{copyLabel}</button>
+        </div>
+      </div>
+      <details>
+        <summary>See every change</summary>
+        <ul className="hits">
+          {fix.applied.map((a, i) => (
+            <li key={i}>
+              {a.node && <strong>{a.node}: </strong>}
+              {a.change}
+            </li>
+          ))}
+          {fix.skipped.map((s, i) => (
+            <li key={`s${i}`} className="skipped">
+              Not changed{s.node ? ` (${s.node})` : ""}: {s.reason}
+            </li>
+          ))}
+        </ul>
+        <p className="why">Paste the copied workflow into an n8n canvas, or import the downloaded file. Your original is untouched.</p>
+      </details>
+    </div>
+  );
+}
+
+function fileSafe(name: string): string {
+  return name.replace(/[^\w.-]+/g, "-").replace(/^-+|-+$/g, "").slice(0, 80) || "workflow";
 }
 
 function ScoreRing({ score }: { score: number }) {

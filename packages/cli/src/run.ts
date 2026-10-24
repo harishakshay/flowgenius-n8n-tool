@@ -2,10 +2,12 @@
 // Exit codes: 0 = passed, 1 = findings at or above --fail-on (or a named file could not be checked), 2 = bad usage.
 
 import { writeFileSync } from "node:fs";
+import { resolve } from "node:path";
 import { parseArgs } from "node:util";
-import type { Severity } from "@n8n-preflight/core";
+import type { FixOptions, Severity } from "@n8n-preflight/core";
 import { SEVERITIES, checkFiles, knownRuleIds, shouldFail } from "./check.js";
 import { discover } from "./discover.js";
+import { type FixRun, fixFiles } from "./fix.js";
 import { formatJson, formatSarif, formatText } from "./format.js";
 
 export const HELP = `Usage: n8n-preflight [options] <file or folder>...
@@ -21,12 +23,21 @@ Options:
       --disable <rule,...>         Rules to skip
       --enable <rule,...>          Rules that are off by default to run (reliability/endless-loop)
       --no-color                   Plain text output
+
+Fixing (safe, automatic fixes only; everything else is listed as left to do):
+      --fix                        Show what would be fixed (dry run)
+      --out <folder>               With --fix: write fixed copies to this folder
+      --write                      With --fix: overwrite the original files
+      --timezone <zone>            With --fix: timezone for schedules, e.g. Asia/Kolkata
+      --error-workflow <id>        With --fix: id of your error workflow
+      --remove-unused              With --fix: also remove disabled and unconnected nodes
   -h, --help                       Show this help
 
 Examples:
   n8n-preflight workflows/
   n8n-preflight --format sarif --output preflight.sarif .
   n8n-preflight --fail-on critical my-workflow.json
+  n8n-preflight --fix --out fixed/ workflows/
 `;
 
 export interface Io {
@@ -49,6 +60,12 @@ export function run(argv: string[], io: Io): number {
         disable: { type: "string", multiple: true, default: [] },
         enable: { type: "string", multiple: true, default: [] },
         "no-color": { type: "boolean", default: false },
+        fix: { type: "boolean", default: false },
+        out: { type: "string" },
+        write: { type: "boolean", default: false },
+        timezone: { type: "string" },
+        "error-workflow": { type: "string" },
+        "remove-unused": { type: "boolean", default: false },
         help: { type: "boolean", short: "h", default: false },
       },
     });
@@ -95,12 +112,31 @@ export function run(argv: string[], io: Io): number {
     return 2;
   }
 
+  if (!values.fix && (values.out || values.write || values.timezone || values["error-workflow"] || values["remove-unused"])) {
+    io.stderr("--out, --write, --timezone, --error-workflow and --remove-unused only work with --fix.\n");
+    return 2;
+  }
+  if (values.out && values.write) {
+    io.stderr("Use either --out or --write, not both.\n");
+    return 2;
+  }
+  if (values.fix) {
+    const options: FixOptions = { disable, enable };
+    if (values.timezone) options.timezone = values.timezone;
+    if (values["error-workflow"]) options.errorWorkflowId = values["error-workflow"];
+    if (values["remove-unused"]) options.removeUnused = true;
+    const run: FixRun = { options, write: values.write, color: io.isTty && !values["no-color"] };
+    if (values.out) run.out = resolve(io.cwd, values.out);
+    const summary = fixFiles(targets, run, io.stdout);
+    return summary.errors ? 1 : 0;
+  }
+
   const check = checkFiles(targets, { disable, enable });
   const report =
     format === "json" ? formatJson(check) : format === "sarif" ? formatSarif(check) : formatText(check, { color: io.isTty && !values["no-color"] });
 
   if (values.output) {
-    writeFileSync(values.output, report);
+    writeFileSync(resolve(io.cwd, values.output), report);
     if (format !== "text") io.stdout(formatText(check, { color: io.isTty && !values["no-color"] }));
   } else {
     io.stdout(report);
